@@ -1,0 +1,506 @@
+{
+  "categoriesServices": [
+    {
+      "id": 1,
+      "nom": "Coupe Homme",
+      "nomEn": "Men's Haircut",
+      "icon": "✂️",
+      "genre": "homme",
+      "description": "Coupes modernes et classiques pour hommes",
+      "descriptionEn": "Modern and classic haircuts for men"
+    },
+    {
+      "id": 2,
+      "nom": "Coupe Femme",
+      "nomEn": "Women's Haircut",
+      "icon": "💇‍♀️",
+      "genre": "femme",
+      "description": "Coupes tendance et personnalisées",
+      "descriptionEn": "Trendy and personalized haircuts"
+    },
+    {
+      "id": 3,
+      "nom": "Barbe & Rasage",
+      "nomEn": "Beard & Shaving",
+      "icon": "🪒",
+      "genre": "homme",
+      "description": "Entretien et stylisation de barbe",
+      "descriptionEn": "Beard maintenance and styling"
+    },
+    {
+      "id": 4,
+      "nom": "Coloration",
+      "nomEn": "Hair Coloring",
+      "icon": "🎨",
+      "genre": "mixte",
+      "description": "Colorations complètes et mèches",
+      "descriptionEn": "Full hair coloring and highlights"
+    },
+    {
+      "id": 5,
+      "nom": "Manucure",
+      "nomEn": "Manicure",
+      "icon": "💅",
+      "genre": "femme",
+      "description": "Soins des ongles et pose de vernis",
+      "descriptionEn": "Nail care and polish application"
+    },
+    {
+      "id": 6,
+      "nom": "Soins Capillaires",
+      "nomEn": "Hair Treatments",
+      "icon": "✨",
+      "genre": "mixte",
+      "description": "Traitements et soins pour cheveux",
+      "descriptionEn": "Hair treatments and care"
+    },
+    {
+      "id": 7,
+      "nom": "Maquillage",
+      "nomEn": "Makeup",
+      "icon": "💄",
+      "genre": "femme",
+      "description": "Maquillage professionnel pour tous événements",
+      "descriptionEn": "Professional makeup for all occasions"
+    }
+  ],
+  "services": [
+    {
+      "id": 1,
+      "nom": "Coupe Homme Classique",
+      "nomEn": "Classic Men's Cut",
+      "categorieId": 1,
+      "genre": "homme",
+      "description": "Coupe aux ciseaux ou tondeuse, shampooing inclus",
+      "descriptionEn": "Scissor or clipper cut, shampoo included",
+      "duree": 30,
+      "prixMin": 25,
+      "prixMax": 35,
+      "image": "https://images.unsplash.com/photo-1622286342621-4bd786c2447c?w=500"
+    },
+    {
+      "id": 2,
+      "nom": "Coupe Homme Moderne",
+      "nomEn": "Modern Men's Cut",
+      "categorieId": 1,
+      "genre": "homme",
+      "description": "Coupe tendance avec dégradé, shampooing et coiffage",
+      "descriptionEn": "Trendy cut with fade, shampoo and styling",
+      "duree": 45,
+      "prixMin": 35,
+      "prixMax": 50,
+      "image": "https://images.unsplash.com/photo-1605497788044-5a32c7078486?w=500"
+    },
+    {
+      "id": 3,
+      "nom": "Coupe Femme Courte",
+      "nomEn": "Women's Short Cut",
+      "categorieId": 2,
+      "genre": "femme",
+      "description": "Coupe courte avec shampooing et brushing",
+      "descriptionEn": "Short haircut with shampoo and blow-dry",
+      "duree": 45,
+      "prixMin": 40,
+      "prixMax": 55,
+      "image": "https://images.unsplash.com/photo-1562322140-8baeececf3df?w=500"
+    },
+    {
+      "id": 4,
+      "nom": "Coupe Femme Longue",
+      "nomEn": "Women's Long Cut",
+      "categorieId": 2,
+      "genre": "femme",
+      "description": "Coupe pour cheveux longs avec shampooing et brushing",
+      "descriptionEn": "Long hair cut with shampoo and blow-dry",
+      "duree": 60,
+      "prixMin": 50,
+      "prixMax": 70,
+      "image": "https://images.unsplash.com/photo-1560066984-138dadb4c035?w=500"
+    },
+    {
+      "id": 5,
+      "nom": "Taille de Barbe",
+      "nomEn": "Beard Trim",
+      "categorieId": 3,
+      "genre": "homme",
+      "description": "Taille et mise en forme de la barbe",
+      "descriptionEn": "Beard trimming and shaping",
+      "duree": 20,
+      "prixMin": 15,
+      "prixMax": 25,
+      "image": "https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=500"
+    },
+    {
+      "id": 6,
+      "nom": "Coupe + Barbe",
+      "nomEn": "Cut + Beard",
+      "categorieId": 3,
+      "genre": "homme",
+      "description": "Coupe complète avec taille de barbe",
+      "descriptionEn": "Complete haircut with beard trim",
+      "duree": 50,
+      "prixMin": 40,
+      "prixMax": 60,
+      "image": "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=500"
+    },
+    {
+      "id": 7,
+      "nom": "Coloration Complète",
+      "nomEn": "Full Hair Color",
+      "categorieId": 4,
+      "genre": "mixte",
+      "description": "Coloration intégrale, shampooing et brushing",
+      "descriptionEn": "Full hair coloring, shampoo and blow-dry",
+      "duree": 120,
+      "prixMin": 70,
+      "prixMax": 120,
+      "image": "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=500"
+    },
+    {
+      "id": 8,
+      "nom": "Mèches/Balayage",
+      "nomEn": "Highlights/Balayage",
+      "categorieId": 4,
+      "genre": "femme",
+      "description": "Mèches ou balayage personnalisé",
+      "descriptionEn": "Personalized highlights or balayage",
+      "duree": 150,
+      "prixMin": 90,
+      "prixMax": 150,
+      "image": "https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=500"
+    },
+    {
+      "id": 9,
+      "nom": "Manucure Classique",
+      "nomEn": "Classic Manicure",
+      "categorieId": 5,
+      "genre": "femme",
+      "description": "Soin des ongles avec pose de vernis classique",
+      "descriptionEn": "Nail care with classic polish",
+      "duree": 45,
+      "prixMin": 25,
+      "prixMax": 35,
+      "image": "https://images.unsplash.com/photo-1604654894610-df63bc536371?w=500"
+    },
+    {
+      "id": 10,
+      "nom": "Manucure Gel",
+      "nomEn": "Gel Manicure",
+      "categorieId": 5,
+      "genre": "femme",
+      "description": "Manucure avec pose de vernis semi-permanent",
+      "descriptionEn": "Manicure with gel polish",
+      "duree": 60,
+      "prixMin": 40,
+      "prixMax": 55,
+      "image": "https://images.unsplash.com/photo-1610992015762-45dca7656d1e?w=500"
+    },
+    {
+      "id": 11,
+      "nom": "Soin Cheveux Sec",
+      "nomEn": "Dry Hair Treatment",
+      "categorieId": 6,
+      "genre": "mixte",
+      "description": "Masque nourrissant pour cheveux secs",
+      "descriptionEn": "Nourishing mask for dry hair",
+      "duree": 30,
+      "prixMin": 30,
+      "prixMax": 45,
+      "image": "https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?w=500"
+    },
+    {
+      "id": 12,
+      "nom": "Soin Réparateur",
+      "nomEn": "Repair Treatment",
+      "categorieId": 6,
+      "genre": "mixte",
+      "description": "Traitement intensif pour cheveux abîmés",
+      "descriptionEn": "Intensive treatment for damaged hair",
+      "duree": 45,
+      "prixMin": 45,
+      "prixMax": 65,
+      "image": "https://images.unsplash.com/photo-1560869713-7d0a29430803?w=500"
+    },
+    {
+      "id": 13,
+      "nom": "Maquillage Jour",
+      "nomEn": "Day Makeup",
+      "categorieId": 7,
+      "genre": "femme",
+      "description": "Maquillage naturel pour la journée",
+      "descriptionEn": "Natural daytime makeup",
+      "duree": 45,
+      "prixMin": 40,
+      "prixMax": 60,
+      "image": "https://images.unsplash.com/photo-1487412912498-0447578fcca8?w=500"
+    },
+    {
+      "id": 14,
+      "nom": "Maquillage Soirée",
+      "nomEn": "Evening Makeup",
+      "categorieId": 7,
+      "genre": "femme",
+      "description": "Maquillage sophistiqué pour soirée",
+      "descriptionEn": "Sophisticated evening makeup",
+      "duree": 60,
+      "prixMin": 60,
+      "prixMax": 90,
+      "image": "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=500"
+    }
+  ],
+  "categoriesProduits": [
+    {
+      "id": 1,
+      "nom": "Shampoings",
+      "nomEn": "Shampoos",
+      "genre": "mixte"
+    },
+    {
+      "id": 2,
+      "nom": "Après-shampoings",
+      "nomEn": "Conditioners",
+      "genre": "mixte"
+    },
+    {
+      "id": 3,
+      "nom": "Produits Coiffants",
+      "nomEn": "Styling Products",
+      "genre": "mixte"
+    },
+    {
+      "id": 4,
+      "nom": "Soins Barbe",
+      "nomEn": "Beard Care",
+      "genre": "homme"
+    },
+    {
+      "id": 5,
+      "nom": "Manucure",
+      "nomEn": "Manicure",
+      "genre": "femme"
+    },
+    {
+      "id": 6,
+      "nom": "Maquillage",
+      "nomEn": "Makeup",
+      "genre": "femme"
+    }
+  ],
+  "produits": [
+    {
+      "id": 1,
+      "nom": "Shampoing Hydratant Pro",
+      "nomEn": "Pro Hydrating Shampoo",
+      "categorieId": 1,
+      "genre": "mixte",
+      "prix": 24.99,
+      "description": "Shampoing professionnel pour cheveux secs",
+      "descriptionEn": "Professional shampoo for dry hair",
+      "marque": "LYAMAL Pro",
+      "contenance": "300ml",
+      "image": "https://images.unsplash.com/photo-1631729371254-42c2892f0e6e?w=500",
+      "stock": 45
+    },
+    {
+      "id": 2,
+      "nom": "Shampoing Volume",
+      "nomEn": "Volume Shampoo",
+      "categorieId": 1,
+      "genre": "femme",
+      "prix": 22.99,
+      "description": "Pour cheveux fins manquant de volume",
+      "descriptionEn": "For fine hair lacking volume",
+      "marque": "LYAMAL Pro",
+      "contenance": "300ml",
+      "image": "https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=500",
+      "stock": 32
+    },
+    {
+      "id": 3,
+      "nom": "Après-shampoing Réparateur",
+      "nomEn": "Repair Conditioner",
+      "categorieId": 2,
+      "genre": "mixte",
+      "prix": 26.99,
+      "description": "Répare et nourrit les cheveux abîmés",
+      "descriptionEn": "Repairs and nourishes damaged hair",
+      "marque": "LYAMAL Pro",
+      "contenance": "300ml",
+      "image": "https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=500",
+      "stock": 28
+    },
+    {
+      "id": 4,
+      "nom": "Gel Coiffant Forte Tenue",
+      "nomEn": "Strong Hold Styling Gel",
+      "categorieId": 3,
+      "genre": "homme",
+      "prix": 18.99,
+      "description": "Gel fixation forte pour coiffures structurées",
+      "descriptionEn": "Strong hold gel for structured hairstyles",
+      "marque": "LYAMAL Men",
+      "contenance": "150ml",
+      "image": "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=500",
+      "stock": 40
+    },
+    {
+      "id": 5,
+      "nom": "Cire Coiffante Mate",
+      "nomEn": "Matte Styling Wax",
+      "categorieId": 3,
+      "genre": "homme",
+      "prix": 21.99,
+      "description": "Cire effet mat pour look naturel",
+      "descriptionEn": "Matte wax for natural look",
+      "marque": "LYAMAL Men",
+      "contenance": "100ml",
+      "image": "https://images.unsplash.com/photo-1585838962404-84ba7d9c1fef?w=500",
+      "stock": 35
+    },
+    {
+      "id": 6,
+      "nom": "Spray Fixant",
+      "nomEn": "Fixing Spray",
+      "categorieId": 3,
+      "genre": "mixte",
+      "prix": 19.99,
+      "description": "Spray fixation souple pour tenue longue durée",
+      "descriptionEn": "Flexible hold spray for long-lasting hold",
+      "marque": "LYAMAL Pro",
+      "contenance": "250ml",
+      "image": "https://images.unsplash.com/photo-1612343449352-c89b7774c55d?w=500",
+      "stock": 50
+    },
+    {
+      "id": 7,
+      "nom": "Huile à Barbe Premium",
+      "nomEn": "Premium Beard Oil",
+      "categorieId": 4,
+      "genre": "homme",
+      "prix": 29.99,
+      "description": "Nourrit et adoucit la barbe, parfum boisé",
+      "descriptionEn": "Nourishes and softens beard, woody scent",
+      "marque": "LYAMAL Men",
+      "contenance": "50ml",
+      "image": "https://images.unsplash.com/photo-1516914943479-89db7d9ae7f2?w=500",
+      "stock": 25
+    },
+    {
+      "id": 8,
+      "nom": "Baume à Barbe",
+      "nomEn": "Beard Balm",
+      "categorieId": 4,
+      "genre": "homme",
+      "prix": 24.99,
+      "description": "Coiffe et discipline la barbe",
+      "descriptionEn": "Styles and disciplines beard",
+      "marque": "LYAMAL Men",
+      "contenance": "60ml",
+      "image": "https://images.unsplash.com/photo-1535585209827-a15fcdbc4c2d?w=500",
+      "stock": 30
+    },
+    {
+      "id": 9,
+      "nom": "Kit Manucure Professionnel",
+      "nomEn": "Professional Manicure Kit",
+      "categorieId": 5,
+      "genre": "femme",
+      "prix": 45.99,
+      "description": "Kit complet pour manucure à domicile",
+      "descriptionEn": "Complete kit for home manicure",
+      "marque": "LYAMAL Beauty",
+      "contenance": "1 kit",
+      "image": "https://images.unsplash.com/photo-1519415510236-718bff24d7e2?w=500",
+      "stock": 15
+    },
+    {
+      "id": 10,
+      "nom": "Vernis Semi-Permanent Rouge",
+      "nomEn": "Red Gel Polish",
+      "categorieId": 5,
+      "genre": "femme",
+      "prix": 16.99,
+      "description": "Vernis gel longue durée couleur rouge passion",
+      "descriptionEn": "Long-lasting gel polish in passion red",
+      "marque": "LYAMAL Beauty",
+      "contenance": "15ml",
+      "image": "https://images.unsplash.com/photo-1607454834531-21f1e3dd3135?w=500",
+      "stock": 60
+    },
+    {
+      "id": 11,
+      "nom": "Palette Fards à Paupières",
+      "nomEn": "Eyeshadow Palette",
+      "categorieId": 6,
+      "genre": "femme",
+      "prix": 39.99,
+      "description": "12 teintes nude et bronze",
+      "descriptionEn": "12 nude and bronze shades",
+      "marque": "LYAMAL Beauty",
+      "contenance": "12 couleurs",
+      "image": "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=500",
+      "stock": 22
+    },
+    {
+      "id": 12,
+      "nom": "Rouge à Lèvres Mat",
+      "nomEn": "Matte Lipstick",
+      "categorieId": 6,
+      "genre": "femme",
+      "prix": 18.99,
+      "description": "Texture veloutée, tenue 8h",
+      "descriptionEn": "Velvety texture, 8h wear",
+      "marque": "LYAMAL Beauty",
+      "contenance": "3.5g",
+      "image": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=500",
+      "stock": 45
+    }
+  ],
+  "temoignages": [
+    {
+      "id": 1,
+      "clientNom": "Marie L.",
+      "note": 5,
+      "commentaire": "Excellente expérience ! Sophie a parfaitement compris ce que je voulais.",
+      "commentaireEn": "Excellent experience! Sophie perfectly understood what I wanted.",
+      "service": "Coupe Femme",
+      "date": "2025-11-15"
+    },
+    {
+      "id": 2,
+      "clientNom": "Alexandre D.",
+      "note": 5,
+      "commentaire": "Très professionnel, ma barbe n'a jamais été aussi bien entretenue !",
+      "commentaireEn": "Very professional, my beard has never been so well maintained!",
+      "service": "Coupe + Barbe",
+      "date": "2025-11-20"
+    },
+    {
+      "id": 3,
+      "clientNom": "Julie M.",
+      "note": 4,
+      "commentaire": "Très satisfaite de ma coloration. Je recommande !",
+      "commentaireEn": "Very satisfied with my coloring. I recommend!",
+      "service": "Mèches",
+      "date": "2025-11-22"
+    },
+    {
+      "id": 4,
+      "clientNom": "Thomas R.",
+      "note": 5,
+      "commentaire": "Super ambiance, coupe moderne exactement comme je voulais.",
+      "commentaireEn": "Great atmosphere, modern cut exactly as I wanted.",
+      "service": "Coupe Homme",
+      "date": "2025-12-01"
+    },
+    {
+      "id": 5,
+      "clientNom": "Sarah K.",
+      "note": 5,
+      "commentaire": "Manucure impeccable ! Les produits utilisés sont de qualité.",
+      "commentaireEn": "Impeccable manicure! The products used are quality.",
+      "service": "Manucure Gel",
+      "date": "2025-12-05"
+    }
+  ]
+}

@@ -1,0 +1,502 @@
+// ========================================
+// SERVICES.SCSS - STYLES PAGE SERVICES
+// ========================================
+
+// Variables (importées du style global)
+$color-black: #1a1a1a;
+$color-gray: #2d2d2d;
+$color-gold: #d4af37;
+$color-gold-light: #c9a961;
+$color-white-off: #f5f5f5;
+$color-white: #ffffff;
+
+$font-title: 'Playfair Display', serif;
+$font-body: 'Lato', sans-serif;
+
+// ========================================
+// PAGE SERVICES
+// ========================================
+.services-page {
+  
+  // EN-TÊTE DE LA PAGE
+  .services-header {
+    background: linear-gradient(135deg, $color-black 0%, $color-gray 100%);
+    padding: 4rem 4rem 3rem;
+    text-align: center;
+    color: $color-white;
+
+    .header-content {
+      max-width: 800px;
+      margin: 0 auto;
+
+      .page-title {
+        font-family: $font-title;
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        color: $color-gold;
+      }
+
+      .page-subtitle {
+        font-size: 1.2rem;
+        line-height: 1.6;
+        font-weight: 300;
+        opacity: 0.9;
+      }
+    }
+  }
+
+  // SECTION FILTRES
+  .filters-section {
+    background-color: $color-white;
+    padding: 2rem 4rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 73px;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+
+    .filters-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+      flex-wrap: wrap;
+
+      // Barre de recherche
+      .search-box {
+        flex: 1;
+        min-width: 300px;
+        position: relative;
+
+        .search-icon {
+          position: absolute;
+          left: 1.2rem;
+          top: 50%;
+          transform: translateY(-50%);
+          color: $color-gray;
+          font-size: 1rem;
+        }
+
+        .search-input {
+          width: 100%;
+          padding: 0.9rem 1.2rem 0.9rem 3rem;
+          border: 2px solid rgba(0, 0, 0, 0.1);
+          border-radius: 8px;
+          font-size: 1rem;
+          font-family: $font-body;
+          transition: all 0.3s ease;
+
+          &:focus {
+            outline: none;
+            border-color: $color-gold;
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+          }
+
+          &::placeholder {
+            color: lighten($color-gray, 30%);
+          }
+        }
+      }
+
+      // Groupe de filtres
+      .filters-group {
+        display: flex;
+        gap: 1.5rem;
+        align-items: center;
+
+        .filter-item {
+          display: flex;
+          align-items: center;
+          gap: 0.8rem;
+
+          .filter-icon {
+            color: $color-gold;
+            font-size: 1rem;
+          }
+
+          label {
+            font-weight: 600;
+            color: $color-black;
+            font-size: 0.95rem;
+          }
+
+          .filter-select {
+            padding: 0.7rem 1rem;
+            border: 2px solid rgba(0, 0, 0, 0.1);
+            border-radius: 6px;
+            font-size: 0.95rem;
+            font-family: $font-body;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 150px;
+
+            &:focus {
+              outline: none;
+              border-color: $color-gold;
+            }
+
+            &:hover {
+              border-color: $color-gold-light;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // SECTION RÉSULTATS
+  .services-results {
+    padding: 3rem 4rem;
+    max-width: 1400px;
+    margin: 0 auto;
+
+    .results-info {
+      margin-bottom: 2rem;
+
+      .results-count {
+        font-size: 1.1rem;
+        color: $color-gray;
+
+        .highlight {
+          color: $color-gold;
+          font-weight: 700;
+          font-size: 1.3rem;
+        }
+      }
+    }
+
+    // GRILLE DE SERVICES
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 2.5rem;
+    }
+
+    // CARTE DE SERVICE
+    .service-card {
+      background: $color-white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+      transition: all 0.3s ease;
+      cursor: pointer;
+
+      &:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      }
+
+      // Image du service
+      .service-image {
+        height: 240px;
+        background-size: cover;
+        background-position: center;
+        position: relative;
+
+        .service-overlay {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.6) 100%);
+          display: flex;
+          align-items: flex-start;
+          justify-content: flex-end;
+          padding: 1rem;
+
+          .service-badge {
+            background-color: $color-gold;
+            color: $color-black;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+          }
+        }
+      }
+
+      // Contenu de la carte
+      .service-content {
+        padding: 1.8rem;
+
+        .service-name {
+          font-family: $font-title;
+          font-size: 1.5rem;
+          color: $color-black;
+          margin-bottom: 0.8rem;
+        }
+
+        .service-description {
+          color: $color-gray;
+          font-size: 0.95rem;
+          line-height: 1.6;
+          margin-bottom: 1.5rem;
+        }
+
+        .service-details {
+          display: flex;
+          gap: 2rem;
+          margin-bottom: 1.5rem;
+          padding-bottom: 1.5rem;
+          border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+
+          .detail-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+
+            .detail-label {
+              font-size: 0.8rem;
+              color: lighten($color-gray, 20%);
+              text-transform: uppercase;
+              letter-spacing: 0.5px;
+            }
+
+            .detail-value {
+              font-weight: 600;
+              color: $color-black;
+              font-size: 0.95rem;
+            }
+          }
+        }
+
+        .service-footer {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+
+          .service-price {
+            display: flex;
+            flex-direction: column;
+
+            .price-from {
+              font-size: 0.8rem;
+              color: lighten($color-gray, 20%);
+              text-transform: uppercase;
+            }
+
+            .price-amount {
+              font-size: 1.8rem;
+              font-weight: 700;
+              color: $color-gold;
+            }
+          }
+
+          .btn-book {
+            background-color: $color-gold;
+            color: $color-black;
+            padding: 0.8rem 1.8rem;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(212, 175, 55, 0.3);
+
+            &:hover {
+              background-color: $color-gold-light;
+              transform: translateY(-2px);
+              box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4);
+            }
+          }
+        }
+      }
+    }
+
+    // Message aucun résultat
+    .no-results {
+      text-align: center;
+      padding: 4rem 2rem;
+
+      h3 {
+        font-family: $font-title;
+        font-size: 2rem;
+        color: $color-black;
+        margin-bottom: 1rem;
+      }
+
+      p {
+        color: $color-gray;
+        font-size: 1.1rem;
+      }
+    }
+  }
+
+  // CALL TO ACTION
+  .services-cta {
+    background: linear-gradient(135deg, $color-black 0%, $color-gray 100%);
+    padding: 4rem 4rem;
+    text-align: center;
+    color: $color-white;
+
+    .cta-title {
+      font-family: $font-title;
+      font-size: 2.2rem;
+      color: $color-gold;
+      margin-bottom: 1rem;
+    }
+
+    .cta-text {
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+      opacity: 0.9;
+    }
+
+    .btn-contact {
+      display: inline-block;
+      background-color: $color-gold;
+      color: $color-black;
+      padding: 1rem 2.5rem;
+      border-radius: 6px;
+      font-size: 1.05rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+
+      &:hover {
+        background-color: $color-gold-light;
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
+      }
+    }
+  }
+
+  // ========================================
+  // LOADING ET ERROR STATES
+  // ========================================
+  .loading-container,
+  .error-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+    padding: 4rem 2rem;
+
+    .spinner {
+      width: 50px;
+      height: 50px;
+      border: 5px solid #f3f3f3;
+      border-top: 5px solid $color-gold;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    p {
+      margin-top: 1rem;
+      font-size: 1.1rem;
+      color: $color-gray;
+    }
+
+    h2 {
+      color: $color-black;
+      margin-bottom: 1rem;
+      font-family: $font-title;
+      font-size: 2rem;
+    }
+
+    button {
+      margin-top: 1.5rem;
+      padding: 0.8rem 2rem;
+      background-color: $color-gold;
+      color: $color-black;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 1rem;
+
+      &:hover {
+        background-color: $color-gold-light;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4);
+      }
+    }
+  }
+
+  @keyframes spin {
+    0% { 
+      transform: rotate(0deg); 
+    }
+    100% { 
+      transform: rotate(360deg); 
+    }
+  }
+}
+
+// ========================================
+// RESPONSIVE
+// ========================================
+@media (max-width: 1024px) {
+  .services-page {
+    .services-results .services-grid {
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .services-page {
+    .services-header {
+      padding: 3rem 2rem 2rem;
+
+      .header-content .page-title {
+        font-size: 2.2rem;
+      }
+    }
+
+    .filters-section {
+      padding: 1.5rem 2rem;
+      top: 0;
+
+      .filters-container {
+        flex-direction: column;
+        gap: 1rem;
+
+        .search-box {
+          width: 100%;
+          min-width: auto;
+        }
+
+        .filters-group {
+          width: 100%;
+          flex-direction: column;
+          gap: 1rem;
+
+          .filter-item {
+            width: 100%;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.5rem;
+
+            .filter-select {
+              width: 100%;
+            }
+          }
+        }
+      }
+    }
+
+    .services-results {
+      padding: 2rem 1.5rem;
+
+      .services-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+    }
+
+    .services-cta {
+      padding: 3rem 2rem;
+
+      .cta-title {
+        font-size: 1.8rem;
+      }
+    }
+  }
+}

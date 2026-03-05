@@ -1,0 +1,724 @@
+// ========================================
+// BOOKING.SCSS - STYLES PAGE BOOKING
+// ========================================
+
+// Variables
+$color-black: #1a1a1a;
+$color-gray: #2d2d2d;
+$color-gold: #d4af37;
+$color-gold-light: #c9a961;
+$color-white-off: #f5f5f5;
+$color-white: #ffffff;
+$color-green: #4caf50;
+
+$font-title: 'Playfair Display', serif;
+$font-body: 'Lato', sans-serif;
+
+// ========================================
+// PAGE BOOKING
+// ========================================
+.booking-page {
+  
+  // EN-TÊTE
+  .booking-header {
+    background: linear-gradient(135deg, $color-black 0%, $color-gray 100%);
+    padding: 3rem 4rem 2rem;
+    text-align: center;
+    color: $color-white;
+
+    .page-title {
+      font-family: $font-title;
+      font-size: 2.5rem;
+      color: $color-gold;
+      margin-bottom: 0.5rem;
+    }
+
+    .page-subtitle {
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+  }
+
+  // STEPPER - Indicateur d'étapes
+  .stepper-section {
+    background-color: $color-white;
+    padding: 2rem 4rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
+    .stepper {
+      max-width: 800px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+
+      // Ligne de connexion
+      &::before {
+        content: '';
+        position: absolute;
+        top: 20px;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background-color: #ddd;
+        z-index: 0;
+      }
+
+      .step {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+        z-index: 1;
+        flex: 1;
+
+        .step-number {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          background-color: #ddd;
+          color: $color-white;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-weight: 700;
+          margin-bottom: 0.5rem;
+          transition: all 0.3s ease;
+        }
+
+        .step-label {
+          font-size: 0.9rem;
+          color: $color-gray;
+          font-weight: 500;
+        }
+
+        // Étape active
+        &.active {
+          .step-number {
+            background-color: $color-gold;
+            box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.2);
+          }
+
+          .step-label {
+            color: $color-gold;
+            font-weight: 600;
+          }
+        }
+
+        // Étape complétée
+        &.completed {
+          .step-number {
+            background-color: $color-green;
+          }
+        }
+      }
+    }
+  }
+
+  // CONTENU PRINCIPAL
+  .booking-content {
+    padding: 3rem 4rem;
+    background-color: $color-white-off;
+
+    .booking-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 350px;
+      gap: 3rem;
+    }
+
+    // ZONE PRINCIPALE
+    .booking-main {
+      background-color: $color-white;
+      padding: 2.5rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+
+      .step-content {
+        .step-title {
+          font-family: $font-title;
+          font-size: 2rem;
+          color: $color-black;
+          margin-bottom: 2rem;
+        }
+
+        // ÉTAPE 1 : Services Grid
+        .services-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+          gap: 1.5rem;
+          margin-bottom: 2rem;
+
+          .service-option {
+            border: 3px solid transparent;
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background-color: $color-white-off;
+
+            .service-img {
+              width: 100%;
+              height: 120px;
+              object-fit: cover;
+              border-radius: 8px;
+              margin-bottom: 1rem;
+            }
+
+            h3 {
+              font-size: 1.1rem;
+              margin-bottom: 0.5rem;
+              color: $color-black;
+            }
+
+            .service-duration {
+              font-size: 0.85rem;
+              color: $color-gray;
+              margin-bottom: 0.5rem;
+            }
+
+            .service-price {
+              font-size: 1.3rem;
+              font-weight: 700;
+              color: $color-gold;
+            }
+
+            &:hover {
+              border-color: $color-gold-light;
+              transform: translateY(-5px);
+            }
+
+            &.selected {
+              border-color: $color-gold;
+              background-color: rgba(212, 175, 55, 0.05);
+            }
+          }
+        }
+
+        // ÉTAPE 2 : Stylists
+        .first-available {
+          border: 3px solid transparent;
+          border-radius: 12px;
+          padding: 1.5rem;
+          display: flex;
+          align-items: center;
+          gap: 1.5rem;
+          cursor: pointer;
+          margin-bottom: 2rem;
+          background-color: $color-white-off;
+          transition: all 0.3s ease;
+
+          .auto-icon {
+            font-size: 3rem;
+          }
+
+          .auto-text {
+            h3 {
+              font-size: 1.3rem;
+              margin-bottom: 0.3rem;
+              color: $color-black;
+            }
+
+            p {
+              color: $color-gray;
+              margin: 0;
+            }
+          }
+
+          &:hover {
+            border-color: $color-gold-light;
+          }
+
+          &.selected {
+            border-color: $color-gold;
+            background-color: rgba(212, 175, 55, 0.05);
+          }
+        }
+
+        .stylists-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+          gap: 1.5rem;
+          margin-bottom: 2rem;
+
+          .stylist-option {
+            border: 3px solid transparent;
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background-color: $color-white-off;
+
+            .stylist-img {
+              width: 80px;
+              height: 80px;
+              border-radius: 50%;
+              object-fit: cover;
+              margin: 0 auto 1rem;
+              display: block;
+            }
+
+            h3 {
+              font-size: 1rem;
+              margin-bottom: 0.3rem;
+              color: $color-black;
+            }
+
+            .stylist-rating {
+              font-size: 0.9rem;
+              color: $color-gold;
+              margin: 0;
+            }
+
+            &:hover {
+              border-color: $color-gold-light;
+              transform: translateY(-5px);
+            }
+
+            &.selected {
+              border-color: $color-gold;
+              background-color: rgba(212, 175, 55, 0.05);
+            }
+          }
+        }
+
+        // ÉTAPE 3 : Date & Time
+        .date-section,
+        .time-section,
+        .upload-section,
+        .notes-section {
+          margin-bottom: 2rem;
+
+          label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+            color: $color-black;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+          }
+
+          .date-input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: $font-body;
+            transition: all 0.3s ease;
+
+            &:focus {
+              outline: none;
+              border-color: $color-gold;
+            }
+          }
+        }
+
+        .time-slots {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+          gap: 1rem;
+
+          .time-slot {
+            padding: 1rem;
+            border: 2px solid rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            background-color: $color-white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+
+            &:hover {
+              border-color: $color-gold-light;
+              background-color: rgba(212, 175, 55, 0.05);
+            }
+
+            &.selected {
+              border-color: $color-gold;
+              background-color: $color-gold;
+              color: $color-black;
+            }
+          }
+        }
+
+        // Upload d'image
+        .upload-area {
+          .upload-input {
+            display: none;
+          }
+
+          .upload-label {
+            display: block;
+            border: 3px dashed rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            padding: 3rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background-color: $color-white-off;
+
+            .upload-icon {
+              font-size: 3rem;
+              color: $color-gold;
+              margin-bottom: 1rem;
+            }
+
+            p {
+              color: $color-gray;
+              margin: 0;
+            }
+
+            .uploaded-preview {
+              max-width: 100%;
+              max-height: 200px;
+              border-radius: 8px;
+            }
+
+            &:hover {
+              border-color: $color-gold;
+              background-color: rgba(212, 175, 55, 0.05);
+            }
+          }
+        }
+
+        // Notes
+        .notes-input {
+          width: 100%;
+          padding: 1rem;
+          border: 2px solid rgba(0, 0, 0, 0.1);
+          border-radius: 8px;
+          font-size: 1rem;
+          font-family: $font-body;
+          resize: vertical;
+          transition: all 0.3s ease;
+
+          &:focus {
+            outline: none;
+            border-color: $color-gold;
+          }
+        }
+
+        // ÉTAPE 4 : Confirmation
+        &.confirmation {
+          text-align: center;
+
+          .success-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 2rem;
+            background-color: $color-green;
+            color: $color-white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            font-weight: 700;
+          }
+
+          .booking-summary-detail {
+            text-align: left;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+
+            .summary-item {
+              display: flex;
+              gap: 1.5rem;
+              padding: 1.5rem;
+              background-color: $color-white-off;
+              border-radius: 8px;
+              margin-bottom: 1rem;
+
+              .summary-icon {
+                font-size: 1.5rem;
+                color: $color-gold;
+              }
+
+              .summary-label {
+                font-size: 0.85rem;
+                color: $color-gray;
+                margin-bottom: 0.3rem;
+              }
+
+              .summary-value {
+                font-weight: 600;
+                color: $color-black;
+                margin: 0;
+              }
+
+              .summary-notes {
+                color: $color-gray;
+                font-style: italic;
+                margin: 0;
+              }
+
+              .summary-image img {
+                max-width: 150px;
+                border-radius: 8px;
+              }
+            }
+          }
+        }
+
+        // Actions (boutons) - MODIFIÉ
+        .step-actions {
+          display: flex;
+          gap: 1rem;
+          margin-top: 3rem;
+
+          button {
+            padding: 1.2rem 2.5rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+
+            &.btn-back {
+              background-color: transparent;
+              border: 2px solid $color-gray;
+              color: $color-gray;
+              flex: 0 0 auto;
+              min-width: 120px;
+
+              &:hover {
+                background-color: $color-gray;
+                color: $color-white;
+              }
+            }
+
+            &.btn-next {
+              background-color: #e8e8e8;
+              color: $color-black;
+              border: none;
+              flex: 1;
+              font-size: 1.05rem;
+              padding: 1.3rem;
+
+              &:hover {
+                background-color: #d8d8d8;
+              }
+
+              &:disabled {
+                background-color: #f0f0f0;
+                color: #999;
+                cursor: not-allowed;
+              }
+            }
+
+            &.btn-confirm {
+              background-color: $color-gold;
+              color: $color-black;
+              border: 2px solid $color-gold;
+              flex: 1;
+              font-size: 1.1rem;
+              padding: 1.2rem 3rem;
+
+              &:hover {
+                background-color: $color-gold-light;
+                transform: translateY(-2px);
+                box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4);
+              }
+            }
+          }
+        }
+      }
+    }
+
+    // RÉSUMÉ STICKY
+    .booking-summary {
+      background-color: $color-white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+      position: sticky;
+      top: 100px;
+      height: fit-content;
+
+      h3 {
+        font-family: $font-title;
+        font-size: 1.5rem;
+        color: $color-black;
+        margin-bottom: 1.5rem;
+      }
+
+      .summary-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.8rem 0;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        font-size: 0.95rem;
+
+        span:first-child {
+          color: $color-gray;
+        }
+
+        span:last-child {
+          font-weight: 600;
+          color: $color-black;
+        }
+      }
+
+      .summary-divider {
+        height: 2px;
+        background-color: $color-gold;
+        margin: 1.5rem 0;
+      }
+
+      .summary-total {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 1.1rem;
+
+        span:first-child {
+          font-weight: 600;
+          color: $color-black;
+        }
+
+        .total-price {
+          font-size: 2rem;
+          font-weight: 700;
+          color: $color-gold;
+        }
+      }
+    }
+  }
+
+  // ========================================
+  // LOADING ET ERROR STATES
+  // ========================================
+  .loading-container,
+  .error-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+    padding: 4rem 2rem;
+
+    .spinner {
+      width: 50px;
+      height: 50px;
+      border: 5px solid #f3f3f3;
+      border-top: 5px solid $color-gold;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    p {
+      margin-top: 1rem;
+      font-size: 1.1rem;
+      color: $color-gray;
+    }
+
+    h2 {
+      color: $color-black;
+      margin-bottom: 1rem;
+      font-family: $font-title;
+      font-size: 2rem;
+    }
+
+    button {
+      margin-top: 1.5rem;
+      padding: 0.8rem 2rem;
+      background-color: $color-gold;
+      color: $color-black;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 1rem;
+
+      &:hover {
+        background-color: $color-gold-light;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4);
+      }
+    }
+  }
+
+  @keyframes spin {
+    0% { 
+      transform: rotate(0deg); 
+    }
+    100% { 
+      transform: rotate(360deg); 
+    }
+  }
+}
+
+// ========================================
+// RESPONSIVE
+// ========================================
+@media (max-width: 1024px) {
+  .booking-page {
+    .booking-content {
+      .booking-container {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .booking-summary {
+        position: static;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .booking-page {
+    .booking-header {
+      padding: 2rem 1.5rem;
+
+      .page-title {
+        font-size: 2rem;
+      }
+    }
+
+    .stepper-section {
+      padding: 1.5rem 1rem;
+
+      .stepper {
+        .step {
+          .step-label {
+            font-size: 0.75rem;
+          }
+        }
+      }
+    }
+
+    .booking-content {
+      padding: 2rem 1.5rem;
+
+      .booking-main {
+        padding: 1.5rem;
+
+        .step-content {
+          .services-grid,
+          .stylists-grid {
+            grid-template-columns: 1fr;
+          }
+
+          .time-slots {
+            grid-template-columns: repeat(3, 1fr);
+          }
+
+          .step-actions {
+            flex-direction: column;
+
+            button {
+              width: 100%;
+            }
+          }
+        }
+      }
+    }
+  }
+}
