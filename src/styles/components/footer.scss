@@ -1,0 +1,134 @@
+// ========================================
+// FOOTER.SCSS - STYLES DU FOOTER
+// ========================================
+@import '../settings.scss';
+
+.app-footer {
+  background: linear-gradient(135deg, $color-black 0%, $color-gray 100%);
+  color: $color-white;
+  padding: 3rem 4rem 1rem;
+  margin-top: auto;
+  
+  .footer-content {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3rem;
+    max-width: 1400px;
+    margin: 0 auto 2rem;
+    
+    .footer-column {
+      .footer-logo {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        margin-bottom: 1rem;
+        
+        .footer-logo-icon {
+          font-size: 1.8rem;
+          color: $color-gold;
+        }
+        
+        .footer-logo-text {
+          font-family: $font-title;
+          font-size: 1.3rem;
+          font-weight: $font-weight-bold;
+          letter-spacing: 1px;
+        }
+      }
+      
+      .footer-description {
+        font-size: $font-size-sm;
+        line-height: $line-height-relaxed;
+        opacity: 0.9;
+        margin: 0;
+      }
+      
+      .footer-heading {
+        font-family: $font-title;
+        font-size: $font-size-lg;
+        color: $color-gold;
+        margin-bottom: 1.5rem;
+      }
+      
+      .footer-links {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        
+        li {
+          margin-bottom: 0.8rem;
+          
+          a {
+            color: $color-white;
+            text-decoration: none;
+            font-size: $font-size-sm;
+            opacity: 0.9;
+            @include transition(all);
+            
+            &:hover {
+              color: $color-gold;
+              opacity: 1;
+              padding-left: 0.5rem;
+            }
+          }
+        }
+      }
+      
+      .social-icons {
+        display: flex;
+        gap: 1rem;
+        
+        .social-icon {
+          width: 40px;
+          height: 40px;
+          border-radius: $border-radius-full;
+          background-color: rgba(255, 255, 255, 0.1);
+          @include center-flex;
+          color: $color-white;
+          font-size: 1.2rem;
+          @include transition(all);
+          
+          &:hover {
+            background-color: $color-gold;
+            color: $color-black;
+            transform: translateY(-3px);
+          }
+        }
+      }
+    }
+  }
+  
+  .footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 1.5rem;
+    text-align: center;
+    
+    p {
+      font-size: $font-size-sm;
+      opacity: 0.7;
+      margin: 0;
+    }
+  }
+}
+
+// Responsive
+@include tablet {
+  .app-footer {
+    padding: 2rem;
+    
+    .footer-content {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+  }
+}
+
+@include mobile {
+  .app-footer {
+    padding: 2rem 1.5rem 1rem;
+    
+    .footer-content {
+      gap: 2rem;
+    }
+  }
+}

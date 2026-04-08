@@ -1,0 +1,102 @@
+// ========================================
+// COIFFEUR CARD.SCSS - STYLES CARTE COIFFEUR
+// ========================================
+@import '../settings.scss';
+
+.coiffeur-card-component {
+  @include card-base;
+  overflow: hidden;
+  
+  .coiffeur-image {
+    height: 280px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    
+    .coiffeur-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      padding: 1rem;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+      
+      .experience-badge {
+        background-color: $color-gold;
+        color: $color-black;
+        padding: 0.4rem 1rem;
+        border-radius: 20px;
+        font-size: $font-size-xs;
+        font-weight: $font-weight-semibold;
+      }
+    }
+  }
+  
+  .coiffeur-content {
+    padding: 1.5rem;
+    
+    .coiffeur-name {
+      font-family: $font-title;
+      font-size: $font-size-xl;
+      color: $color-black;
+      margin-bottom: 0.3rem;
+    }
+    
+    .coiffeur-title {
+      color: $color-gold;
+      font-size: $font-size-sm;
+      font-weight: $font-weight-semibold;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    
+    .rating-section {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin-bottom: 1rem;
+      
+      .stars {
+        display: flex;
+        gap: 0.2rem;
+        
+        .star {
+          color: $color-star-empty;
+          font-size: $font-size-sm;
+          
+          &.filled {
+            color: $color-star;
+          }
+        }
+      }
+      
+      .rating-text {
+        font-size: $font-size-sm;
+        color: $color-gray;
+      }
+    }
+    
+    .specialties {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+      
+      .specialty-badge {
+        background-color: rgba($color-gold, 0.1);
+        color: $color-gold;
+        padding: 0.3rem 0.8rem;
+        border-radius: 15px;
+        font-size: $font-size-xs;
+        font-weight: $font-weight-semibold;
+        border: 1px solid rgba($color-gold, 0.3);
+      }
+    }
+    
+    .btn-book-stylist {
+      @include button-gold;
+      width: 100%;
+      text-align: center;
+    }
+  }
+}

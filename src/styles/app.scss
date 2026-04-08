@@ -702,4 +702,32 @@ body {
   .app-footer {
     padding: 3rem 2rem 2rem;
   }
+
+    // Step cards - Support pour Link ET div
+.step-card {
+  text-decoration: none !important;
+  color: inherit;
+  display: block;
+  
+  &.clickable {
+    cursor: pointer;
+  }
+}
+
+// Service cards - Support pour Link ET div
+.service-card,
+a.service-card,
+div.service-card {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+// Bouton CTA en button
+.btn-cta {
+  border: none;
+  font-family: inherit;
+  cursor: pointer;
+}
+  
 }

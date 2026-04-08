@@ -1,0 +1,230 @@
+// ========================================
+// LOGIN.SCSS - STYLES PAGE CONNEXION
+// ========================================
+@import '../settings.scss';
+
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, $color-black 0%, $color-gray 100%);
+  padding: 2rem;
+  
+  .login-container {
+    background-color: $color-white;
+    border-radius: $border-radius-lg;
+    padding: 3rem;
+    max-width: 450px;
+    width: 100%;
+    box-shadow: $shadow-xl;
+    
+    .login-header {
+      text-align: center;
+      margin-bottom: 2rem;
+      
+      .login-title {
+        font-family: $font-title;
+        font-size: $font-size-3xl;
+        color: $color-black;
+        margin-bottom: 0.5rem;
+      }
+      
+      .login-subtitle {
+        font-size: $font-size-base;
+        color: $color-gray-light;
+      }
+    }
+    
+    // Message d'erreur
+    .error-message {
+      background-color: rgba($color-error, 0.1);
+      border: 1px solid $color-error;
+      border-radius: $border-radius-md;
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+      color: $color-error;
+      font-size: $font-size-sm;
+      text-align: center;
+    }
+    
+    // Formulaire
+    .login-form {
+      .form-group {
+        margin-bottom: 1.5rem;
+        
+        label {
+          display: block;
+          font-weight: $font-weight-semibold;
+          color: $color-black;
+          margin-bottom: 0.5rem;
+          font-size: $font-size-sm;
+        }
+        
+        .input-wrapper {
+          position: relative;
+          
+          .input-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: $color-gray-light;
+            font-size: 1rem;
+          }
+          
+          input {
+            width: 100%;
+            padding: 0.9rem 1rem 0.9rem 3rem;
+            border: 2px solid rgba(0, 0, 0, 0.1);
+            border-radius: $border-radius-md;
+            font-size: $font-size-base;
+            font-family: $font-body;
+            @include transition(all);
+            
+            &:focus {
+              outline: none;
+              border-color: $color-gold;
+              box-shadow: 0 0 0 3px rgba($color-gold, 0.1);
+            }
+            
+            &:disabled {
+              background-color: $color-white-off;
+              cursor: not-allowed;
+            }
+            
+            &::placeholder {
+              color: lighten($color-gray-light, 20%);
+            }
+          }
+        }
+      }
+      
+      .form-footer {
+        text-align: right;
+        margin-bottom: 1.5rem;
+        
+        .forgot-link {
+          font-size: $font-size-sm;
+          color: $color-gold;
+          text-decoration: none;
+          font-weight: $font-weight-medium;
+          @include transition(color);
+          
+          &:hover {
+            color: $color-gold-dark;
+          }
+        }
+      }
+      
+      .btn-login-submit {
+        @include button-gold;
+        width: 100%;
+        padding: 1rem;
+        font-size: $font-size-base;
+        
+        &:disabled {
+          background-color: $color-gray-light;
+          cursor: not-allowed;
+          transform: none;
+        }
+      }
+    }
+    
+    // Divider
+    .divider {
+      position: relative;
+      text-align: center;
+      margin: 2rem 0;
+      
+      &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 50%;
+        width: 100%;
+        height: 1px;
+        background-color: rgba(0, 0, 0, 0.1);
+      }
+      
+      span {
+        position: relative;
+        background-color: $color-white;
+        padding: 0 1rem;
+        color: $color-gray-light;
+        font-size: $font-size-sm;
+        font-weight: $font-weight-medium;
+      }
+    }
+    
+    // Google Login
+    .btn-google-login {
+      width: 100%;
+      padding: 1rem;
+      border: 2px solid rgba(0, 0, 0, 0.1);
+      border-radius: $border-radius-md;
+      background-color: $color-white;
+      color: $color-black;
+      font-size: $font-size-base;
+      font-weight: $font-weight-semibold;
+      font-family: $font-body;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.8rem;
+      @include transition(all);
+      
+      .google-icon {
+        font-size: 1.2rem;
+        color: #DB4437;
+      }
+      
+      &:hover:not(:disabled) {
+        border-color: $color-gray;
+        box-shadow: $shadow-md;
+      }
+      
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+    }
+    
+    // Sign Up Prompt
+    .signup-prompt {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: $font-size-sm;
+      color: $color-gray;
+      
+      .signup-link {
+        color: $color-gold;
+        text-decoration: none;
+        font-weight: $font-weight-semibold;
+        @include transition(color);
+        
+        &:hover {
+          color: $color-gold-dark;
+        }
+      }
+    }
+  }
+}
+
+// Responsive
+@include mobile {
+  .login-page {
+    padding: 1rem;
+    
+    .login-container {
+      padding: 2rem 1.5rem;
+      
+      .login-header {
+        .login-title {
+          font-size: $font-size-2xl;
+        }
+      }
+    }
+  }
+}

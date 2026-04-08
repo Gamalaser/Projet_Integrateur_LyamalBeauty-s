@@ -1,0 +1,111 @@
+// ========================================
+// PRODUCT CARD.SCSS - STYLES CARTE PRODUIT
+// ========================================
+@import '../settings.scss';
+
+.product-card-component {
+  @include card-base;
+  overflow: hidden;
+  
+  .product-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+  
+  .product-card-image {
+    height: 250px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    
+    .stock-badge {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      padding: 0.4rem 0.8rem;
+      border-radius: $border-radius-md;
+      font-size: $font-size-xs;
+      font-weight: $font-weight-semibold;
+      
+      &.low {
+        background-color: $color-warning;
+        color: $color-white;
+      }
+      
+      &.out {
+        background-color: $color-error;
+        color: $color-white;
+      }
+    }
+  }
+  
+  .product-card-content {
+    padding: 1.5rem;
+    
+    .product-category {
+      display: inline-block;
+      font-size: $font-size-xs;
+      color: $color-gold;
+      font-weight: $font-weight-semibold;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    
+    .product-name {
+      font-family: $font-title;
+      font-size: $font-size-lg;
+      color: $color-black;
+      margin-bottom: 0.5rem;
+    }
+    
+    .product-description {
+      color: $color-gray;
+      font-size: $font-size-sm;
+      line-height: $line-height-normal;
+      margin-bottom: 1.5rem;
+      @include line-clamp(2);
+    }
+    
+    .product-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      
+      .product-price {
+        font-size: $font-size-2xl;
+        font-weight: $font-weight-bold;
+        color: $color-gold;
+      }
+      
+      .btn-add-cart {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.7rem 1.2rem;
+        background-color: $color-black;
+        color: $color-white;
+        border: none;
+        border-radius: $border-radius-md;
+        font-size: $font-size-sm;
+        font-weight: $font-weight-semibold;
+        cursor: pointer;
+        @include transition(all);
+        
+        &:hover:not(:disabled) {
+          background-color: $color-gold;
+          color: $color-black;
+        }
+        
+        &.in-cart {
+          background-color: $color-success;
+        }
+        
+        &:disabled {
+          background-color: $color-gray-light;
+          cursor: not-allowed;
+        }
+      }
+    }
+  }
+}

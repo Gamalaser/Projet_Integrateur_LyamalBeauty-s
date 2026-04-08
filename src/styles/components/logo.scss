@@ -1,0 +1,30 @@
+// ========================================
+// LOGO.SCSS - STYLES DU LOGO
+// ========================================
+@import '../settings.scss';
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  text-decoration: none;
+  @include transition(transform);
+  
+  &:hover {
+    transform: scale(1.05);
+  }
+  
+  .logo-icon {
+    font-size: 1.8rem;
+    color: $color-gold;
+  }
+  
+  .logo-text {
+    font-family: $font-title;
+    font-size: 1.3rem;
+    font-weight: $font-weight-bold;
+    // TEXTE DORÉ POUR ÊTRE VISIBLE SUR FOND NOIR
+    color: $color-gold;
+    letter-spacing: 1px;
+  }
+}

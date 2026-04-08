@@ -1,0 +1,411 @@
+// ========================================
+// ACCOUNT.SCSS - STYLES PAGE COMPTE
+// ========================================
+@import '../settings.scss';
+
+.account-page {
+  
+  // EN-TÊTE
+  .account-header {
+    background: linear-gradient(135deg, $color-black 0%, $color-gray 100%);
+    padding: 4rem 4rem 3rem;
+    text-align: center;
+    color: $color-white;
+    
+    .header-content {
+      max-width: 800px;
+      margin: 0 auto;
+      
+      .user-avatar {
+        width: 100px;
+        height: 100px;
+        margin: 0 auto 1.5rem;
+        background-color: $color-gold;
+        color: $color-black;
+        border-radius: $border-radius-full;
+        @include center-flex;
+        font-size: $font-size-3xl;
+        font-weight: $font-weight-bold;
+        font-family: $font-title;
+      }
+      
+      .page-title {
+        font-family: $font-title;
+        font-size: $font-size-3xl;
+        margin-bottom: 0.5rem;
+        color: $color-gold;
+      }
+      
+      .page-subtitle {
+        font-size: $font-size-base;
+        opacity: 0.9;
+      }
+    }
+  }
+  
+  // CONTENU
+  .account-content {
+    padding: 3rem 4rem;
+    background-color: $color-white-off;
+    min-height: 60vh;
+    
+    .account-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 250px 1fr;
+      gap: 3rem;
+      
+      // SIDEBAR
+      .account-sidebar {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        
+        .sidebar-btn {
+          display: flex;
+          align-items: center;
+          gap: 0.8rem;
+          padding: 1rem 1.5rem;
+          background-color: $color-white;
+          border: none;
+          border-radius: $border-radius-md;
+          color: $color-gray;
+          font-size: $font-size-base;
+          font-weight: $font-weight-medium;
+          font-family: $font-body;
+          cursor: pointer;
+          @include transition(all);
+          text-align: left;
+          
+          &:hover {
+            background-color: rgba($color-gold, 0.1);
+            color: $color-gold;
+          }
+          
+          &.active {
+            background-color: $color-gold;
+            color: $color-black;
+            font-weight: $font-weight-semibold;
+          }
+          
+          &.logout {
+            margin-top: 2rem;
+            background-color: transparent;
+            border: 2px solid $color-error;
+            color: $color-error;
+            
+            &:hover {
+              background-color: $color-error;
+              color: $color-white;
+            }
+          }
+        }
+      }
+      
+      // ZONE PRINCIPALE
+      .account-main {
+        background-color: $color-white;
+        padding: 2.5rem;
+        border-radius: $border-radius-lg;
+        box-shadow: $shadow-md;
+        
+        .section-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 2rem;
+          padding-bottom: 1rem;
+          border-bottom: 2px solid $color-white-off;
+          
+          h2 {
+            font-family: $font-title;
+            font-size: $font-size-2xl;
+            color: $color-black;
+          }
+          
+          .btn-edit,
+          .btn-new-booking {
+            @include button-gold;
+            font-size: $font-size-sm;
+            padding: 0.6rem 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+          }
+          
+          .edit-actions {
+            display: flex;
+            gap: 1rem;
+            
+            .btn-cancel {
+              padding: 0.6rem 1.2rem;
+              background-color: transparent;
+              border: 2px solid $color-gray;
+              color: $color-gray;
+              border-radius: $border-radius-md;
+              font-weight: $font-weight-semibold;
+              cursor: pointer;
+              @include transition(all);
+              
+              &:hover {
+                background-color: $color-gray;
+                color: $color-white;
+              }
+            }
+            
+            .btn-save {
+              @include button-gold;
+              padding: 0.6rem 1.2rem;
+            }
+          }
+        }
+        
+        // PROFIL
+        .profile-section {
+          .profile-form {
+            display: grid;
+            gap: 1.5rem;
+            max-width: 600px;
+            
+            .form-group {
+              label {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                font-weight: $font-weight-semibold;
+                color: $color-black;
+                margin-bottom: 0.5rem;
+                font-size: $font-size-sm;
+              }
+              
+              input {
+                width: 100%;
+                padding: 0.9rem 1rem;
+                border: 2px solid rgba(0, 0, 0, 0.1);
+                border-radius: $border-radius-md;
+                font-size: $font-size-base;
+                font-family: $font-body;
+                @include transition(all);
+                
+                &:focus {
+                  outline: none;
+                  border-color: $color-gold;
+                  box-shadow: 0 0 0 3px rgba($color-gold, 0.1);
+                }
+                
+                &:disabled {
+                  background-color: $color-white-off;
+                  cursor: not-allowed;
+                  opacity: 0.7;
+                }
+              }
+              
+              small {
+                display: block;
+                margin-top: 0.3rem;
+                font-size: $font-size-xs;
+                color: $color-gray-light;
+              }
+            }
+          }
+        }
+        
+        // BOOKINGS
+        .bookings-section {
+          .bookings-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            
+            .booking-card {
+              display: grid;
+              grid-template-columns: auto 1fr auto auto;
+              gap: 2rem;
+              padding: 1.5rem;
+              background-color: $color-white-off;
+              border-radius: $border-radius-lg;
+              border-left: 4px solid $color-gold;
+              @include transition(all);
+              
+              &:hover {
+                box-shadow: $shadow-md;
+              }
+              
+              .booking-status {
+                .status-badge {
+                  padding: 0.4rem 1rem;
+                  border-radius: 20px;
+                  font-size: $font-size-xs;
+                  font-weight: $font-weight-semibold;
+                  text-transform: uppercase;
+                  
+                  &.completed {
+                    background-color: rgba($color-success, 0.1);
+                    color: $color-success;
+                  }
+                  
+                  &.upcoming {
+                    background-color: rgba($color-info, 0.1);
+                    color: $color-info;
+                  }
+                  
+                  &.cancelled {
+                    background-color: rgba($color-error, 0.1);
+                    color: $color-error;
+                  }
+                }
+              }
+              
+              .booking-details {
+                h3 {
+                  font-size: $font-size-lg;
+                  color: $color-black;
+                  margin-bottom: 0.3rem;
+                }
+                
+                .booking-stylist {
+                  font-size: $font-size-sm;
+                  color: $color-gray-light;
+                  margin-bottom: 0.5rem;
+                }
+                
+                .booking-info {
+                  display: flex;
+                  gap: 1.5rem;
+                  font-size: $font-size-sm;
+                  color: $color-gray;
+                  
+                  span {
+                    display: flex;
+                    align-items: center;
+                    gap: 0.3rem;
+                  }
+                }
+              }
+              
+              .booking-price {
+                font-size: $font-size-xl;
+                font-weight: $font-weight-bold;
+                color: $color-gold;
+              }
+              
+              .booking-actions {
+                display: flex;
+                gap: 0.5rem;
+                
+                button {
+                  padding: 0.5rem 1rem;
+                  border-radius: $border-radius-md;
+                  font-size: $font-size-xs;
+                  font-weight: $font-weight-semibold;
+                  cursor: pointer;
+                  @include transition(all);
+                  border: none;
+                }
+                
+                .btn-reschedule {
+                  background-color: $color-gold;
+                  color: $color-black;
+                  
+                  &:hover {
+                    background-color: $color-gold-light;
+                  }
+                }
+                
+                .btn-cancel-booking {
+                  background-color: transparent;
+                  border: 2px solid $color-error;
+                  color: $color-error;
+                  
+                  &:hover {
+                    background-color: $color-error;
+                    color: $color-white;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// Responsive
+@include tablet {
+  .account-page {
+    .account-header,
+    .account-content {
+      padding: 2rem;
+    }
+    
+    .account-content {
+      .account-container {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        
+        .account-sidebar {
+          flex-direction: row;
+          overflow-x: auto;
+        }
+      }
+    }
+  }
+}
+
+@include mobile {
+  .account-page {
+    .account-header {
+      padding: 2rem 1.5rem;
+      
+      .header-content {
+        .user-avatar {
+          width: 80px;
+          height: 80px;
+          font-size: $font-size-2xl;
+        }
+        
+        .page-title {
+          font-size: $font-size-2xl;
+        }
+      }
+    }
+    
+    .account-content {
+      padding: 2rem 1.5rem;
+      
+      .account-main {
+        padding: 1.5rem;
+        
+        .section-header {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 1rem;
+          
+          .btn-edit,
+          .btn-new-booking {
+            width: 100%;
+          }
+        }
+        
+        .bookings-section {
+          .bookings-list {
+            .booking-card {
+              grid-template-columns: 1fr;
+              gap: 1rem;
+              
+              .booking-actions {
+                flex-direction: column;
+                
+                button {
+                  width: 100%;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,81 @@
+// ========================================
+// SERVICE CARD.SCSS - STYLES CARTE SERVICE
+// ========================================
+@import '../settings.scss';
+
+.service-card-component {
+  @include card-base;
+  overflow: hidden;
+  cursor: pointer;
+  
+  .service-card-image {
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    
+    .service-card-overlay {
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding: 1rem;
+      
+      .service-card-badge {
+        background-color: $color-gold;
+        color: $color-black;
+        padding: 0.4rem 1rem;
+        border-radius: 20px;
+        font-size: $font-size-xs;
+        font-weight: $font-weight-semibold;
+      }
+    }
+  }
+  
+  .service-card-content {
+    padding: 1.5rem;
+    
+    .service-card-name {
+      font-family: $font-title;
+      font-size: $font-size-xl;
+      color: $color-black;
+      margin-bottom: 0.8rem;
+    }
+    
+    .service-card-description {
+      color: $color-gray;
+      font-size: $font-size-sm;
+      line-height: $line-height-relaxed;
+      margin-bottom: 1.5rem;
+      @include line-clamp(2);
+    }
+    
+    .service-card-details {
+      display: flex;
+      gap: 2rem;
+      margin-bottom: 1.5rem;
+      
+      .detail-item {
+        display: flex;
+        flex-direction: column;
+        gap: 0.3rem;
+        
+        .detail-label {
+          font-size: $font-size-xs;
+          color: $color-gray-light;
+          text-transform: uppercase;
+        }
+        
+        .detail-value {
+          font-weight: $font-weight-semibold;
+          color: $color-gold;
+        }
+      }
+    }
+    
+    .btn-book-service {
+      @include button-gold;
+      width: 100%;
+      text-align: center;
+    }
+  }
+}

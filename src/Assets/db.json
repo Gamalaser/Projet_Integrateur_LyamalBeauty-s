@@ -1,7 +1,7 @@
 {
   "services": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Men's Haircut",
       "category": "Hair Cutting",
       "genre": "Male",
@@ -12,7 +12,7 @@
       "description": "Professional men's haircut with styling consultation and personalized advice"
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Women's Haircut",
       "category": "Hair Cutting",
       "genre": "Female",
@@ -23,7 +23,7 @@
       "description": "Expert women's haircut and styling tailored to your face shape and lifestyle"
     },
     {
-      "id": 3,
+      "id": "3",
       "name": "Hair Coloring",
       "category": "Coloring",
       "genre": "Mixed",
@@ -34,7 +34,7 @@
       "description": "Professional hair coloring service with premium products"
     },
     {
-      "id": 4,
+      "id": "4",
       "name": "Beard Trim & Style",
       "category": "Beard",
       "genre": "Male",
@@ -45,7 +45,7 @@
       "description": "Precision beard trimming and styling for the modern gentleman"
     },
     {
-      "id": 5,
+      "id": "5",
       "name": "Highlights",
       "category": "Coloring",
       "genre": "Mixed",
@@ -56,7 +56,7 @@
       "description": "Beautiful highlights and lowlights for dimension and depth"
     },
     {
-      "id": 6,
+      "id": "6",
       "name": "Manicure",
       "category": "Nails",
       "genre": "Mixed",
@@ -67,7 +67,7 @@
       "description": "Professional manicure service with nail care and polish"
     },
     {
-      "id": 7,
+      "id": "7",
       "name": "Pedicure",
       "category": "Nails",
       "genre": "Mixed",
@@ -78,7 +78,7 @@
       "description": "Relaxing pedicure treatment with foot massage and care"
     },
     {
-      "id": 8,
+      "id": "8",
       "name": "Spa Treatment",
       "category": "Spa",
       "genre": "Mixed",
@@ -87,16 +87,185 @@
       "duration": 90,
       "image": "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=600&q=80",
       "description": "Luxury spa treatment and relaxing massage therapy"
+    },
+    {
+      "id": "9",
+      "name": "Relaxing Massage",
+      "category": "Massage",
+      "genre": "Mixed",
+      "priceFrom": 60,
+      "priceTo": 90,
+      "duration": 60,
+      "image": "https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=600&q=80",
+      "description": "Swedish massage for ultimate relaxation and stress relief"
+    },
+    {
+      "id": "10",
+      "name": "Hot Stone Massage",
+      "category": "Massage",
+      "genre": "Mixed",
+      "priceFrom": 85,
+      "priceTo": 120,
+      "duration": 75,
+      "image": "https://images.unsplash.com/photo-1600334129128-685c5582fd35?w=600&q=80",
+      "description": "Therapeutic massage using heated stones for deep muscle relaxation"
+    },
+    {
+      "id": "11",
+      "name": "Sports Massage",
+      "category": "Massage",
+      "genre": "Mixed",
+      "priceFrom": 70,
+      "priceTo": 100,
+      "duration": 60,
+      "image": "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=600&q=80",
+      "description": "Deep tissue massage for athletes and active individuals"
+    },
+    {
+      "id": "12",
+      "name": "Aromatherapy Massage",
+      "category": "Massage",
+      "genre": "Mixed",
+      "priceFrom": 75,
+      "priceTo": 110,
+      "duration": 75,
+      "image": "https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=600&q=80",
+      "description": "Relaxing massage with essential oils tailored to your needs"
+    },
+    {
+      "id": "13",
+      "name": "Deep Cleansing Facial",
+      "category": "Facial",
+      "genre": "Mixed",
+      "priceFrom": 65,
+      "priceTo": 95,
+      "duration": 60,
+      "image": "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=600&q=80",
+      "description": "Professional facial treatment for clear and radiant skin"
+    },
+    {
+      "id": "14",
+      "name": "Anti-Aging Facial",
+      "category": "Facial",
+      "genre": "Mixed",
+      "priceFrom": 90,
+      "priceTo": 140,
+      "duration": 75,
+      "image": "https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=600&q=80",
+      "description": "Advanced facial treatment to reduce fine lines and wrinkles"
+    },
+    {
+      "id": "15",
+      "name": "Hydrating Facial",
+      "category": "Facial",
+      "genre": "Mixed",
+      "priceFrom": 70,
+      "priceTo": 100,
+      "duration": 60,
+      "image": "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=600&q=80",
+      "description": "Moisturizing facial for dry and dehydrated skin"
+    },
+    {
+      "id": "16",
+      "name": "Acne Treatment Facial",
+      "category": "Facial",
+      "genre": "Mixed",
+      "priceFrom": 75,
+      "priceTo": 110,
+      "duration": 75,
+      "image": "https://images.unsplash.com/photo-1498843053639-170ff2122f35?w=600&q=80",
+      "description": "Specialized treatment for acne-prone skin"
+    },
+    {
+      "id": "17",
+      "name": "Daytime Makeup",
+      "category": "Makeup",
+      "genre": "Mixed",
+      "priceFrom": 45,
+      "priceTo": 70,
+      "duration": 45,
+      "image": "https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?w=600&q=80",
+      "description": "Natural and elegant makeup for everyday occasions"
+    },
+    {
+      "id": "18",
+      "name": "Evening Makeup",
+      "category": "Makeup",
+      "genre": "Mixed",
+      "priceFrom": 60,
+      "priceTo": 95,
+      "duration": 60,
+      "image": "https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=600&q=80",
+      "description": "Glamorous makeup for special events and nights out"
+    },
+    {
+      "id": "19",
+      "name": "Bridal Makeup",
+      "category": "Makeup",
+      "genre": "Female",
+      "priceFrom": 120,
+      "priceTo": 200,
+      "duration": 90,
+      "image": "https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=600&q=80",
+      "description": "Complete bridal makeup with trial session included"
+    },
+    {
+      "id": "20",
+      "name": "Body Scrub",
+      "category": "Body Care",
+      "genre": "Mixed",
+      "priceFrom": 55,
+      "priceTo": 80,
+      "duration": 45,
+      "image": "https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?w=600&q=80",
+      "description": "Exfoliating body treatment for smooth and glowing skin"
+    },
+    {
+      "id": "21",
+      "name": "Body Wrap",
+      "category": "Body Care",
+      "genre": "Mixed",
+      "priceFrom": 70,
+      "priceTo": 110,
+      "duration": 60,
+      "image": "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=600&q=80",
+      "description": "Detoxifying body wrap for skin rejuvenation"
+    },
+    {
+      "id": "22",
+      "name": "Bridal Package",
+      "category": "Packages",
+      "genre": "Female",
+      "priceFrom": 350,
+      "priceTo": 550,
+      "duration": 240,
+      "image": "https://images.unsplash.com/photo-1519741497674-611481863552?w=600&q=80",
+      "description": "Complete bridal package including makeup, hair, nails and spa treatment"
+    },
+    {
+      "id": "23",
+      "name": "Couple's Spa Package",
+      "category": "Packages",
+      "genre": "Mixed",
+      "priceFrom": 250,
+      "priceTo": 400,
+      "duration": 150,
+      "image": "https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=600&q=80",
+      "description": "Romantic spa experience for couples including massage and facial"
     }
   ],
   "stylists": [
     {
-      "id": 1,
+      "id": "1",
       "userId": "user_stylist_1",
       "name": "Sarah Johnson",
       "title": "Master Stylist",
       "genre": "Female",
-      "specialties": ["Hair Cutting", "Coloring", "Styling"],
+      "specialties": [
+        "Hair Cutting",
+        "Coloring",
+        "Styling"
+      ],
       "experience": 8,
       "rating": 4.9,
       "reviewsCount": 127,
@@ -107,22 +276,55 @@
         "https://images.unsplash.com/photo-1560066984-138dadb4c035?w=400&q=80"
       ],
       "availability": {
-        "monday": ["9:00", "10:00", "14:00", "15:00"],
-        "tuesday": ["9:00", "11:00", "14:00", "16:00"],
-        "wednesday": ["10:00", "11:00", "15:00", "16:00"],
-        "thursday": ["9:00", "10:00", "14:00", "15:00"],
-        "friday": ["9:00", "11:00", "14:00", "16:00"],
-        "saturday": ["10:00", "11:00", "14:00"],
+        "monday": [
+          "9:00",
+          "10:00",
+          "14:00",
+          "15:00"
+        ],
+        "tuesday": [
+          "9:00",
+          "11:00",
+          "14:00",
+          "16:00"
+        ],
+        "wednesday": [
+          "10:00",
+          "11:00",
+          "15:00",
+          "16:00"
+        ],
+        "thursday": [
+          "9:00",
+          "10:00",
+          "14:00",
+          "15:00"
+        ],
+        "friday": [
+          "9:00",
+          "11:00",
+          "14:00",
+          "16:00"
+        ],
+        "saturday": [
+          "10:00",
+          "11:00",
+          "14:00"
+        ],
         "sunday": []
       }
     },
     {
-      "id": 2,
+      "id": "2",
       "userId": "user_stylist_2",
       "name": "Marcus Rodriguez",
       "title": "Barber Specialist",
       "genre": "Male",
-      "specialties": ["Men's Cuts", "Beard", "Fades"],
+      "specialties": [
+        "Men's Cuts",
+        "Beard",
+        "Fades"
+      ],
       "experience": 6,
       "rating": 4.8,
       "reviewsCount": 98,
@@ -133,24 +335,57 @@
         "https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=400&q=80"
       ],
       "availability": {
-        "monday": ["9:00", "10:00", "11:00", "14:00"],
-        "tuesday": ["9:00", "10:00", "15:00", "16:00"],
-        "wednesday": ["9:00", "10:00", "14:00", "15:00"],
-        "thursday": ["10:00", "11:00", "15:00", "16:00"],
-        "friday": ["9:00", "10:00", "11:00", "14:00"],
-        "saturday": ["9:00", "10:00", "11:00"],
+        "monday": [
+          "9:00",
+          "10:00",
+          "11:00",
+          "14:00"
+        ],
+        "tuesday": [
+          "9:00",
+          "10:00",
+          "15:00",
+          "16:00"
+        ],
+        "wednesday": [
+          "9:00",
+          "10:00",
+          "14:00",
+          "15:00"
+        ],
+        "thursday": [
+          "10:00",
+          "11:00",
+          "15:00",
+          "16:00"
+        ],
+        "friday": [
+          "9:00",
+          "10:00",
+          "11:00",
+          "14:00"
+        ],
+        "saturday": [
+          "9:00",
+          "10:00",
+          "11:00"
+        ],
         "sunday": []
       }
     },
     {
-      "id": 3,
+      "id": "3",
       "userId": "user_stylist_3",
       "name": "Emily Chen",
       "title": "Color Specialist",
       "genre": "Female",
-      "specialties": ["Coloring", "Highlights", "Balayage"],
+      "specialties": [
+        "Coloring",
+        "Highlights",
+        "Balayage"
+      ],
       "experience": 10,
-      "rating": 5.0,
+      "rating": 5,
       "reviewsCount": 156,
       "image": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&q=80",
       "bio": "Award-winning colorist specializing in natural-looking highlights and vivid colors.",
@@ -159,57 +394,220 @@
         "https://images.unsplash.com/photo-1492106087820-71f1a00d2b11?w=400&q=80"
       ],
       "availability": {
-        "monday": ["10:00", "11:00", "14:00", "15:00"],
-        "tuesday": ["9:00", "10:00", "14:00", "15:00"],
-        "wednesday": ["9:00", "11:00", "15:00", "16:00"],
-        "thursday": ["9:00", "10:00", "11:00", "14:00"],
-        "friday": ["10:00", "11:00", "15:00", "16:00"],
-        "saturday": ["10:00", "11:00"],
+        "monday": [
+          "10:00",
+          "11:00",
+          "14:00",
+          "15:00"
+        ],
+        "tuesday": [
+          "9:00",
+          "10:00",
+          "14:00",
+          "15:00"
+        ],
+        "wednesday": [
+          "9:00",
+          "11:00",
+          "15:00",
+          "16:00"
+        ],
+        "thursday": [
+          "9:00",
+          "10:00",
+          "11:00",
+          "14:00"
+        ],
+        "friday": [
+          "10:00",
+          "11:00",
+          "15:00",
+          "16:00"
+        ],
+        "saturday": [
+          "10:00",
+          "11:00"
+        ],
         "sunday": []
       }
     }
   ],
   "products": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Professional Shampoo",
       "category": "Hair Care",
       "price": 24.99,
       "stock": 50,
-      "image": "https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=400&q=80",
+      "image": "https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=600&q=80",
       "description": "Premium salon-quality shampoo for all hair types"
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Deep Conditioning Mask",
       "category": "Hair Care",
       "price": 32.99,
       "stock": 35,
-      "image": "https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=400&q=80",
+      "image": "https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=600&q=80",
       "description": "Intensive repair treatment for damaged hair"
     },
     {
-      "id": 3,
+      "id": "3",
       "name": "Styling Gel",
       "category": "Styling",
       "price": 18.99,
       "stock": 60,
-      "image": "https://images.unsplash.com/photo-1535585209827-a15fcdbc4c2d?w=400&q=80",
+      "image": "https://images.unsplash.com/photo-1535585209827-a15fcdbc4c2d?w=600&q=80",
       "description": "Strong hold gel for long-lasting styles"
     },
     {
-      "id": 4,
-      "name": "Beard Oil",
+      "id": "5",
+      "name": "Hair Serum - Shine Boost",
+      "category": "Hair Care",
+      "price": 28.99,
+      "stock": 25,
+      "image": "https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=600&q=80",
+      "description": "Lightweight serum for glossy, smooth hair"
+    },
+    {
+      "id": "6",
+      "name": "Volumizing Mousse",
+      "category": "Styling",
+      "price": 21.99,
+      "stock": 30,
+      "image": "https://images.unsplash.com/photo-1608248597279-f99d160bfcbc?w=600&q=80",
+      "description": "Professional mousse for maximum volume"
+    },
+    {
+      "id": "7",
+      "name": "Heat Protection Spray",
+      "category": "Hair Care",
+      "price": 26.99,
+      "stock": 45,
+      "image": "https://images.unsplash.com/photo-1619451334792-150fd785ee74?w=600&q=80",
+      "description": "Protects hair from heat styling damage"
+    },
+    {
+      "id": "8",
+      "name": "Beard Grooming Kit",
       "category": "Beard Care",
-      "price": 22.99,
+      "price": 45.99,
+      "stock": 15,
+      "image": "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=600&q=80",
+      "description": "Complete kit with oil, balm, and comb"
+    },
+    {
+      "id": "9",
+      "name": "Beard Balm",
+      "category": "Beard Care",
+      "price": 19.99,
+      "stock": 35,
+      "image": "https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=600&q=80",
+      "description": "Natural beard balm for styling and conditioning"
+    },
+    {
+      "id": "10",
+      "name": "Matte Foundation",
+      "category": "Makeup",
+      "price": 34.99,
+      "stock": 20,
+      "image": "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=600&q=80",
+      "description": "Long-lasting matte finish foundation"
+    },
+    {
+      "id": "11",
+      "name": "Lipstick - Red Velvet",
+      "category": "Makeup",
+      "price": 18.99,
+      "stock": 50,
+      "image": "https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=600&q=80",
+      "description": "Rich, creamy lipstick with vibrant color"
+    },
+    {
+      "id": "12",
+      "name": "Mascara - Volume Max",
+      "category": "Makeup",
+      "price": 24.99,
       "stock": 40,
-      "image": "https://images.unsplash.com/photo-1564513469096-4785e9d7f09f?w=400&q=80",
-      "description": "Nourishing oil blend for soft and healthy beards"
+      "image": "https://images.unsplash.com/photo-1631214524020-7e18db9a8f92?w=600&q=80",
+      "description": "Dramatic volume and length mascara"
+    },
+    {
+      "id": "13",
+      "name": "Eyeshadow Palette",
+      "category": "Makeup",
+      "price": 42.99,
+      "stock": 25,
+      "image": "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=600&q=80",
+      "description": "12-color eyeshadow palette with shimmer and matte"
+    },
+    {
+      "id": "14",
+      "name": "Facial Cleanser",
+      "category": "Skincare",
+      "price": 22.99,
+      "stock": 55,
+      "image": "https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=600&q=80",
+      "description": "Gentle daily cleanser for all skin types"
+    },
+    {
+      "id": "15",
+      "name": "Hydrating Face Cream",
+      "category": "Skincare",
+      "price": 38.99,
+      "stock": 30,
+      "image": "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=600&q=80",
+      "description": "Rich moisturizer with hyaluronic acid"
+    },
+    {
+      "id": "16",
+      "name": "Vitamin C Serum",
+      "category": "Skincare",
+      "price": 44.99,
+      "stock": 20,
+      "image": "https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=600&q=80",
+      "description": "Brightening serum for radiant skin"
+    },
+    {
+      "id": "17",
+      "name": "Anti-Aging Eye Cream",
+      "category": "Skincare",
+      "price": 36.99,
+      "stock": 25,
+      "image": "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=600&q=80",
+      "description": "Reduces fine lines and dark circles"
+    },
+    {
+      "id": "18",
+      "name": "Hair Styling Wax",
+      "category": "Styling",
+      "price": 16.99,
+      "stock": 45,
+      "image": "https://images.unsplash.com/photo-1535585209827-a15fcdbc4c2d?w=600&q=80",
+      "description": "Medium hold wax for natural styling"
+    },
+    {
+      "id": "19",
+      "name": "Curl Defining Cream",
+      "category": "Hair Care",
+      "price": 27.99,
+      "stock": 35,
+      "image": "https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=600&q=80",
+      "description": "Enhances and defines natural curls"
+    },
+    {
+      "id": "20",
+      "name": "BB Cream SPF 30",
+      "category": "Makeup",
+      "price": 29.99,
+      "stock": 40,
+      "image": "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=600&q=80",
+      "description": "All-in-one beauty balm with sun protection"
     }
   ],
   "bookings": [
     {
-      "id": 1,
+      "id": "1",
       "clientId": "user_client_1",
       "stylistId": 1,
       "serviceId": 1,
@@ -221,7 +619,7 @@
       "createdAt": "2026-03-01T10:30:00Z"
     },
     {
-      "id": 2,
+      "id": "2",
       "clientId": "user_client_2",
       "stylistId": 3,
       "serviceId": 3,
@@ -231,11 +629,317 @@
       "notes": "Looking for caramel highlights",
       "referenceImage": "https://example.com/ref-image.jpg",
       "createdAt": "2026-03-02T14:15:00Z"
+    },
+    {
+      "id": "booking_001",
+      "clientId": "client_001",
+      "clientName": "Emma Wilson",
+      "clientEmail": "emma.wilson@email.com",
+      "stylistId": "424QkQYZ5nWGhXNuddaBIiz5lE63",
+      "stylistName": "Jordan",
+      "serviceId": "2",
+      "serviceName": "Women's Haircut",
+      "date": "2026-03-24",
+      "time": "10:00",
+      "duration": 60,
+      "price": 60,
+      "status": "confirmed",
+      "notes": "First time client",
+      "referenceImage": null,
+      "createdAt": "2026-03-20T10:00:00.000Z"
+    },
+    {
+      "id": "booking_002",
+      "clientId": "client_002",
+      "clientName": "James Anderson",
+      "clientEmail": "james.anderson@email.com",
+      "stylistId": "424QkQYZ5nWGhXNuddaBIiz5lE63",
+      "stylistName": "Jordan",
+      "serviceId": "1",
+      "serviceName": "Men's Haircut",
+      "date": "2026-03-24",
+      "time": "14:30",
+      "duration": 45,
+      "price": 45,
+      "status": "confirmed",
+      "notes": "",
+      "referenceImage": null,
+      "createdAt": "2026-03-21T14:00:00.000Z"
+    },
+    {
+      "id": "booking_003",
+      "clientId": "client_003",
+      "clientName": "Sophie Martin",
+      "clientEmail": "sophie.martin@email.com",
+      "stylistId": "424QkQYZ5nWGhXNuddaBIiz5lE63",
+      "stylistName": "Jordan",
+      "serviceId": "3",
+      "serviceName": "Hair Coloring",
+      "date": "2026-03-25",
+      "time": "11:00",
+      "duration": 120,
+      "price": 80,
+      "status": "pending",
+      "notes": "Wants balayage",
+      "referenceImage": "https://example.com/reference.jpg",
+      "createdAt": "2026-03-22T09:00:00.000Z"
+    },
+    {
+      "id": "booking_004",
+      "clientId": "client_004",
+      "clientName": "Michael Brown",
+      "clientEmail": "michael.brown@email.com",
+      "stylistId": "424QkQYZ5nWGhXNuddaBIiz5lE63",
+      "stylistName": "Jordan",
+      "serviceId": "8",
+      "serviceName": "Spa Treatment",
+      "date": "2026-03-26",
+      "time": "09:00",
+      "duration": 90,
+      "price": 70,
+      "status": "confirmed",
+      "notes": "",
+      "referenceImage": null,
+      "createdAt": "2026-03-23T11:00:00.000Z"
+    },
+    {
+      "id": "booking_005",
+      "clientId": "client_005",
+      "clientName": "Isabella Garcia",
+      "clientEmail": "isabella.garcia@email.com",
+      "stylistId": "424QkQYZ5nWGhXNuddaBIiz5lE63",
+      "stylistName": "Jordan",
+      "serviceId": "2",
+      "serviceName": "Women's Haircut",
+      "date": "2026-03-27",
+      "time": "15:00",
+      "duration": 60,
+      "price": 60,
+      "status": "cancelled",
+      "notes": "Wants layers",
+      "referenceImage": null,
+      "createdAt": "2026-03-24T08:00:00.000Z"
+    },
+    {
+      "id": "booking_006",
+      "clientId": "client_001",
+      "clientName": "Emma Wilson",
+      "clientEmail": "emma.wilson@email.com",
+      "stylistId": "424QkQYZ5nWGhXNuddaBIiz5lE63",
+      "stylistName": "Jordan",
+      "serviceId": "19",
+      "serviceName": "Bridal Makeup",
+      "date": "2026-03-28",
+      "time": "08:00",
+      "duration": 90,
+      "price": 120,
+      "status": "confirmed",
+      "notes": "Wedding on March 30",
+      "referenceImage": "https://example.com/bridal.jpg",
+      "createdAt": "2026-03-15T10:00:00.000Z"
+    },
+    {
+      "id": "booking_007",
+      "clientId": "client_006",
+      "clientName": "David Lee",
+      "clientEmail": "david.lee@email.com",
+      "stylistId": "424QkQYZ5nWGhXNuddaBIiz5lE63",
+      "stylistName": "Jordan",
+      "serviceId": "1",
+      "serviceName": "Men's Haircut",
+      "date": "2026-03-20",
+      "time": "16:00",
+      "duration": 45,
+      "price": 45,
+      "status": "confirmed",
+      "notes": "",
+      "referenceImage": null,
+      "createdAt": "2026-03-18T12:00:00.000Z"
+    },
+    {
+      "id": "booking_008",
+      "clientId": "client_007",
+      "clientName": "Olivia Taylor",
+      "clientEmail": "olivia.taylor@email.com",
+      "stylistId": "424QkQYZ5nWGhXNuddaBIiz5lE63",
+      "stylistName": "Jordan",
+      "serviceId": "3",
+      "serviceName": "Hair Coloring",
+      "date": "2026-03-21",
+      "time": "10:30",
+      "duration": 120,
+      "price": 80,
+      "status": "confirmed",
+      "notes": "",
+      "referenceImage": null,
+      "createdAt": "2026-03-19T09:00:00.000Z"
+    },
+    {
+      "id": "booking_009",
+      "clientId": "client_008",
+      "clientName": "William Davis",
+      "clientEmail": "william.davis@email.com",
+      "stylistId": "424QkQYZ5nWGhXNuddaBIiz5lE63",
+      "stylistName": "Jordan",
+      "serviceId": "4",
+      "serviceName": "Beard Trim & Style",
+      "date": "2026-03-22",
+      "time": "13:00",
+      "duration": 30,
+      "price": 25,
+      "status": "confirmed",
+      "notes": "",
+      "referenceImage": null,
+      "createdAt": "2026-03-20T15:00:00.000Z"
+    },
+    {
+      "id": "booking_010",
+      "clientId": "client_009",
+      "clientName": "Ava Martinez",
+      "clientEmail": "ava.martinez@email.com",
+      "stylistId": "424QkQYZ5nWGhXNuddaBIiz5lE63",
+      "stylistName": "Jordan",
+      "serviceId": "2",
+      "serviceName": "Women's Haircut",
+      "date": "2026-03-18",
+      "time": "11:00",
+      "duration": 60,
+      "price": 60,
+      "status": "confirmed",
+      "notes": "",
+      "referenceImage": null,
+      "createdAt": "2026-03-16T10:00:00.000Z"
+    },
+    {
+      "id": "booking_011",
+      "clientId": "client_010",
+      "clientName": "Ethan Wilson",
+      "clientEmail": "ethan.wilson@email.com",
+      "stylistId": "424QkQYZ5nWGhXNuddaBIiz5lE63",
+      "stylistName": "Jordan",
+      "serviceId": "1",
+      "serviceName": "Men's Haircut",
+      "date": "2026-03-19",
+      "time": "14:00",
+      "duration": 45,
+      "price": 45,
+      "status": "confirmed",
+      "notes": "",
+      "referenceImage": null,
+      "createdAt": "2026-03-17T11:00:00.000Z"
+    },
+    {
+      "id": "booking_012",
+      "clientId": "client_003",
+      "clientName": "Sophie Martin",
+      "clientEmail": "sophie.martin@email.com",
+      "stylistId": "424QkQYZ5nWGhXNuddaBIiz5lE63",
+      "stylistName": "Jordan",
+      "serviceId": "8",
+      "serviceName": "Spa Treatment",
+      "date": "2026-03-10",
+      "time": "10:00",
+      "duration": 90,
+      "price": 70,
+      "status": "confirmed",
+      "notes": "",
+      "referenceImage": null,
+      "createdAt": "2026-03-08T09:00:00.000Z"
+    },
+    {
+      "id": "booking_013",
+      "clientId": "client_011",
+      "clientName": "Mia Anderson",
+      "clientEmail": "mia.anderson@email.com",
+      "stylistId": "424QkQYZ5nWGhXNuddaBIiz5lE63",
+      "stylistName": "Jordan",
+      "serviceId": "3",
+      "serviceName": "Hair Coloring",
+      "date": "2026-03-15",
+      "time": "09:30",
+      "duration": 120,
+      "price": 80,
+      "status": "confirmed",
+      "notes": "Ombre style",
+      "referenceImage": null,
+      "createdAt": "2026-03-12T14:00:00.000Z"
+    },
+    {
+      "id": "booking_014",
+      "clientId": "client_012",
+      "clientName": "Noah Thompson",
+      "clientEmail": "noah.thompson@email.com",
+      "stylistId": "424QkQYZ5nWGhXNuddaBIiz5lE63",
+      "stylistName": "Jordan",
+      "serviceId": "1",
+      "serviceName": "Men's Haircut",
+      "date": "2026-03-05",
+      "time": "15:30",
+      "duration": 45,
+      "price": 45,
+      "status": "confirmed",
+      "notes": "",
+      "referenceImage": null,
+      "createdAt": "2026-03-03T10:00:00.000Z"
+    },
+    {
+      "id": "booking_015",
+      "clientId": "client_004",
+      "clientName": "Michael Brown",
+      "clientEmail": "michael.brown@email.com",
+      "stylistId": "424QkQYZ5nWGhXNuddaBIiz5lE63",
+      "stylistName": "Jordan",
+      "serviceId": "2",
+      "serviceName": "Women's Haircut",
+      "date": "2026-02-28",
+      "time": "11:30",
+      "duration": 60,
+      "price": 60,
+      "status": "confirmed",
+      "notes": "",
+      "referenceImage": null,
+      "createdAt": "2026-02-25T09:00:00.000Z"
+    },
+    {
+      "id": "booking_016",
+      "clientId": "client_013",
+      "clientName": "Charlotte White",
+      "clientEmail": "charlotte.white@email.com",
+      "stylistId": "424QkQYZ5nWGhXNuddaBIiz5lE63",
+      "stylistName": "Jordan",
+      "serviceId": "19",
+      "serviceName": "Bridal Makeup",
+      "date": "2026-03-30",
+      "time": "07:00",
+      "duration": 90,
+      "price": 120,
+      "status": "confirmed",
+      "notes": "Trial run before wedding",
+      "referenceImage": "https://example.com/trial.jpg",
+      "createdAt": "2026-03-24T16:00:00.000Z"
+    },
+    {
+      "id": "booking_017",
+      "clientId": "client_014",
+      "clientName": "Liam Harris",
+      "clientEmail": "liam.harris@email.com",
+      "stylistId": "424QkQYZ5nWGhXNuddaBIiz5lE63",
+      "stylistName": "Jordan",
+      "serviceId": "4",
+      "serviceName": "Beard Trim & Style",
+      "date": "2026-03-15",
+      "time": "16:00",
+      "duration": 30,
+      "price": 25,
+      "status": "cancelled",
+      "notes": "Client cancelled",
+      "referenceImage": null,
+      "createdAt": "2026-03-13T10:00:00.000Z"
     }
   ],
   "reviews": [
     {
-      "id": 1,
+      "id": "1",
       "clientId": "user_client_1",
       "stylistId": 1,
       "serviceId": 1,
@@ -244,7 +948,7 @@
       "createdAt": "2026-02-28T16:45:00Z"
     },
     {
-      "id": 2,
+      "id": "2",
       "clientId": "user_client_3",
       "stylistId": 2,
       "serviceId": 4,
@@ -253,7 +957,7 @@
       "createdAt": "2026-03-01T11:20:00Z"
     },
     {
-      "id": 3,
+      "id": "3",
       "clientId": "user_client_4",
       "stylistId": 3,
       "serviceId": 5,
@@ -279,5 +983,6 @@
       "phone": "+1 234 567 8901",
       "createdAt": "2025-12-01T09:00:00Z"
     }
-  ]
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }

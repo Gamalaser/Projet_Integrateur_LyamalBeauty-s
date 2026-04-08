@@ -1,5 +1,6 @@
 // ========================================
 // AUTH CONTEXT - GESTION DE L'AUTHENTIFICATION
+// VERSION CORRIGÉE POUR PROTECTED ROUTES ✅
 // ========================================
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { 
@@ -13,6 +14,7 @@ import {
   GoogleAuthProvider,
   signInWithPopup
 } from 'firebase/auth';
+import app from './firebaseConfig'; // Import de l'app Firebase
 
 // Créer le Context
 const AuthContext = createContext();
@@ -32,7 +34,8 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const auth = getAuth();
+  // Initialiser Firebase Auth avec l'app
+  const auth = getAuth(app);
 
   // S'inscrire avec email et mot de passe
   const signup = async (email, password, displayName, role = 'client') => {
@@ -45,7 +48,7 @@ export const AuthProvider = ({ children }) => {
         displayName: displayName
       });
 
-      // Stocker le rôle dans localStorage (temporaire, plus tard dans Firestore)
+      // Stocker le rôle dans localStorage
       localStorage.setItem(`user_role_${userCredential.user.uid}`, role);
 
       return { user: userCredential.user, role };
@@ -126,27 +129,49 @@ export const AuthProvider = ({ children }) => {
   };
 
   // Obtenir le rôle de l'utilisateur
-  const getUserRole = (userId) => {
-    return localStorage.getItem(`user_role_${userId}`) || 'client';
+  const getUserRole = (userId = null) => {
+    // Si pas d'userId fourni, utiliser currentUser
+    const id = userId || (currentUser ? currentUser.uid : null);
+    if (!id) return 'client';
+    return localStorage.getItem(`user_role_${id}`) || 'client';
   };
 
-  // Vérifier si l'utilisateur est un coiffeur
+  // Vérifier si l'utilisateur est un coiffeur (stylist)
   const isCoiffeur = () => {
     if (!currentUser) return false;
-    return getUserRole(currentUser.uid) === 'coiffeur';
+    return currentUser.role === 'stylist';
   };
 
   // Vérifier si l'utilisateur est un admin
   const isAdmin = () => {
     if (!currentUser) return false;
-    return getUserRole(currentUser.uid) === 'admin';
+    return currentUser.role === 'admin';
   };
 
-  // Écouter les changements d'état d'authentification
+  // ========================================
+  // ✅ MODIFICATION CLÉE : Ajouter le rôle dans currentUser
+  // ========================================
   useEffect(() => {
+    setLoading(true);
+    
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setCurrentUser(user);
-      setLoading(false);
+      if (user) {
+        // Récupérer le rôle depuis localStorage
+        const role = localStorage.getItem(`user_role_${user.uid}`) || 'client';
+        
+        // ✅ IMPORTANT : Créer un objet currentUser avec le rôle inclus
+        setCurrentUser({
+          uid: user.uid,
+          email: user.email,
+          displayName: user.displayName,
+          photoURL: user.photoURL,
+          role: role // ← LE RÔLE EST MAINTENANT DANS currentUser
+        });
+      } else {
+        setCurrentUser(null);
+      }
+      
+      setLoading(false); // ✅ IMPORTANT : Fin du chargement
     });
 
     // Cleanup
@@ -156,7 +181,7 @@ export const AuthProvider = ({ children }) => {
   // Valeurs et fonctions exposées
   const value = {
     currentUser,
-    loading,
+    loading, // ✅ IMPORTANT pour ProtectedRoute
     error,
     signup,
     login,

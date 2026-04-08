@@ -1,0 +1,62 @@
+// ========================================
+// NAVIGATION.SCSS - STYLES NAVIGATION
+// ========================================
+@import '../settings.scss';
+
+.main-nav {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  
+  .nav-link {
+    font-size: $font-size-base;
+    font-weight: $font-weight-medium;
+    // TEXTE BLANC POUR ÊTRE VISIBLE SUR FOND NOIR
+    color: $color-white;
+    text-decoration: none;
+    position: relative;
+    padding: 0.5rem 0;
+    @include transition(color);
+    opacity: 0.9;
+    
+    // Soulignement au survol
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: $color-gold;
+      @include transition(width);
+    }
+    
+    &:hover {
+      color: $color-gold;
+      opacity: 1;
+      
+      &::after {
+        width: 100%;
+      }
+    }
+    
+    // Lien actif
+    &.active {
+      color: $color-gold;
+      font-weight: $font-weight-semibold;
+      opacity: 1;
+      
+      &::after {
+        width: 100%;
+      }
+    }
+  }
+}
+
+// Responsive
+@include mobile {
+  .main-nav {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}

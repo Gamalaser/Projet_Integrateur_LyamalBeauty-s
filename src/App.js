@@ -1,25 +1,42 @@
 // ========================================
-// APP.JS - VERSION COMPLÈTE FIGMA
+// APP.JS - AVEC PROTECTED ROUTES ✅
+// Corrections: Protected Routes + Sécurité
 // ========================================
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link, useLocation, useNavigate } from 'react-router-dom';
 
 import './styles/app.scss';
 
 // Import des icônes
-import { FaCut, FaSearch, FaCalendarAlt, FaStar, FaGlobe, FaFacebook, FaInstagram, FaSnapchat } from 'react-icons/fa';
+import { FaSearch, FaCalendarAlt, FaStar } from 'react-icons/fa';
 
 // Import de l'API
 import { getServices } from './tools/apiService';
+
+// Import des Contexts
+import { AuthProvider, useAuth } from './tools/AuthContext';
+import { CartProvider } from './tools/CartContext';
+import { CurrencyProvider, useCurrency } from './tools/CurrencyContext';
+
+// Import des composants
+import Header from './components/Header';
+import Footer from './components/Footer';
+import Login from './components/Login';
+import Register from './components/Register';
+import ProtectedRoute from './components/ProtectedRoute'; // ✅ AJOUTÉ
 
 // Import des pages
 import Services from './Pages/Services';
 import Team from './Pages/Team'; 
 import Booking from './Pages/Booking';
+import Shop from './Pages/Shop';
+import Cart from './Pages/Cart';
+import Account from './Pages/Account';
+import CoiffeurDashboard from './Pages/CoiffeurDashboard';
+import ProductDetails from './Pages/ProductDetails';
 
 // ========================================
 // COMPOSANT SCROLL TO TOP
-// Fait scroller la page en haut à chaque changement de route
 // ========================================
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -36,58 +53,89 @@ function ScrollToTop() {
 // ========================================
 function App() {
   return (
-    <Router>
-      <ScrollToTop />
-      <div className="App">
-        
-        {/* HEADER */}
-        <header className="app-header">
-          <div className="logo">
-            <FaCut className="logo-icon" />
-            <span className="logo-text">LYAMAL BEAUTY'S</span>
-          </div>
-          
-          <nav className="main-nav">
-            <Link to="/" className="nav-link">Home</Link>
-            <Link to="/services" className="nav-link">Services</Link>
-            <Link to="/team" className="nav-link">Team</Link>
-            <Link to="/about" className="nav-link">About</Link>
-            <Link to="/shop" className="nav-link">Shop</Link>
-          </nav>
-          
-          <div className="header-right">
-            <div className="language-switcher">
-              <FaGlobe className="globe-icon" />
-              <span className="lang-text">FR / EN</span>
-            </div>
-            <button className="btn-login">Login</button>
-            <button className="btn-signup">Sign Up</button>
-          </div>
-        </header>
-        
-        {/* CONTENU */}
-        <main className="main-content">
-         <Routes>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/services" element={<Services />} />
-              <Route path="/team" element={<Team />} />
-              <Route path="/about" element={<AboutPage />} />
-              <Route path="/shop" element={<ShopPage />} />
-              <Route path="*" element={<NotFoundPage />} />
-              <Route path="/booking" element={<Booking />} />
-        </Routes>
+    <AuthProvider>
+      <CurrencyProvider>
+        <CartProvider>
+          <Router>
+            <ScrollToTop />
+            <div className="App">
+              
+              {/* HEADER */}
+              <Header />
+              
+              {/* CONTENU */}
+              <main className="main-content">
+                <Routes>
+                  {/* ========================================
+                      ROUTES PUBLIQUES (accessibles à tous)
+                  ======================================== */}
+                  <Route path="/" element={<HomePage />} />
+                  <Route path="/services" element={<Services />} />
+                  <Route path="/team" element={<Team />} />
+                  <Route path="/about" element={<AboutPage />} />
+                  <Route path="/shop" element={<Shop />} />
+                  <Route path="/cart" element={<Cart />} />
+                  <Route path="/product/:id" element={<ProductDetails />} />
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/register" element={<Register />} />
 
-        </main>
-        
-      </div>
-    </Router>
+                  {/* ========================================
+                      ROUTES PROTÉGÉES (connexion requise)
+                  ======================================== */}
+                  
+                  {/* Booking - Connexion requise (déjà géré dans Booking.js) */}
+                  <Route 
+                    path="/booking" 
+                    element={
+                      <ProtectedRoute>
+                        <Booking />
+                      </ProtectedRoute>
+                    } 
+                  />
+
+                  {/* Account - Clients uniquement */}
+                  <Route 
+                    path="/account" 
+                    element={
+                      <ProtectedRoute requiredRole="client">
+                        <Account />
+                      </ProtectedRoute>
+                    } 
+                  />
+
+                  {/* Coiffeur Dashboard - Coiffeurs uniquement (stylist) */}
+                  <Route 
+                    path="/coiffeur-dashboard" 
+                    element={
+                      <ProtectedRoute requiredRole="stylist">
+                        <CoiffeurDashboard />
+                      </ProtectedRoute>
+                    } 
+                  />
+
+                  {/* ========================================
+                      PAGE 404 (route inexistante)
+                  ======================================== */}
+                  <Route path="*" element={<NotFoundPage />} />
+                </Routes>
+              </main>
+              
+            </div>
+          </Router>
+        </CartProvider>
+      </CurrencyProvider>
+    </AuthProvider>
   );
 }
 
 // ========================================
-// PAGE D'ACCUEIL COMPLÈTE
+// PAGE D'ACCUEIL - CORRIGÉE
 // ========================================
 function HomePage() {
+  const { currentUser } = useAuth();
+  const { formatPrice } = useCurrency();
+  const navigate = useNavigate();
+  
   // États pour charger les services depuis l'API
   const [services, setServices] = useState([]);
   const [loadingServices, setLoadingServices] = useState(true);
@@ -101,7 +149,6 @@ function HomePage() {
         setServices(data);
       } catch (err) {
         console.error('Error loading services for home page:', err);
-        // En cas d'erreur, on garde un tableau vide
       } finally {
         setLoadingServices(false);
       }
@@ -109,6 +156,18 @@ function HomePage() {
 
     fetchServices();
   }, []);
+  
+  // Gérer le clic sur "Book Now" avec vérification de connexion
+  const handleBookNowClick = (e) => {
+    e.preventDefault();
+    if (currentUser) {
+      // Si connecté, aller vers booking
+      navigate('/booking');
+    } else {
+      // Si non connecté, aller vers login
+      navigate('/login');
+    }
+  };
 
   return (
     <div className="home-page">
@@ -130,11 +189,13 @@ function HomePage() {
         </div>
       </section>
       
-      {/* HOW IT WORKS */}
+      {/* HOW IT WORKS - CARTES CLIQUABLES */}
       <section className="how-it-works">
         <h2 className="section-title">How It Works?</h2>
         <div className="steps-container">
-          <div className="step-card">
+          
+          {/* STEP 1 - Explore Profiles → /team */}
+          <Link to="/team" className="step-card">
             <div className="icon-circle">
               <FaSearch className="step-icon" />
             </div>
@@ -142,9 +203,14 @@ function HomePage() {
             <p className="step-description">
               Browse through our curated list of professional stylists and discover their specialties
             </p>
-          </div>
+          </Link>
           
-          <div className="step-card">
+          {/* STEP 2 - Book Online → /booking (avec protection) */}
+          <div 
+            className="step-card clickable" 
+            onClick={handleBookNowClick}
+            style={{ cursor: 'pointer' }}
+          >
             <div className="icon-circle">
               <FaCalendarAlt className="step-icon" />
             </div>
@@ -154,7 +220,8 @@ function HomePage() {
             </p>
           </div>
           
-          <div className="step-card">
+          {/* STEP 3 - Enjoy the Result → /services */}
+          <Link to="/services" className="step-card">
             <div className="icon-circle">
               <FaStar className="step-icon" />
             </div>
@@ -162,11 +229,12 @@ function HomePage() {
             <p className="step-description">
               Relax and let our professionals deliver exceptional results tailored to your style
             </p>
-          </div>
+          </Link>
+          
         </div>
       </section>
       
-      {/* OUR SERVICES - MODIFIÉ POUR CHARGER DEPUIS L'API */}
+      {/* OUR SERVICES - CARTES CLIQUABLES AVEC PROTECTION */}
       <section className="our-services">
         <h2 className="section-title">Our Services</h2>
         
@@ -176,9 +244,14 @@ function HomePage() {
           </div>
         ) : (
           <div className="services-grid">
-            {/* Afficher les 4 premiers services depuis l'API */}
+            {/* Cartes de services avec vérification de connexion */}
             {services.slice(0, 4).map((service) => (
-              <div key={service.id} className="service-card">
+              <div 
+                key={service.id} 
+                className="service-card"
+                onClick={handleBookNowClick}
+                style={{ cursor: 'pointer' }}
+              >
                 <div 
                   className="service-image" 
                   style={{backgroundImage: `url(${service.image})`}}
@@ -187,7 +260,7 @@ function HomePage() {
                 </div>
                 <div className="service-info">
                   <h3 className="service-name">{service.name}</h3>
-                  <p className="service-price">from ${service.priceFrom}</p>
+                  <p className="service-price">from {formatPrice(service.priceFrom)}</p>
                 </div>
               </div>
             ))}
@@ -233,62 +306,19 @@ function HomePage() {
         </div>
       </section>
       
-      {/* CALL TO ACTION */}
+      {/* CALL TO ACTION - PROTECTION CONNEXION */}
       <section className="cta-section">
         <h2 className="cta-title">Ready to book your next appointment?</h2>
-        <Link to="/services" className="btn-cta">Book Now</Link>
+        <button 
+          onClick={handleBookNowClick} 
+          className="btn-cta"
+        >
+          Book Now
+        </button>
       </section>
       
       {/* FOOTER */}
-      <footer className="app-footer">
-        <div className="footer-content">
-          
-          {/* Colonne 1 : Logo et description */}
-          <div className="footer-column">
-            <div className="footer-logo">
-              <FaCut className="footer-logo-icon" />
-              <span className="footer-logo-text">LYAMAL BEAUTY'S</span>
-            </div>
-            <p className="footer-description">
-              Your first destination for professional beauty services. Book top-rated stylists and enjoy luxury treatments in your area.
-            </p>
-          </div>
-          
-          {/* Colonne 2 : Quick Links */}
-          <div className="footer-column">
-            <h4 className="footer-heading">Quick Links</h4>
-            <ul className="footer-links">
-              <li><Link to="/">Home</Link></li>
-              <li><Link to="/services">Services</Link></li>
-              <li><Link to="/team">Our Team</Link></li>
-              <li><Link to="/about">About Us</Link></li>
-              <li><Link to="/shop">Shop</Link></li>
-            </ul>
-          </div>
-          
-          {/* Colonne 3 : Follow Us */}
-          <div className="footer-column">
-            <h4 className="footer-heading">Follow Us</h4>
-            <div className="social-icons">
-              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="social-icon">
-                <FaFacebook />
-              </a>
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="social-icon">
-                <FaInstagram />
-              </a>
-              <a href="https://snapchat.com" target="_blank" rel="noopener noreferrer" className="social-icon">
-                <FaSnapchat />
-              </a>
-            </div>
-          </div>
-          
-        </div>
-        
-        {/* Copyright */}
-        <div className="footer-bottom">
-          <p>&copy; 2026 LYAMAL BEAUTY'S - All rights reserved</p>
-        </div>
-      </footer>
+      <Footer />
       
     </div>
   );
@@ -303,15 +333,6 @@ function AboutPage() {
     <div className="page-container">
       <h1>About Us</h1>
       <p>Learn more about LYAMAL BEAUTY'S</p>
-    </div>
-  );
-}
-
-function ShopPage() {
-  return (
-    <div className="page-container">
-      <h1>Shop</h1>
-      <p>Browse our professional beauty products</p>
     </div>
   );
 }

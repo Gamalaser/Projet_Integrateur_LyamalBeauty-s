@@ -1,5 +1,6 @@
 // ========================================
 // BOOKING.SCSS - STYLES PAGE BOOKING
+// VERSION CENTRÉE ✅
 // ========================================
 
 // Variables
@@ -22,7 +23,7 @@ $font-body: 'Lato', sans-serif;
   // EN-TÊTE
   .booking-header {
     background: linear-gradient(135deg, $color-black 0%, $color-gray 100%);
-    padding: 3rem 4rem 2rem;
+    padding: 3rem 2rem 2rem;
     text-align: center;
     color: $color-white;
 
@@ -42,7 +43,7 @@ $font-body: 'Lato', sans-serif;
   // STEPPER - Indicateur d'étapes
   .stepper-section {
     background-color: $color-white;
-    padding: 2rem 4rem;
+    padding: 2rem;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 
     .stepper {
@@ -117,12 +118,13 @@ $font-body: 'Lato', sans-serif;
 
   // CONTENU PRINCIPAL
   .booking-content {
-    padding: 3rem 4rem;
+    padding: 3rem 2rem;
     background-color: $color-white-off;
 
     .booking-container {
       max-width: 1400px;
       margin: 0 auto;
+      width: 100%;
       display: grid;
       grid-template-columns: 1fr 350px;
       gap: 3rem;
@@ -464,7 +466,7 @@ $font-body: 'Lato', sans-serif;
           }
         }
 
-        // Actions (boutons) - MODIFIÉ
+        // Actions (boutons)
         .step-actions {
           display: flex;
           gap: 1rem;
@@ -493,21 +495,28 @@ $font-body: 'Lato', sans-serif;
             }
 
             &.btn-next {
-              background-color: #e8e8e8;
+              background-color: $color-gold;
               color: $color-black;
-              border: none;
+              border: 2px solid $color-gold;
               flex: 1;
-              font-size: 1.05rem;
-              padding: 1.3rem;
+              font-size: 1.2rem;
+              padding: 1.5rem 3rem;
+              font-weight: 700;
+              box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
 
               &:hover {
-                background-color: #d8d8d8;
+                background-color: $color-gold-light;
+                transform: translateY(-2px);
+                box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
               }
 
               &:disabled {
-                background-color: #f0f0f0;
+                background-color: #e0e0e0;
+                border-color: #e0e0e0;
                 color: #999;
                 cursor: not-allowed;
+                box-shadow: none;
+                transform: none;
               }
             }
 
@@ -585,6 +594,96 @@ $font-body: 'Lato', sans-serif;
           font-size: 2rem;
           font-weight: 700;
           color: $color-gold;
+        }
+      }
+    }
+  }
+
+  // ========================================
+  // AUTH REQUIRED MESSAGE
+  // ========================================
+  .auth-required-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 60vh;
+    padding: 4rem 2rem;
+
+    .auth-required-card {
+      background-color: $color-white;
+      padding: 4rem 3rem;
+      border-radius: 16px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+      text-align: center;
+      max-width: 500px;
+      width: 100%;
+
+      .auth-icon {
+        width: 100px;
+        height: 100px;
+        margin: 0 auto 2rem;
+        background: linear-gradient(135deg, $color-gold 0%, $color-gold-light 100%);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3rem;
+        color: $color-white;
+        box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
+      }
+
+      h2 {
+        font-family: $font-title;
+        font-size: 2rem;
+        color: $color-black;
+        margin-bottom: 1rem;
+      }
+
+      p {
+        color: $color-gray;
+        font-size: 1.1rem;
+        margin-bottom: 2.5rem;
+        line-height: 1.6;
+      }
+
+      .auth-buttons {
+        display: flex;
+        gap: 1rem;
+
+        .btn-login,
+        .btn-register {
+          flex: 1;
+          padding: 1.2rem 2rem;
+          border-radius: 8px;
+          font-size: 1.1rem;
+          font-weight: 700;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          border: none;
+        }
+
+        .btn-login {
+          background-color: $color-gold;
+          color: $color-black;
+          box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+
+          &:hover {
+            background-color: $color-gold-light;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
+          }
+        }
+
+        .btn-register {
+          background-color: transparent;
+          color: $color-black;
+          border: 2px solid $color-gray;
+
+          &:hover {
+            background-color: $color-gray;
+            color: $color-white;
+            border-color: $color-gray;
+          }
         }
       }
     }
