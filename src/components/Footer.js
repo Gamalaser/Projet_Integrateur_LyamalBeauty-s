@@ -1,11 +1,11 @@
-// ========================================
-// FOOTER.JS - COMPOSANT FOOTER
-// ========================================
+// importation des librairies et styles nécessaires pour le composant Footer
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FaCut, FaFacebook, FaInstagram, FaSnapchat } from 'react-icons/fa';
 import '../styles/components/footer.scss';
 
+// ici j'ai créé un composant Footer qui affiche le pied de page du site avec le logo, 
+// une description, des liens rapides et des icônes de réseaux sociaux.
 function Footer() {
   return (
     <footer className="app-footer">

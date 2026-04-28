@@ -1,0 +1,668 @@
+{
+  
+  "header": {
+    "home": "Home",
+    "services": "Services",
+    "team": "Team",
+    "booking": "Booking",
+    "shop": "Shop",
+    "about": "About",
+    "login": "Login",
+    "signup": "Sign Up",
+    "logout": "Logout",
+    "myAccount": "My Account",
+    "dashboard": "Dashboard",
+    "cart": "Cart"
+  },
+  "home": {
+    "hero": {
+      "title": "Book Your Professional Stylist in a Few Clicks",
+      "subtitle": "Experience luxury beauty services with top-rated professionals in your area",
+      "bookNow": "Book Now",
+      "viewServices": "Discover Our Services"
+    },
+    "howItWorks": {
+      "title": "How It Works?",
+      "step1": {
+        "title": "Explore Profiles",
+        "description": "Browse through our curated list of professional stylists and discover their specialties"
+      },
+      "step2": {
+        "title": "Book Online",
+        "description": "Select your preferred service, date and time that works best for your schedule"
+      },
+      "step3": {
+        "title": "Enjoy the Result",
+        "description": "Relax and let our professionals deliver exceptional results tailored to your style"
+      }
+    },
+    "ourServices": {
+      "title": "Our Services"
+    },
+    "testimonials": {
+      "title": "What Our Clients Say",
+      "testimonial1": {
+        "text": "The booking process was so easy and convenient. Great experience from start to finish. Highly recommend!",
+        "author": "— Sarah T."
+      },
+      "testimonial2": {
+        "text": "Amazing service! The stylist was professional and really listened to what I wanted. Will definitely be back.",
+        "author": "— Michael R."
+      },
+      "testimonial3": {
+        "text": "Best salon experience I've had! The platform makes everything so simple and the results are always perfect.",
+        "author": "— Jessica L."
+      }
+    },
+    "cta": {
+      "title": "Ready to book your next appointment?"
+    },
+    "notFound": {
+      "title": "Page Not Found",
+      "message": "Sorry, this page doesn't exist.",
+      "backHome": "Back to Home"
+    },
+    "about": {
+      "title": "About Us",
+      "description": "Welcome to LYAMAL BEAUTY'S, where beauty meets excellence. Our team of professional stylists is dedicated to bringing out your best look."
+    },
+    "whyChooseUs": {
+      "title": "Why Choose Us",
+      "quality": "Premium Quality",
+      "qualityDesc": "We use only the best products",
+      "experience": "Expert Team",
+      "experienceDesc": "Years of professional experience",
+      "service": "Customer Service",
+      "serviceDesc": "Your satisfaction is our priority"
+    }
+  },
+  "about": {
+    "hero": {
+      "title": "Our Story, Your Success",
+      "subtitle": "A platform born from a vision: creating opportunities for everyone, without discrimination"
+    },
+    "story": {
+      "title": "Our Story",
+      "paragraph1": "As an international student in Canada, I witnessed a reality that deeply impacted me: extraordinary talents remaining in the shadows due to lack of opportunities. Around me, I met talented hairdressers, passionate estheticians, creative barbers — all with exceptional skills, but without a platform to share them.",
+      "paragraph2": "That's how LYAMAL BEAUTY'S was born — not as a simple booking site, but as a transformation platform where barriers fall and opportunities are created. A space where talent takes precedence over status, where everyone gets their chance to shine, and where clients and professionals meet in an atmosphere of trust."
+    },
+    "mission": {
+      "title": "Our Mission",
+      "paragraph1": "Our mission is to create a space of trust and transformation for everyone. We offer free advertising to established businesses, enable individuals and international students to monetize their talents, and facilitate access to quality beauty services for all clients.",
+      "paragraph2": "On this platform, there is no status discrimination. Whether you're an established professional, a student with talent, or a client seeking the perfect service — you have your place here. We believe that talent always deserves to be recognized, no matter where it comes from."
+    },
+    "values": {
+      "title": "Our Values",
+      "excellence": {
+        "title": "Inclusion",
+        "text": "No matter who you are or where you come from, you belong here. We celebrate diversity and reject all forms of discrimination."
+      },
+      "passion": {
+        "title": "Accessibility",
+        "text": "Opportunities shouldn't be reserved for an elite. We make beauty services and professional opportunities accessible to all."
+      },
+      "innovation": {
+        "title": "Empowerment",
+        "text": "We believe in everyone's power to create their own success. Our platform gives you the tools to transform your talent into opportunity."
+      }
+    },
+    "stats": {
+      "title": "Our Impact",
+      "clients": "Satisfied Clients",
+      "years": "Years of Experience",
+      "awards": "Active Professionals",
+      "rating": "Average Rating"
+    },
+    "team": {
+      "title": "A Community of Talents",
+      "text": "LYAMAL BEAUTY'S is more than a platform — it's a family. From established professionals to emerging talents, including passionate students, we grow together and support each other in success.",
+      "button": "Discover Our Professionals"
+    },
+    "cta": {
+      "title": "Ready to Be Part of the Story?",
+      "text": "Join a platform where talent is celebrated, opportunities are endless, and everyone has their place. Whether you're seeking a service or offering your expertise — start today.",
+      "button": "Book Now"
+    }
+  },
+  "services": {
+    "title": "Our Services",
+    "subtitle": "Discover our complete range of professional beauty services tailored to your needs",
+    "bookService": "Book Now",
+    "viewDetails": "View Details",
+    "from": "from",
+    "duration": "Duration",
+    "minutes": "min",
+    "filters": {
+      "searchPlaceholder": "Search for a service...",
+      "category": "Category",
+      "allCategories": "All Categories",
+      "categories": {
+        "hairCutting": "Hair Cutting",
+        "coloring": "Coloring",
+        "beard": "Beard",
+        "nails": "Nails",
+        "spa": "Spa",
+        "massage": "Massage",
+        "facial": "Facial",
+        "makeup": "Makeup",
+        "bodyCare": "Body Care",
+        "packages": "Packages"
+      },
+      "genre": "Genre",
+      "genreOptions": {
+        "all": "All",
+        "male": "Male",
+        "female": "Female",
+        "mixed": "Mixed"
+      }
+    },
+    "results": {
+      "showing": "Showing",
+      "service": "service",
+      "services": "services"
+    },
+    "card": {
+      "duration": "Duration",
+      "genre": "Genre",
+      "minutes": "min"
+    },
+    "noResults": {
+      "title": "No services found",
+      "message": "Try adjusting your filters or search term"
+    },
+    "cta": {
+      "title": "Can't find what you're looking for?",
+      "text": "Contact us and we'll help you find the perfect service",
+      "button": "Book a Consultation"
+    },
+    "error": {
+      "title": "Oops!",
+      "loadFailed": "Failed to load services. Please try again later.",
+      "retry": "Retry"
+    },
+    "categories": {
+      "all": "All Services",
+      "hair": "Hair",
+      "styling": "Styling",
+      "treatment": "Treatment",
+      "grooming": "Grooming",
+      "makeup": "Makeup",
+      "consultation": "Consultation"
+    }
+  },
+  "team": {
+    "title": "Meet Our Team",
+    "subtitle": "Our talented professionals are here to bring your vision to life with expertise and passion",
+    "viewProfile": "View Profile",
+    "bookWith": "Book with",
+    "specialties": "Specialties",
+    "experience": "Experience",
+    "years": "years",
+    "filters": {
+      "gender": "Gender",
+      "genderOptions": {
+        "all": "All",
+        "male": "Male",
+        "female": "Female",
+        "mixed": "Mixed"
+      },
+      "specialty": "Specialty",
+      "allSpecialties": "All Specialties",
+      "specialties": {
+        "hairCutting": "Hair Cutting",
+        "coloring": "Coloring",
+        "beard": "Beard",
+        "nails": "Nails",
+        "styling": "Styling"
+      }
+    },
+    "results": {
+      "showing": "Showing",
+      "professional": "professional",
+      "professionals": "professionals"
+    },
+    "card": {
+      "yearsExp": "years exp.",
+      "reviews": "reviews",
+      "bookNow": "Book Now",
+      "viewPortfolio": "View Portfolio"
+    },
+    "noResults": {
+      "title": "No stylists found",
+      "message": "Try adjusting your filters"
+    },
+    "cta": {
+      "title": "Want to join our team?",
+      "text": "We're always looking for talented professionals to join our family",
+      "button": "Get in Touch"
+    }
+  },
+  "booking": {
+    "title": "Book an Appointment",
+    "subtitle": "Schedule your beauty treatment with our experts",
+    "authRequired": {
+      "title": "Sign In Required",
+      "message": "You need to be signed in to book an appointment",
+      "signIn": "Sign In",
+      "createAccount": "Create Account"
+    },
+    "stepper": {
+      "service": "Service",
+      "stylist": "Stylist",
+      "dateTime": "Date & Time",
+      "confirm": "Confirm"
+    },
+    "step1": {
+      "title": "Choose a Service"
+    },
+    "step2": {
+      "title": "Choose Your Stylist",
+      "firstAvailable": "First Available",
+      "firstAvailableDesc": "Get the next available stylist for your appointment"
+    },
+    "step3": {
+      "title": "Select Date & Time",
+      "chooseDate": "Choose a Date",
+      "chooseTime": "Choose a Time",
+      "referenceImage": "Reference Image (Optional)",
+      "uploadPrompt": "Click to upload a reference image",
+      "notes": "Additional Notes (Optional)",
+      "notesPlaceholder": "Any special requests or information..."
+    },
+    "confirmation": {
+      "title": "Booking Confirmed!",
+      "message": "Your appointment has been successfully booked",
+      "viewBookings": "View My Bookings"
+    },
+    "summary": {
+      "title": "Booking Summary",
+      "service": "Service",
+      "stylist": "Stylist",
+      "dateTime": "Date & Time",
+      "at": "at",
+      "date": "Date",
+      "time": "Time",
+      "duration": "Duration",
+      "price": "Price",
+      "total": "Total",
+      "notes": "Notes",
+      "referenceImage": "Reference Image"
+    },
+    "navigation": {
+      "back": "Back",
+      "continue": "Continue",
+      "confirmBooking": "Confirm Booking"
+    },
+    "error": {
+      "createFailed": "Failed to create booking. Please try again."
+    },
+    "selectService": "Select Service",
+    "selectStylist": "Select Stylist",
+    "selectDate": "Select Date",
+    "selectTime": "Select Time",
+    "yourInfo": "Your Information",
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone",
+    "notes": "Notes (Optional)",
+    "notesPlaceholder": "Any special requests or preferences...",
+    "service": "Service",
+    "date": "Date",
+    "time": "Time",
+    "total": "Total",
+    "confirmBooking": "Confirm Booking",
+    "availableTimes": "Available Times",
+    "noTimesAvailable": "No times available for this date",
+    "selectDateFirst": "Please select a date first",
+    "bookingSuccess": "Booking Confirmed!",
+    "bookingSuccessMessage": "Your appointment has been successfully booked.",
+    "bookingError": "Booking Failed",
+    "bookingErrorMessage": "Something went wrong. Please try again."
+  },
+  "shop": {
+    "title": "Our Shop",
+    "subtitle": "Browse our selection of professional beauty products",
+    "filters": {
+      "category": "Category",
+      "allCategories": "All",
+      "sortBy": "Sort by",
+      "sortOptions": {
+        "nameAZ": "Name (A-Z)",
+        "priceLowHigh": "Price (Low to High)",
+        "priceHighLow": "Price (High to Low)"
+      }
+    },
+    "results": {
+      "showing": "Showing",
+      "product": "product",
+      "products": "products"
+    },
+    "noResults": {
+      "title": "No products found",
+      "message": "Try adjusting your filters"
+    },
+    "cta": {
+      "title": "Need help choosing?",
+      "text": "Our experts are here to recommend the best products for your needs",
+      "button": "Consult Our Stylists"
+    },
+    "error": {
+      "title": "Oops!",
+      "loadFailed": "Failed to load products. Please try again later.",
+      "retry": "Retry"
+    },
+    "addToCart": "Add to Cart",
+    "outOfStock": "Out of Stock",
+    "inStock": "In Stock",
+    "viewProduct": "View Product",
+    "categories": {
+      "all": "All Products",
+      "haircare": "Hair Care",
+      "styling": "Styling",
+      "treatment": "Treatment",
+      "tools": "Tools",
+      "accessories": "Accessories"
+    }
+  },
+  "cart": {
+    "title": "Shopping Cart",
+    "empty": "Your cart is empty",
+    "continueShopping": "Continue Shopping",
+    "product": "Product",
+    "price": "Price",
+    "quantity": "Quantity",
+    "subtotal": "Subtotal",
+    "total": "Total",
+    "checkout": "Proceed to Checkout",
+    "remove": "Remove",
+    "update": "Update"
+  },
+  "account": {
+    "title": "My Account",
+    "welcome": "Welcome back, {{name}}!",
+    "subtitle": "Manage your profile and bookings",
+    "nav": {
+      "profile": "Profile",
+      "bookings": "My Bookings",
+      "logout": "Logout"
+    },
+    "profile": {
+      "title": "Profile Information",
+      "edit": "Edit Profile",
+      "cancel": "Cancel",
+      "save": "Save Changes",
+      "fullName": "Full Name",
+      "email": "Email",
+      "emailNote": "Email cannot be changed",
+      "phone": "Phone Number",
+      "address": "Address"
+    },
+    "bookings": {
+      "title": "My Bookings",
+      "newBooking": "New Booking",
+      "loading": "Loading your bookings...",
+      "loadError": "Failed to load your bookings",
+      "retry": "Retry",
+      "noBookings": "No bookings yet",
+      "noBookingsText": "Start by booking your first appointment!",
+      "bookNow": "Book Now",
+      "with": "with",
+      "at": "at",
+      "reschedule": "Reschedule",
+      "cancel": "Cancel",
+      "cancelConfirm": "Are you sure you want to cancel this booking?",
+      "cancelSuccess": "Booking cancelled successfully!",
+      "cancelError": "Failed to cancel booking. Please try again.",
+      "status": {
+        "pending": "Pending",
+        "confirmed": "Confirmed",
+        "cancelled": "Cancelled",
+        "completed": "Completed"
+      }
+    },
+    "orders": "My Orders",
+    "settings": "Settings",
+    "personalInfo": "Personal Information",
+    "contactInfo": "Contact Information",
+    "updateProfile": "Update Profile",
+    "changePassword": "Change Password",
+    "upcomingBookings": "Upcoming Bookings",
+    "pastBookings": "Past Bookings"
+  },
+  "dashboard": {
+    "welcome": "Welcome back",
+    "subtitle": "Stylist Dashboard",
+    "nav": {
+      "dashboard": "Dashboard",
+      "bookings": "My Bookings",
+      "profile": "My Profile",
+      "services": "My Services",
+      "portfolio": "My Portfolio",
+      "statistics": "Statistics",
+      "settings": "Settings"
+    },
+    "stats": {
+      "today": "Today",
+      "bookingsToday": "Bookings today",
+      "thisWeek": "This Week",
+      "last7Days": "Last 7 days",
+      "vsLastWeek": "vs last week",
+      "monthlyRevenue": "Monthly Revenue",
+      "thisMonth": "This month",
+      "vsLastMonth": "vs last month",
+      "rating": "Rating",
+      "averageRating": "Average rating"
+    },
+    "upcomingBookings": "Upcoming Bookings",
+    "noUpcoming": "No upcoming bookings",
+    "viewDetails": "View Details",
+    "quickActions": "Quick Actions",
+    "viewAllBookings": "View All Bookings",
+    "manageServices": "Manage Services",
+    "viewReports": "View Reports",
+    "calendar": {
+      "sun": "Sun",
+      "mon": "Mon",
+      "tue": "Tue",
+      "wed": "Wed",
+      "thu": "Thu",
+      "fri": "Fri",
+      "sat": "Sat",
+      "hasBookings": "Has bookings"
+    },
+    "bookings": {
+      "title": "My Bookings",
+      "allStatus": "All Status",
+      "allDates": "All Dates",
+      "upcoming": "Upcoming",
+      "past": "Past",
+      "noBookings": "No bookings found",
+      "minutes": "min",
+      "accept": "Accept",
+      "decline": "Decline",
+      "acceptSuccess": "Booking confirmed successfully!",
+      "acceptError": "Failed to accept booking. Please try again.",
+      "declineConfirm": "Are you sure you want to decline this booking?",
+      "declineSuccess": "Booking declined.",
+      "declineError": "Failed to decline booking. Please try again."
+    },
+    "profile": {
+      "title": "My Profile",
+      "professionalStylist": "Professional Stylist",
+      "contactInfo": "Contact Information",
+      "email": "Email",
+      "userId": "User ID",
+      "role": "Role",
+      "stylist": "Stylist",
+      "statistics": "Statistics",
+      "totalBookings": "Total Bookings",
+      "confirmedBookings": "Confirmed Bookings",
+      "totalRevenue": "Total Revenue",
+      "bio": "Bio",
+      "bioText": "Passionate about creating stunning transformations. Specializing in precision cuts, creative coloring, and personalized styling that brings out the best in every client."
+    },
+    "services": {
+      "title": "My Services"
+    },
+    "portfolio": {
+      "title": "My Portfolio",
+      "work": "Work"
+    },
+    "statistics": {
+      "title": "Statistics",
+      "totalBookings": "Total Bookings",
+      "totalRevenue": "Total Revenue",
+      "uniqueClients": "Unique Clients",
+      "averageRating": "Average Rating",
+      "revenueOverview": "Revenue Overview",
+      "topServices": "Top Services",
+      "bookingStatus": "Booking Status",
+      "bookingsTimeline": "Bookings Timeline (Last 30 Days)"
+    },
+    "settings": {
+      "title": "Settings",
+      "notifications": "Notifications",
+      "emailNotifications": "Email notifications",
+      "smsNotifications": "SMS notifications",
+      "bookingReminders": "Booking reminders",
+      "availability": "Availability",
+      "acceptNewBookings": "Accept new bookings",
+      "showPublicly": "Show profile publicly",
+      "dangerZone": "Danger Zone",
+      "deleteAccount": "Delete Account",
+      "deleteConfirm": "⚠️ WARNING: This will permanently delete your account and all data. This action cannot be undone.\n\nAre you absolutely sure?",
+      "deleteNotImplemented": "Account deletion feature not yet implemented. Please contact support to delete your account."
+    },
+    "modal": {
+      "bookingDetails": "Booking Details",
+      "clientInfo": "Client Information",
+      "serviceDetails": "Service Details",
+      "service": "Service",
+      "duration": "Duration",
+      "minutes": "minutes",
+      "price": "Price",
+      "appointment": "Appointment",
+      "date": "Date",
+      "time": "Time",
+      "status": "Status",
+      "notes": "Notes",
+      "acceptBooking": "Accept Booking",
+      "declineBooking": "Decline Booking",
+      "close": "Close"
+    },
+    "error": {
+      "signInRequired": "Please sign in to access your dashboard",
+      "loadFailed": "Failed to load data. Please try again.",
+      "retry": "Retry"
+    },
+    "loading": "Loading dashboard...",
+    "todayBookings": "Today's Bookings",
+    "weekBookings": "This Week",
+    "myBookings": "My Bookings",
+    "myProfile": "My Profile",
+    "myServices": "My Services",
+    "myPortfolio": "My Portfolio",
+    "viewDetails": "View Details",
+    "accept": "Accept",
+    "decline": "Decline",
+    "client": "Client",
+    "totalRevenue": "Total Revenue",
+    "uniqueClients": "Unique Clients"
+  },
+  "auth": {
+    "login": {
+      "title": "Welcome Back",
+      "subtitle": "Sign in to your LYAMAL BEAUTY'S account",
+      "emailLabel": "Email Address",
+      "emailPlaceholder": "your.email@example.com",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "Enter your password",
+      "forgotPassword": "Forgot your password?",
+      "signIn": "Sign In",
+      "signingIn": "Signing In...",
+      "or": "OR",
+      "continueWithGoogle": "Continue with Google",
+      "noAccount": "Don't have an account?",
+      "signUpLink": "Sign Up"
+    },
+    "register": {
+      "title": "Create Account",
+      "subtitle": "Join LYAMAL BEAUTY'S today",
+      "fullNameLabel": "Full Name",
+      "fullNamePlaceholder": "Enter your full name",
+      "emailLabel": "Email Address",
+      "emailPlaceholder": "your.email@example.com",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "Choose a strong password",
+      "confirmPasswordLabel": "Confirm Password",
+      "confirmPasswordPlaceholder": "Re-enter your password",
+      "phoneLabel": "Phone Number",
+      "phonePlaceholder": "Your phone number",
+      "roleLabel": "I am a",
+      "client": "Client",
+      "clientDesc": "Book beauty services with professionals",
+      "stylist": "Professional Stylist",
+      "stylistDesc": "Offer your services and grow your business",
+      "signUp": "Sign Up",
+      "signingUp": "Creating Account...",
+      "or": "OR",
+      "continueWithGoogle": "Sign up with Google",
+      "haveAccount": "Already have an account?",
+      "signInLink": "Sign In"
+    },
+    "errors": {
+      "fillAllFields": "Please fill in all fields",
+      "invalidCredentials": "Invalid email or password",
+      "tooManyAttempts": "Too many failed attempts. Please try again later.",
+      "loginFailed": "Failed to sign in. Please try again.",
+      "googleLoginFailed": "Failed to sign in with Google. Please try again.",
+      "passwordMismatch": "Passwords do not match",
+      "weakPassword": "Password should be at least 6 characters",
+      "emailInUse": "Email already in use",
+      "registerFailed": "Failed to create account. Please try again."
+    },
+    "login": "Login",
+    "signup": "Sign Up",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "fullName": "Full Name",
+    "phone": "Phone Number",
+    "forgotPassword": "Forgot Password?",
+    "dontHaveAccount": "Don't have an account?",
+    "alreadyHaveAccount": "Already have an account?",
+    "signupAsClient": "Sign up as Client",
+    "signupAsStylist": "Sign up as Stylist",
+    "loginSuccess": "Login Successful",
+    "signupSuccess": "Account Created Successfully",
+    "loginError": "Login Failed",
+    "signupError": "Sign Up Failed"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "close": "Close",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "search": "Search",
+    "filter": "Filter",
+    "sort": "Sort",
+    "reset": "Reset",
+    "apply": "Apply",
+    "confirm": "Confirm",
+    "yes": "Yes",
+    "no": "No"
+  },
+  "footer": {
+    "followUs": "Follow Us",
+    "contact": "Contact",
+    "quickLinks": "Quick Links",
+    "allRightsReserved": "All rights reserved"
+  }
+}

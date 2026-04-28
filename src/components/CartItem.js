@@ -1,7 +1,6 @@
-// ========================================
-// CART ITEM - ITEM DU PANIER
-// VERSION AVEC DEVISES ✅
-// ========================================
+// Ici nous avons ajouté l'import de useCurrency pour formater les prix, 
+// et nous avons modifié les affichages de prix pour utiliser cette fonction de formatage. 
+// Nous avons également supprimé le .toFixed(2) car la fonction de formatage gère déjà l'affichage des décimales.
 import React from 'react';
 import { useCart } from '../tools/CartContext';
 import { useCurrency } from '../tools/CurrencyContext'; // ✅ AJOUTÉ

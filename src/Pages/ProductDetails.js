@@ -5,7 +5,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useCart } from '../tools/CartContext';
-import { useCurrency } from '../tools/CurrencyContext'; // ✅ AJOUTÉ
+import { useCurrency } from '../tools/CurrencyContext'; // ici nous avons importé le hook useCurrency pour formater les prix selon la devise sélectionnée par l'utilisateur.
 import { getProductById } from '../tools/apiService';
 import { FaStar, FaShoppingCart, FaCheck, FaMinus, FaPlus, FaArrowLeft } from 'react-icons/fa';
 import '../styles/pages/productdetails.scss';
@@ -13,7 +13,8 @@ import '../styles/pages/productdetails.scss';
 function ProductDetails() {
   const { id } = useParams();
   const { addToCart, isInCart } = useCart();
-  const { formatPrice } = useCurrency(); // ✅ AJOUTÉ
+  const { formatPrice } = useCurrency(); //  ici nous avons utilisé le hook useCurrency pour obtenir la fonction formatPrice, 
+  // que nous avons utilisée pour afficher les prix du produit de manière formatée et adaptée à la devise sélectionnée par l'utilisateur.
   
   // États
   const [product, setProduct] = useState(null);

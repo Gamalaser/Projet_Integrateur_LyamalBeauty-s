@@ -1,9 +1,7 @@
-// ========================================
-// SHOP.JS - PAGE BOUTIQUE
-// VERSION CORRIGÉE : API + DEVISES + CTA CENTRÉ ✅
-// ========================================
+
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import ProductCard from '../components/ProductCard';
 
 import { FaShoppingCart } from 'react-icons/fa';
@@ -12,6 +10,7 @@ import { getProducts } from '../tools/apiService';
 import '../styles/pages/shop.scss';
 
 function Shop() {
+  const { t } = useTranslation();
   const { getTotalItems } = useCart();
   
   // États
@@ -31,14 +30,14 @@ function Shop() {
         setError(null);
       } catch (err) {
         console.error('Error loading products:', err);
-        setError('Failed to load products. Please try again later.');
+        setError(t('shop.error.loadFailed'));
       } finally {
         setLoading(false);
       }
     };
 
     fetchProducts();
-  }, []);
+  }, [t]);
   
   // Filtrer les produits
   const filteredProducts = products.filter(product => {
@@ -68,7 +67,7 @@ function Shop() {
       <div className="shop-page">
         <div className="loading-container">
           <div className="spinner"></div>
-          <p>Loading products...</p>
+          <p>{t('common.loading')}</p>
         </div>
       </div>
     );
@@ -79,9 +78,9 @@ function Shop() {
     return (
       <div className="shop-page">
         <div className="error-container">
-          <h2>Oops!</h2>
+          <h2>{t('shop.error.title')}</h2>
           <p>{error}</p>
-          <button onClick={() => window.location.reload()}>Retry</button>
+          <button onClick={() => window.location.reload()}>{t('shop.error.retry')}</button>
         </div>
       </div>
     );
@@ -93,9 +92,9 @@ function Shop() {
       {/* EN-TÊTE */}
       <section className="shop-header">
         <div className="header-content">
-          <h1 className="page-title">Our Shop</h1>
+          <h1 className="page-title">{t('shop.title')}</h1>
           <p className="page-subtitle">
-            Browse our selection of professional beauty products
+            {t('shop.subtitle')}
           </p>
           
           {/* Panier flottant */}
@@ -114,7 +113,7 @@ function Shop() {
           
           {/* Filtres par catégorie */}
           <div className="filter-group">
-            <label>Category:</label>
+            <label>{t('shop.filters.category')}:</label>
             <div className="category-buttons">
               {categories.map(category => (
                 <button
@@ -122,7 +121,7 @@ function Shop() {
                   className={`category-btn ${categoryFilter === category ? 'active' : ''}`}
                   onClick={() => setCategoryFilter(category)}
                 >
-                  {category}
+                  {category === 'All' ? t('shop.filters.allCategories') : category}
                 </button>
               ))}
             </div>
@@ -130,16 +129,16 @@ function Shop() {
           
           {/* Tri */}
           <div className="filter-group">
-            <label htmlFor="sort">Sort by:</label>
+            <label htmlFor="sort">{t('shop.filters.sortBy')}:</label>
             <select
               id="sort"
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
               className="sort-select"
             >
-              <option value="name">Name (A-Z)</option>
-              <option value="price-low">Price (Low to High)</option>
-              <option value="price-high">Price (High to Low)</option>
+              <option value="name">{t('shop.filters.sortOptions.nameAZ')}</option>
+              <option value="price-low">{t('shop.filters.sortOptions.priceLowHigh')}</option>
+              <option value="price-high">{t('shop.filters.sortOptions.priceHighLow')}</option>
             </select>
           </div>
           
@@ -150,7 +149,7 @@ function Shop() {
       <section className="shop-results">
         <div className="results-info">
           <p className="results-count">
-            Showing <span className="highlight">{sortedProducts.length}</span> product{sortedProducts.length !== 1 ? 's' : ''}
+            {t('shop.results.showing')} <span className="highlight">{sortedProducts.length}</span> {sortedProducts.length !== 1 ? t('shop.results.products') : t('shop.results.product')}
           </p>
         </div>
         
@@ -164,8 +163,8 @@ function Shop() {
         {/* Aucun résultat */}
         {sortedProducts.length === 0 && (
           <div className="no-results">
-            <h3>No products found</h3>
-            <p>Try adjusting your filters</p>
+            <h3>{t('shop.noResults.title')}</h3>
+            <p>{t('shop.noResults.message')}</p>
           </div>
         )}
         
@@ -174,9 +173,9 @@ function Shop() {
       {/* CTA */}
       <section className="shop-cta">
         <div className="cta-content">
-          <h2 className="cta-title">Need help choosing?</h2>
-          <p className="cta-text">Our experts are here to recommend the best products for your needs</p>
-          <Link to="/team" className="btn-cta">Consult Our Stylists</Link>
+          <h2 className="cta-title">{t('shop.cta.title')}</h2>
+          <p className="cta-text">{t('shop.cta.text')}</p>
+          <Link to="/team" className="btn-cta">{t('shop.cta.button')}</Link>
         </div>
       </section>
       

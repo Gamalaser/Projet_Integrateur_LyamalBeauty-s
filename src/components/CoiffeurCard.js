@@ -1,13 +1,13 @@
-// ========================================
-// COIFFEUR CARD - CARTE DE COIFFEUR
-// ========================================
+// importation des librairies et styles nécessaires pour le composant CoiffeurCard
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FaStar } from 'react-icons/fa';
 import '../styles/components/coiffeurcard.scss';
 
+// ici j'ai créé un composant CoiffeurCard qui prend en props un objet stylist contenant les informations du coiffeur.
 function CoiffeurCard({ stylist }) {
   return (
+    //ici on affiche la carte du coiffeur avec son image, son nom, son titre, sa note, ses spécialités et un bouton pour réserver un rendez-vous.
     <div className="coiffeur-card-component">
       <div 
         className="coiffeur-image" 

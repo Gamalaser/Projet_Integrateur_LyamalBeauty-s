@@ -1,9 +1,10 @@
 // ========================================
-// APP.JS - AVEC PROTECTED ROUTES ✅
-// Corrections: Protected Routes + Sécurité
+// APP.JS - AVEC TRADUCTIONS ✅
+// Corrections: Protected Routes + Sécurité + Traductions i18n + Route Checkout ✅
 // ========================================
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useLocation, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import './styles/app.scss';
 
@@ -23,7 +24,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import Login from './components/Login';
 import Register from './components/Register';
-import ProtectedRoute from './components/ProtectedRoute'; // ✅ AJOUTÉ
+import ProtectedRoute from './components/ProtectedRoute';
 
 // Import des pages
 import Services from './Pages/Services';
@@ -34,6 +35,8 @@ import Cart from './Pages/Cart';
 import Account from './Pages/Account';
 import CoiffeurDashboard from './Pages/CoiffeurDashboard';
 import ProductDetails from './Pages/ProductDetails';
+import About from './Pages/About';
+import Checkout from './Pages/Checkout';
 
 // ========================================
 // COMPOSANT SCROLL TO TOP
@@ -72,9 +75,10 @@ function App() {
                   <Route path="/" element={<HomePage />} />
                   <Route path="/services" element={<Services />} />
                   <Route path="/team" element={<Team />} />
-                  <Route path="/about" element={<AboutPage />} />
+                  <Route path="/about" element={<About />} />
                   <Route path="/shop" element={<Shop />} />
                   <Route path="/cart" element={<Cart />} />
+                  <Route path="/checkout" element={<Checkout />} /> {/* ✅ ROUTE CHECKOUT AJOUTÉE */}
                   <Route path="/product/:id" element={<ProductDetails />} />
                   <Route path="/login" element={<Login />} />
                   <Route path="/register" element={<Register />} />
@@ -83,7 +87,7 @@ function App() {
                       ROUTES PROTÉGÉES (connexion requise)
                   ======================================== */}
                   
-                  {/* Booking - Connexion requise (déjà géré dans Booking.js) */}
+                  {/* Booking - Connexion requise */}
                   <Route 
                     path="/booking" 
                     element={
@@ -129,9 +133,10 @@ function App() {
 }
 
 // ========================================
-// PAGE D'ACCUEIL - CORRIGÉE
+// PAGE D'ACCUEIL - AVEC TRADUCTIONS ✅
 // ========================================
 function HomePage() {
+  const { t } = useTranslation();
   const { currentUser } = useAuth();
   const { formatPrice } = useCurrency();
   const navigate = useNavigate();
@@ -177,13 +182,13 @@ function HomePage() {
         <div className="hero-overlay"></div>
         <div className="hero-content">
           <h1 className="hero-title">
-            Book Your Professional Stylist<br />in a Few Clicks
+            {t('home.hero.title')}
           </h1>
           <p className="hero-subtitle">
-            Experience luxury beauty services with top-rated professionals in your area
+            {t('home.hero.subtitle')}
           </p>
           <Link to="/services" className="btn-hero">
-            Discover Our Services
+            {t('home.hero.viewServices')}
             <span className="arrow">→</span>
           </Link>
         </div>
@@ -191,7 +196,7 @@ function HomePage() {
       
       {/* HOW IT WORKS - CARTES CLIQUABLES */}
       <section className="how-it-works">
-        <h2 className="section-title">How It Works?</h2>
+        <h2 className="section-title">{t('home.howItWorks.title')}</h2>
         <div className="steps-container">
           
           {/* STEP 1 - Explore Profiles → /team */}
@@ -199,9 +204,9 @@ function HomePage() {
             <div className="icon-circle">
               <FaSearch className="step-icon" />
             </div>
-            <h3 className="step-title">Explore Profiles</h3>
+            <h3 className="step-title">{t('home.howItWorks.step1.title')}</h3>
             <p className="step-description">
-              Browse through our curated list of professional stylists and discover their specialties
+              {t('home.howItWorks.step1.description')}
             </p>
           </Link>
           
@@ -214,9 +219,9 @@ function HomePage() {
             <div className="icon-circle">
               <FaCalendarAlt className="step-icon" />
             </div>
-            <h3 className="step-title">Book Online</h3>
+            <h3 className="step-title">{t('home.howItWorks.step2.title')}</h3>
             <p className="step-description">
-              Select your preferred service, date and time that works best for your schedule
+              {t('home.howItWorks.step2.description')}
             </p>
           </div>
           
@@ -225,9 +230,9 @@ function HomePage() {
             <div className="icon-circle">
               <FaStar className="step-icon" />
             </div>
-            <h3 className="step-title">Enjoy the Result</h3>
+            <h3 className="step-title">{t('home.howItWorks.step3.title')}</h3>
             <p className="step-description">
-              Relax and let our professionals deliver exceptional results tailored to your style
+              {t('home.howItWorks.step3.description')}
             </p>
           </Link>
           
@@ -236,11 +241,11 @@ function HomePage() {
       
       {/* OUR SERVICES - CARTES CLIQUABLES AVEC PROTECTION */}
       <section className="our-services">
-        <h2 className="section-title">Our Services</h2>
+        <h2 className="section-title">{t('home.ourServices.title')}</h2>
         
         {loadingServices ? (
           <div className="services-loading">
-            <p>Loading services...</p>
+            <p>{t('common.loading')}</p>
           </div>
         ) : (
           <div className="services-grid">
@@ -260,7 +265,7 @@ function HomePage() {
                 </div>
                 <div className="service-info">
                   <h3 className="service-name">{service.name}</h3>
-                  <p className="service-price">from {formatPrice(service.priceFrom)}</p>
+                  <p className="service-price">{t('services.from')} {formatPrice(service.priceFrom)}</p>
                 </div>
               </div>
             ))}
@@ -270,7 +275,7 @@ function HomePage() {
       
       {/* TESTIMONIALS */}
       <section className="testimonials">
-        <h2 className="section-title">What Our Clients Say</h2>
+        <h2 className="section-title">{t('home.testimonials.title')}</h2>
         <div className="testimonials-container">
           
           <div className="testimonial-card">
@@ -278,9 +283,9 @@ function HomePage() {
               <FaStar /><FaStar /><FaStar /><FaStar /><FaStar />
             </div>
             <p className="testimonial-text">
-              "The booking process was so easy and convenient. Great experience from start to finish. Highly recommend!"
+              {t('home.testimonials.testimonial1.text')}
             </p>
-            <p className="client-name">— Sarah T.</p>
+            <p className="client-name">{t('home.testimonials.testimonial1.author')}</p>
           </div>
           
           <div className="testimonial-card active">
@@ -288,9 +293,9 @@ function HomePage() {
               <FaStar /><FaStar /><FaStar /><FaStar /><FaStar />
             </div>
             <p className="testimonial-text">
-              "Amazing service! The stylist was professional and really listened to what I wanted. Will definitely be back."
+              {t('home.testimonials.testimonial2.text')}
             </p>
-            <p className="client-name">— Michael R.</p>
+            <p className="client-name">{t('home.testimonials.testimonial2.author')}</p>
           </div>
           
           <div className="testimonial-card">
@@ -298,51 +303,42 @@ function HomePage() {
               <FaStar /><FaStar /><FaStar /><FaStar /><FaStar />
             </div>
             <p className="testimonial-text">
-              "Best salon experience I've had! The platform makes everything so simple and the results are always perfect."
+              {t('home.testimonials.testimonial3.text')}
             </p>
-            <p className="client-name">— Jessica L.</p>
+            <p className="client-name">{t('home.testimonials.testimonial3.author')}</p>
           </div>
-          
         </div>
       </section>
       
       {/* CALL TO ACTION - PROTECTION CONNEXION */}
       <section className="cta-section">
-        <h2 className="cta-title">Ready to book your next appointment?</h2>
+        <h2 className="cta-title">{t('home.cta.title')}</h2>
         <button 
           onClick={handleBookNowClick} 
           className="btn-cta"
         >
-          Book Now
+          {t('home.hero.bookNow')}
         </button>
       </section>
       
       {/* FOOTER */}
       <Footer />
-      
+ 
     </div>
   );
 }
 
 // ========================================
-// AUTRES PAGES (Temporaires)
+// PAGE 404 - AVEC TRADUCTIONS ✅
 // ========================================
-
-function AboutPage() {
-  return (
-    <div className="page-container">
-      <h1>About Us</h1>
-      <p>Learn more about LYAMAL BEAUTY'S</p>
-    </div>
-  );
-}
-
 function NotFoundPage() {
+  const { t } = useTranslation();
+  
   return (
     <div className="page-container">
-      <h1>Page Not Found</h1>
-      <p>Sorry, this page doesn't exist.</p>
-      <Link to="/" className="btn-signup">Back to Home</Link>
+      <h1>{t('home.notFound.title')}</h1>
+      <p>{t('home.notFound.message')}</p>
+      <Link to="/" className="btn-signup">{t('home.notFound.backHome')}</Link>
     </div>
   );
 }

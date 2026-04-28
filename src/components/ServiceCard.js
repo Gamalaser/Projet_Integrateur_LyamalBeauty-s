@@ -1,6 +1,4 @@
-// ========================================
-// SERVICE CARD - CARTE DE SERVICE RÉUTILISABLE
-// ========================================
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/components/servicecard.scss';

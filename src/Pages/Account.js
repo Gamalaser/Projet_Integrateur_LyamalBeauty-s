@@ -1,25 +1,24 @@
-// ========================================
-// ACCOUNT.JS - PAGE COMPTE UTILISATEUR
-// VERSION CORRIGÉE : Bookings depuis API + Devises ✅
-// ========================================
+
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom'; // ✅ useNavigate ajouté
+import { Link, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { useAuth } from '../tools/AuthContext';
-import { useCurrency } from '../tools/CurrencyContext'; // ✅ AJOUTÉ
-import { getClientBookings, deleteBooking } from '../tools/apiService'; // ✅ deleteBooking ajouté
+import { useCurrency } from '../tools/CurrencyContext';
+import { getClientBookings, deleteBooking } from '../tools/apiService';
 import { FaUser, FaEnvelope, FaPhone, FaMapMarkerAlt, FaEdit, FaSignOutAlt, FaCalendarAlt } from 'react-icons/fa';
 import '../styles/pages/account.scss';
 
 function Account() {
+  const { t } = useTranslation();
   const { currentUser, logout } = useAuth();
-  const { formatPrice } = useCurrency(); // ✅ AJOUTÉ
-  const navigate = useNavigate(); // ✅ AJOUTÉ
+  const { formatPrice } = useCurrency();
+  const navigate = useNavigate();
   
   // États
   const [activeTab, setActiveTab] = useState('profile');
   const [isEditing, setIsEditing] = useState(false);
   
-  // États pour les bookings (API) ✅ AJOUTÉ
+  // États pour les bookings (API)
   const [bookings, setBookings] = useState([]);
   const [loadingBookings, setLoadingBookings] = useState(true);
   const [errorBookings, setErrorBookings] = useState(null);
@@ -32,7 +31,7 @@ function Account() {
     address: '123 Beauty Street, New York, NY 10001'
   });
   
-  // ✅ CHARGER LES BOOKINGS DEPUIS L'API
+  // CHARGER LES BOOKINGS DEPUIS L'API
   useEffect(() => {
     const fetchBookings = async () => {
       if (!currentUser) return;
@@ -44,43 +43,39 @@ function Account() {
         setErrorBookings(null);
       } catch (err) {
         console.error('Error fetching bookings:', err);
-        setErrorBookings('Failed to load your bookings');
+        setErrorBookings(t('account.bookings.loadError'));
       } finally {
         setLoadingBookings(false);
       }
     };
 
     fetchBookings();
-  }, [currentUser]);
+  }, [currentUser, t]);
   
-  // ✅ FONCTION POUR ANNULER UNE RÉSERVATION
+  // FONCTION POUR ANNULER UNE RÉSERVATION
   const handleCancelBooking = async (bookingId) => {
-    if (!window.confirm('Are you sure you want to cancel this booking?')) {
+    if (!window.confirm(t('account.bookings.cancelConfirm'))) {
       return;
     }
 
     try {
       await deleteBooking(bookingId);
-      // Rafraîchir la liste des bookings
       setBookings(bookings.filter(b => b.id !== bookingId));
-      alert('Booking cancelled successfully!');
+      alert(t('account.bookings.cancelSuccess'));
     } catch (err) {
       console.error('Error cancelling booking:', err);
-      alert('Failed to cancel booking. Please try again.');
+      alert(t('account.bookings.cancelError'));
     }
   };
 
-  // ✅ FONCTION POUR REPROGRAMMER UNE RÉSERVATION
+  // FONCTION POUR REPROGRAMMER UNE RÉSERVATION
   const handleRescheduleBooking = (bookingId) => {
-    // Rediriger vers la page booking
-    // TODO: Plus tard, on pourra pré-remplir les données
     navigate('/booking');
   };
   
   const handleLogout = async () => {
     try {
       await logout();
-      // L'utilisateur sera redirigé automatiquement par AuthContext
     } catch (err) {
       console.error('Logout error:', err);
     }
@@ -100,8 +95,8 @@ function Account() {
           <div className="user-avatar">
             {userData.name.charAt(0)}
           </div>
-          <h1 className="page-title">Welcome back, {userData.name.split(' ')[0]}!</h1>
-          <p className="page-subtitle">Manage your profile and bookings</p>
+          <h1 className="page-title">{t('account.welcome', { name: userData.name.split(' ')[0] })}</h1>
+          <p className="page-subtitle">{t('account.subtitle')}</p>
         </div>
       </section>
       
@@ -115,16 +110,16 @@ function Account() {
               className={`sidebar-btn ${activeTab === 'profile' ? 'active' : ''}`}
               onClick={() => setActiveTab('profile')}
             >
-              <FaUser /> Profile
+              <FaUser /> {t('account.nav.profile')}
             </button>
             <button
               className={`sidebar-btn ${activeTab === 'bookings' ? 'active' : ''}`}
               onClick={() => setActiveTab('bookings')}
             >
-              <FaCalendarAlt /> My Bookings
+              <FaCalendarAlt /> {t('account.nav.bookings')}
             </button>
             <button className="sidebar-btn logout" onClick={handleLogout}>
-              <FaSignOutAlt /> Logout
+              <FaSignOutAlt /> {t('account.nav.logout')}
             </button>
           </div>
           
@@ -135,18 +130,18 @@ function Account() {
             {activeTab === 'profile' && (
               <div className="profile-section">
                 <div className="section-header">
-                  <h2>Profile Information</h2>
+                  <h2>{t('account.profile.title')}</h2>
                   {!isEditing ? (
                     <button className="btn-edit" onClick={() => setIsEditing(true)}>
-                      <FaEdit /> Edit Profile
+                      <FaEdit /> {t('account.profile.edit')}
                     </button>
                   ) : (
                     <div className="edit-actions">
                       <button className="btn-cancel" onClick={() => setIsEditing(false)}>
-                        Cancel
+                        {t('account.profile.cancel')}
                       </button>
                       <button className="btn-save" onClick={handleSaveProfile}>
-                        Save Changes
+                        {t('account.profile.save')}
                       </button>
                     </div>
                   )}
@@ -154,7 +149,7 @@ function Account() {
                 
                 <div className="profile-form">
                   <div className="form-group">
-                    <label><FaUser /> Full Name</label>
+                    <label><FaUser /> {t('account.profile.fullName')}</label>
                     <input
                       type="text"
                       value={userData.name}
@@ -164,17 +159,17 @@ function Account() {
                   </div>
                   
                   <div className="form-group">
-                    <label><FaEnvelope /> Email</label>
+                    <label><FaEnvelope /> {t('account.profile.email')}</label>
                     <input
                       type="email"
                       value={userData.email}
                       disabled
                     />
-                    <small>Email cannot be changed</small>
+                    <small>{t('account.profile.emailNote')}</small>
                   </div>
                   
                   <div className="form-group">
-                    <label><FaPhone /> Phone Number</label>
+                    <label><FaPhone /> {t('account.profile.phone')}</label>
                     <input
                       type="tel"
                       value={userData.phone}
@@ -184,7 +179,7 @@ function Account() {
                   </div>
                   
                   <div className="form-group">
-                    <label><FaMapMarkerAlt /> Address</label>
+                    <label><FaMapMarkerAlt /> {t('account.profile.address')}</label>
                     <input
                       type="text"
                       value={userData.address}
@@ -196,66 +191,66 @@ function Account() {
               </div>
             )}
             
-            {/* BOOKINGS - ✅ CHARGEMENT DEPUIS API */}
+            {/* BOOKINGS */}
             {activeTab === 'bookings' && (
               <div className="bookings-section">
                 <div className="section-header">
-                  <h2>My Bookings</h2>
+                  <h2>{t('account.bookings.title')}</h2>
                   <Link to="/booking" className="btn-new-booking">
-                    + New Booking
+                    + {t('account.bookings.newBooking')}
                   </Link>
                 </div>
                 
-                {/* ✅ LOADING STATE */}
+                {/* LOADING STATE */}
                 {loadingBookings && (
                   <div className="bookings-loading">
                     <div className="spinner"></div>
-                    <p>Loading your bookings...</p>
+                    <p>{t('account.bookings.loading')}</p>
                   </div>
                 )}
                 
-                {/* ✅ ERROR STATE */}
+                {/* ERROR STATE */}
                 {errorBookings && (
                   <div className="bookings-error">
                     <p>{errorBookings}</p>
-                    <button onClick={() => window.location.reload()}>Retry</button>
+                    <button onClick={() => window.location.reload()}>{t('account.bookings.retry')}</button>
                   </div>
                 )}
                 
-                {/* ✅ EMPTY STATE */}
+                {/* EMPTY STATE */}
                 {!loadingBookings && !errorBookings && bookings.length === 0 && (
                   <div className="bookings-empty">
                     <FaCalendarAlt className="empty-icon" />
-                    <h3>No bookings yet</h3>
-                    <p>Start by booking your first appointment!</p>
+                    <h3>{t('account.bookings.noBookings')}</h3>
+                    <p>{t('account.bookings.noBookingsText')}</p>
                     <Link to="/booking" className="btn-book-now">
-                      Book Now
+                      {t('account.bookings.bookNow')}
                     </Link>
                   </div>
                 )}
                 
-                {/* ✅ BOOKINGS LIST */}
+                {/* BOOKINGS LIST */}
                 {!loadingBookings && !errorBookings && bookings.length > 0 && (
                   <div className="bookings-list">
                     {bookings.map(booking => (
                       <div key={booking.id} className="booking-card">
                         <div className="booking-status">
                           <span className={`status-badge ${booking.status.toLowerCase()}`}>
-                            {booking.status}
+                            {t(`account.bookings.status.${booking.status.toLowerCase()}`)}
                           </span>
                         </div>
                         
                         <div className="booking-details">
                           <h3>{booking.serviceName || booking.service}</h3>
-                          <p className="booking-stylist">with {booking.stylistName || booking.stylist}</p>
+                          <p className="booking-stylist">{t('account.bookings.with')} {booking.stylistName || booking.stylist}</p>
                           <div className="booking-info">
                             <span><FaCalendarAlt /> {booking.date}</span>
-                            <span>at {booking.time}</span>
+                            <span>{t('account.bookings.at')} {booking.time}</span>
                           </div>
                         </div>
                         
                         <div className="booking-price">
-                          {formatPrice(booking.price)} {/* ✅ CONVERSION DEVISE */}
+                          {formatPrice(booking.price)}
                         </div>
                         
                         {booking.status === 'pending' && (
@@ -264,13 +259,13 @@ function Account() {
                               className="btn-reschedule"
                               onClick={() => handleRescheduleBooking(booking.id)}
                             >
-                              Reschedule
+                              {t('account.bookings.reschedule')}
                             </button>
                             <button 
                               className="btn-cancel-booking"
                               onClick={() => handleCancelBooking(booking.id)}
                             >
-                              Cancel
+                              {t('account.bookings.cancel')}
                             </button>
                           </div>
                         )}

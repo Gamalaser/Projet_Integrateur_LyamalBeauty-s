@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { FiHome, FiCalendar, FiUser, FiSettings, FiPackage, FiImage, FiBarChart2, FiClock, FiDollarSign, FiStar, FiCheck, FiX, FiEdit, FiTrash2, FiPlus } from 'react-icons/fi';
+import { useTranslation } from 'react-i18next';
+import { FiHome, FiCalendar, FiUser, FiSettings, FiPackage, FiImage, FiBarChart2, FiClock, FiDollarSign, FiStar, FiCheck, FiX, FiFileText } from 'react-icons/fi';
 import { getStylistBookings, getServices, updateBooking } from '../tools/apiService';
 import { useAuth } from '../tools/AuthContext';
 import { useCurrency } from '../tools/CurrencyContext';
@@ -7,6 +8,7 @@ import '../styles/pages/coiffeurdashboard.scss';
 import { LineChart, Line, BarChart, Bar, PieChart, Pie, AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Cell } from 'recharts';
 
 const CoiffeurDashboard = () => {
+  const { t } = useTranslation();
   const { currentUser } = useAuth();
   const { formatPrice } = useCurrency();
   const [activeMenu, setActiveMenu] = useState('dashboard');
@@ -16,8 +18,8 @@ const CoiffeurDashboard = () => {
   const [error, setError] = useState(null);
   const [filterStatus, setFilterStatus] = useState('all');
   const [filterDate, setFilterDate] = useState('all');
+  const [selectedBooking, setSelectedBooking] = useState(null);
 
-  // ✅ CHARGEMENT DES DONNÉES (DÉJÀ DYNAMIQUE !)
   const loadData = useCallback(async () => {
     if (!currentUser?.uid) {
       setLoading(false);
@@ -28,37 +30,47 @@ const CoiffeurDashboard = () => {
       setLoading(true);
       setError(null);
       
-      // ✅ Charge UNIQUEMENT les bookings de CE stylist
       const bookingsData = await getStylistBookings(currentUser.uid);
       setBookings(bookingsData || []);
       
-      // Charge tous les services
       const servicesData = await getServices();
       setServices(servicesData || []);
     } catch (err) {
       console.error('Error loading data:', err);
-      setError('Failed to load data. Please try again.');
+      setError(t('dashboard.error.loadFailed'));
     } finally {
       setLoading(false);
     }
-  }, [currentUser?.uid]); // ✅ Dépend de currentUser.uid
+  }, [currentUser?.uid, t]);
 
   useEffect(() => {
     loadData();
   }, [loadData]);
 
-  // ✅ VÉRIFICATION : Si pas de currentUser, afficher message (APRÈS les hooks)
   if (!currentUser) {
     return (
       <div className="coiffeur-dashboard">
         <div className="loading-container">
-          <p>Please sign in to access your dashboard</p>
+          <p>{t('dashboard.error.signInRequired')}</p>
         </div>
       </div>
     );
   }
 
-  // CALCULATE STATS (sur les bookings DÉJÀ FILTRÉS)
+  const handleViewBookingDetails = (booking) => {
+    setSelectedBooking(booking);
+  };
+
+  const handleCloseBookingDetails = () => {
+    setSelectedBooking(null);
+  };
+
+  const handleDeleteAccount = () => {
+    if (window.confirm(t('dashboard.settings.deleteConfirm'))) {
+      alert(t('dashboard.settings.deleteNotImplemented'));
+    }
+  };
+
   const calculateStats = () => {
     const today = new Date().toISOString().split('T')[0];
     const currentDate = new Date();
@@ -69,16 +81,13 @@ const CoiffeurDashboard = () => {
     const lastMonth = currentMonth === 0 ? 11 : currentMonth - 1;
     const lastMonthYear = currentMonth === 0 ? currentYear - 1 : currentYear;
 
-    // Today's bookings
     const todayBookings = bookings.filter(b => b.date === today && b.status !== 'cancelled').length;
 
-    // This week's bookings
     const thisWeekBookings = bookings.filter(b => {
       const bookingDate = new Date(b.date);
       return bookingDate >= sevenDaysAgo && bookingDate <= currentDate && b.status !== 'cancelled';
     }).length;
 
-    // Last week's bookings (for growth calculation)
     const lastWeekBookings = bookings.filter(b => {
       const bookingDate = new Date(b.date);
       return bookingDate >= fourteenDaysAgo && bookingDate < sevenDaysAgo && b.status !== 'cancelled';
@@ -86,7 +95,6 @@ const CoiffeurDashboard = () => {
 
     const weekGrowth = lastWeekBookings > 0 ? ((thisWeekBookings - lastWeekBookings) / lastWeekBookings * 100).toFixed(1) : 0;
 
-    // Monthly revenue
     const monthlyRevenue = bookings
       .filter(b => {
         const bookingDate = new Date(b.date);
@@ -96,7 +104,6 @@ const CoiffeurDashboard = () => {
       })
       .reduce((sum, b) => sum + (b.price || 0), 0);
 
-    // Last month revenue (for growth calculation)
     const lastMonthRevenue = bookings
       .filter(b => {
         const bookingDate = new Date(b.date);
@@ -108,7 +115,6 @@ const CoiffeurDashboard = () => {
 
     const revenueGrowth = lastMonthRevenue > 0 ? ((monthlyRevenue - lastMonthRevenue) / lastMonthRevenue * 100).toFixed(1) : 0;
 
-    // Average rating (mock for now)
     const avgRating = 4.8;
 
     return {
@@ -123,7 +129,6 @@ const CoiffeurDashboard = () => {
 
   const stats = calculateStats();
 
-  // GET UPCOMING BOOKINGS (next 5)
   const getUpcomingBookings = () => {
     const today = new Date();
     return bookings
@@ -132,16 +137,13 @@ const CoiffeurDashboard = () => {
       .slice(0, 5);
   };
 
-  // GET FILTERED BOOKINGS
   const getFilteredBookings = () => {
     let filtered = [...bookings];
 
-    // Filter by status
     if (filterStatus !== 'all') {
       filtered = filtered.filter(b => b.status === filterStatus);
     }
 
-    // Filter by date
     const today = new Date();
     if (filterDate === 'upcoming') {
       filtered = filtered.filter(b => new Date(b.date) >= today);
@@ -152,33 +154,34 @@ const CoiffeurDashboard = () => {
     return filtered.sort((a, b) => new Date(b.date) - new Date(a.date));
   };
 
-  // HANDLE ACCEPT BOOKING
   const handleAcceptBooking = async (bookingId) => {
     try {
       await updateBooking(bookingId, { status: 'confirmed' });
       setBookings(prevBookings =>
         prevBookings.map(b => b.id === bookingId ? { ...b, status: 'confirmed' } : b)
       );
+      alert(t('dashboard.bookings.acceptSuccess'));
     } catch (err) {
       console.error('Error accepting booking:', err);
-      alert('Failed to accept booking. Please try again.');
+      alert(t('dashboard.bookings.acceptError'));
     }
   };
 
-  // HANDLE DECLINE BOOKING
   const handleDeclineBooking = async (bookingId) => {
-    try {
-      await updateBooking(bookingId, { status: 'cancelled' });
-      setBookings(prevBookings =>
-        prevBookings.map(b => b.id === bookingId ? { ...b, status: 'cancelled' } : b)
-      );
-    } catch (err) {
-      console.error('Error declining booking:', err);
-      alert('Failed to decline booking. Please try again.');
+    if (window.confirm(t('dashboard.bookings.declineConfirm'))) {
+      try {
+        await updateBooking(bookingId, { status: 'cancelled' });
+        setBookings(prevBookings =>
+          prevBookings.map(b => b.id === bookingId ? { ...b, status: 'cancelled' } : b)
+        );
+        alert(t('dashboard.bookings.declineSuccess'));
+      } catch (err) {
+        console.error('Error declining booking:', err);
+        alert(t('dashboard.bookings.declineError'));
+      }
     }
   };
 
-  // GET DAYS WITH BOOKINGS (for calendar)
   const getDaysWithBookings = () => {
     const currentDate = new Date();
     const currentMonth = currentDate.getMonth();
@@ -194,7 +197,6 @@ const CoiffeurDashboard = () => {
       .map(b => parseInt(b.date.split('-')[2]));
   };
 
-  // GENERATE CALENDAR
   const generateCalendar = () => {
     const currentDate = new Date();
     const year = currentDate.getFullYear();
@@ -206,12 +208,10 @@ const CoiffeurDashboard = () => {
     const weeks = [];
     let days = [];
     
-    // Add empty cells for days before month starts
     for (let i = 0; i < firstDay; i++) {
       days.push(<div key={`empty-${i}`} className="calendar-day empty"></div>);
     }
     
-    // Add days of month
     for (let day = 1; day <= daysInMonth; day++) {
       const hasBooking = daysWithBookings.includes(day);
       days.push(
@@ -220,14 +220,12 @@ const CoiffeurDashboard = () => {
         </div>
       );
       
-      // Start new week
       if ((firstDay + day) % 7 === 0) {
         weeks.push(<div key={`week-${weeks.length}`} className="calendar-week">{days}</div>);
         days = [];
       }
     }
     
-    // Add remaining days
     if (days.length > 0) {
       weeks.push(<div key={`week-${weeks.length}`} className="calendar-week">{days}</div>);
     }
@@ -235,12 +233,6 @@ const CoiffeurDashboard = () => {
     return weeks;
   };
 
-  // ========================================
-  // STATISTICS DATA CALCULATIONS
-  // (Tous basés sur les bookings DÉJÀ FILTRÉS par stylistId)
-  // ========================================
-  
-  // Revenue by month (last 6 months)
   const getRevenueByMonth = () => {
     const months = [];
     const currentDate = new Date();
@@ -269,7 +261,6 @@ const CoiffeurDashboard = () => {
     return months;
   };
 
-  // Bookings by service (top 5)
   const getBookingsByService = () => {
     const serviceCounts = {};
     
@@ -286,7 +277,6 @@ const CoiffeurDashboard = () => {
       .slice(0, 5);
   };
 
-  // Status distribution
   const getStatusDistribution = () => {
     const statusCounts = {
       confirmed: 0,
@@ -301,13 +291,12 @@ const CoiffeurDashboard = () => {
     });
     
     return [
-      { name: 'Confirmed', value: statusCounts.confirmed, color: '#10b981' },
-      { name: 'Pending', value: statusCounts.pending, color: '#f59e0b' },
-      { name: 'Cancelled', value: statusCounts.cancelled, color: '#ef4444' }
+      { name: t('account.bookings.status.confirmed'), value: statusCounts.confirmed, color: '#10b981' },
+      { name: t('account.bookings.status.pending'), value: statusCounts.pending, color: '#f59e0b' },
+      { name: t('account.bookings.status.cancelled'), value: statusCounts.cancelled, color: '#ef4444' }
     ];
   };
 
-  // Bookings over time (last 30 days)
   const getBookingsOverTime = () => {
     const days = [];
     const currentDate = new Date();
@@ -328,25 +317,67 @@ const CoiffeurDashboard = () => {
     return days;
   };
 
-  // ========================================
-  // RENDER FUNCTIONS
-  // ========================================
+  const getServiceImage = (service) => {
+    if (service.image && service.image.startsWith('http')) {
+      return service.image;
+    }
+    
+    const serviceImages = {
+      "Men's Haircut": 'https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=400&q=80',
+      "Women's Haircut": 'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=400&q=80',
+      'Hair Coloring': 'https://images.unsplash.com/photo-1562322140-8baeececf3df?w=400&q=80',
+      'Balayage': 'https://images.unsplash.com/photo-1522337660859-02fbefca4702?w=400&q=80',
+      'Blowout': 'https://images.unsplash.com/photo-1595475207225-428b62bda831?w=400&q=80',
+      'Keratin Treatment': 'https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?w=400&q=80',
+      'Hair Extensions': 'https://images.unsplash.com/photo-1492106087820-71f1a00d2b11?w=400&q=80',
+      'Deep Conditioning': 'https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=400&q=80',
+      'Updo Styling': 'https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=400&q=80',
+      'Bridal Hair': 'https://images.unsplash.com/photo-1519741497674-611481863552?w=400&q=80',
+      'Beard Trim': 'https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=400&q=80',
+      'Hot Towel Shave': 'https://images.unsplash.com/photo-1622286342621-4bd786c2447c?w=400&q=80',
+      'Hair Highlights': 'https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=400&q=80',
+      'Ombre': 'https://images.unsplash.com/photo-1605497788044-5a32c7078486?w=400&q=80',
+      'Root Touch-Up': 'https://images.unsplash.com/photo-1562322140-8baeececf3df?w=400&q=80',
+      'Perm': 'https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=400&q=80',
+      'Japanese Straightening': 'https://images.unsplash.com/photo-1562322140-8baeececf3df?w=400&q=80',
+      'Scalp Treatment': 'https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=400&q=80',
+      'Kids Haircut': 'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=400&q=80',
+      'Bang Trim': 'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=400&q=80',
+      'Consultation': 'https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=400&q=80',
+      'Olaplex Treatment': 'https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=400&q=80',
+      'Makeup Application': 'https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=400&q=80'
+    };
+    
+    if (serviceImages[service.name]) {
+      return serviceImages[service.name];
+    }
+    
+    const categoryImages = {
+      'Hair': 'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=400&q=80',
+      'Styling': 'https://images.unsplash.com/photo-1562322140-8baeececf3df?w=400&q=80',
+      'Treatment': 'https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=400&q=80',
+      'Grooming': 'https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=400&q=80',
+      'Makeup': 'https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=400&q=80',
+      'Consultation': 'https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=400&q=80'
+    };
+    
+    return categoryImages[service.category] || 'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=400&q=80';
+  };
 
   const renderDashboard = () => (
     <div className="dashboard-content">
       <div className="content-left">
-        {/* Stats Cards */}
         <div className="stats-grid">
           <div className="stat-card">
             <div className="stat-header">
               <div className="stat-icon today">
                 <FiCalendar />
               </div>
-              <span className="stat-label">Today</span>
+              <span className="stat-label">{t('dashboard.stats.today')}</span>
             </div>
             <div className="stat-value">{stats.todayBookings}</div>
             <div className="stat-description">
-              <span>Bookings today</span>
+              <span>{t('dashboard.stats.bookingsToday')}</span>
             </div>
           </div>
 
@@ -355,13 +386,13 @@ const CoiffeurDashboard = () => {
               <div className="stat-icon week">
                 <FiClock />
               </div>
-              <span className="stat-label">This Week</span>
+              <span className="stat-label">{t('dashboard.stats.thisWeek')}</span>
             </div>
             <div className="stat-value">{stats.thisWeekBookings}</div>
             <div className="stat-description">
-              <span>Last 7 days</span>
+              <span>{t('dashboard.stats.last7Days')}</span>
               <span className={`stat-growth ${stats.weekGrowth >= 0 ? 'positive' : ''}`}>
-                {stats.weekGrowth >= 0 ? '+' : ''}{stats.weekGrowth}% vs last week
+                {stats.weekGrowth >= 0 ? '+' : ''}{stats.weekGrowth}% {t('dashboard.stats.vsLastWeek')}
               </span>
             </div>
           </div>
@@ -371,13 +402,13 @@ const CoiffeurDashboard = () => {
               <div className="stat-icon revenue">
                 <FiDollarSign />
               </div>
-              <span className="stat-label">Monthly Revenue</span>
+              <span className="stat-label">{t('dashboard.stats.monthlyRevenue')}</span>
             </div>
             <div className="stat-value">{formatPrice(stats.monthlyRevenue)}</div>
             <div className="stat-description">
-              <span>This month</span>
+              <span>{t('dashboard.stats.thisMonth')}</span>
               <span className={`stat-growth ${stats.revenueGrowth >= 0 ? 'positive' : ''}`}>
-                {stats.revenueGrowth >= 0 ? '+' : ''}{stats.revenueGrowth}% vs last month
+                {stats.revenueGrowth >= 0 ? '+' : ''}{stats.revenueGrowth}% {t('dashboard.stats.vsLastMonth')}
               </span>
             </div>
           </div>
@@ -387,7 +418,7 @@ const CoiffeurDashboard = () => {
               <div className="stat-icon rating">
                 <FiStar />
               </div>
-              <span className="stat-label">Rating</span>
+              <span className="stat-label">{t('dashboard.stats.rating')}</span>
             </div>
             <div className="stat-value">
               {stats.avgRating}
@@ -398,18 +429,17 @@ const CoiffeurDashboard = () => {
               </div>
             </div>
             <div className="stat-description">
-              <span>Average rating</span>
+              <span>{t('dashboard.stats.averageRating')}</span>
             </div>
           </div>
         </div>
 
-        {/* Upcoming Bookings */}
         <div className="upcoming-section">
-          <h2 className="section-title">Upcoming Bookings</h2>
+          <h2 className="section-title">{t('dashboard.upcomingBookings')}</h2>
           <div className="bookings-list">
             {getUpcomingBookings().length === 0 ? (
               <div className="no-bookings">
-                <p>No upcoming bookings</p>
+                <p>{t('dashboard.noUpcoming')}</p>
               </div>
             ) : (
               getUpcomingBookings().map(booking => (
@@ -428,7 +458,12 @@ const CoiffeurDashboard = () => {
                   </div>
                   <div className="booking-actions">
                     <span className={`booking-status ${booking.status}`}>{booking.status}</span>
-                    <button className="btn-view-details">View Details</button>
+                    <button 
+                      className="btn-view-details"
+                      onClick={() => handleViewBookingDetails(booking)}
+                    >
+                      {t('dashboard.viewDetails')}
+                    </button>
                   </div>
                 </div>
               ))
@@ -436,23 +471,29 @@ const CoiffeurDashboard = () => {
           </div>
         </div>
 
-        {/* Quick Actions */}
         <div className="quick-actions">
-          <h2 className="section-title">Quick Actions</h2>
+          <h2 className="section-title">{t('dashboard.quickActions')}</h2>
           <div className="actions-grid">
-            <button className="action-btn" onClick={() => setActiveMenu('bookings')}>View All Bookings</button>
-            <button className="action-btn" onClick={() => setActiveMenu('services')}>Manage Services</button>
-            <button className="action-btn" onClick={() => setActiveMenu('statistics')}>View Reports</button>
+            <button className="action-btn" onClick={() => setActiveMenu('bookings')}>{t('dashboard.viewAllBookings')}</button>
+            <button className="action-btn" onClick={() => setActiveMenu('services')}>{t('dashboard.manageServices')}</button>
+            <button className="action-btn" onClick={() => setActiveMenu('statistics')}>{t('dashboard.viewReports')}</button>
           </div>
         </div>
       </div>
 
       <div className="content-right">
-        {/* Calendar */}
         <div className="calendar-widget">
           <h3 className="calendar-title">{new Date().toLocaleString('default', { month: 'long', year: 'numeric' })}</h3>
           <div className="calendar-weekdays">
-            {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
+            {[
+              t('dashboard.calendar.sun'),
+              t('dashboard.calendar.mon'),
+              t('dashboard.calendar.tue'),
+              t('dashboard.calendar.wed'),
+              t('dashboard.calendar.thu'),
+              t('dashboard.calendar.fri'),
+              t('dashboard.calendar.sat')
+            ].map(day => (
               <div key={day} className="weekday">{day}</div>
             ))}
           </div>
@@ -462,7 +503,7 @@ const CoiffeurDashboard = () => {
           <div className="calendar-legend">
             <div className="legend-item">
               <div className="legend-dot"></div>
-              <span>Has bookings</span>
+              <span>{t('dashboard.calendar.hasBookings')}</span>
             </div>
           </div>
         </div>
@@ -472,7 +513,7 @@ const CoiffeurDashboard = () => {
 
   const renderBookings = () => (
     <div className="bookings-page">
-      <h1 className="page-title-section">My Bookings</h1>
+      <h1 className="page-title-section">{t('dashboard.bookings.title')}</h1>
       
       <div className="filters">
         <select 
@@ -480,10 +521,10 @@ const CoiffeurDashboard = () => {
           value={filterStatus}
           onChange={(e) => setFilterStatus(e.target.value)}
         >
-          <option value="all">All Status</option>
-          <option value="pending">Pending</option>
-          <option value="confirmed">Confirmed</option>
-          <option value="cancelled">Cancelled</option>
+          <option value="all">{t('dashboard.bookings.allStatus')}</option>
+          <option value="pending">{t('account.bookings.status.pending')}</option>
+          <option value="confirmed">{t('account.bookings.status.confirmed')}</option>
+          <option value="cancelled">{t('account.bookings.status.cancelled')}</option>
         </select>
         
         <select 
@@ -491,16 +532,16 @@ const CoiffeurDashboard = () => {
           value={filterDate}
           onChange={(e) => setFilterDate(e.target.value)}
         >
-          <option value="all">All Dates</option>
-          <option value="upcoming">Upcoming</option>
-          <option value="past">Past</option>
+          <option value="all">{t('dashboard.bookings.allDates')}</option>
+          <option value="upcoming">{t('dashboard.bookings.upcoming')}</option>
+          <option value="past">{t('dashboard.bookings.past')}</option>
         </select>
       </div>
 
       <div className="bookings-table">
         {getFilteredBookings().length === 0 ? (
           <div className="no-bookings-large">
-            <p>No bookings found</p>
+            <p>{t('dashboard.bookings.noBookings')}</p>
           </div>
         ) : (
           getFilteredBookings().map(booking => (
@@ -519,7 +560,7 @@ const CoiffeurDashboard = () => {
               
               <div className="booking-col-service">
                 <div className="service-name">{booking.serviceName}</div>
-                <div className="service-duration">{booking.duration} min</div>
+                <div className="service-duration">{booking.duration} {t('dashboard.bookings.minutes')}</div>
               </div>
               
               <div className="booking-col-datetime">
@@ -547,14 +588,14 @@ const CoiffeurDashboard = () => {
                     <button 
                       className="btn-icon-success"
                       onClick={() => handleAcceptBooking(booking.id)}
-                      title="Accept"
+                      title={t('dashboard.bookings.accept')}
                     >
                       <FiCheck />
                     </button>
                     <button 
                       className="btn-icon-danger"
                       onClick={() => handleDeclineBooking(booking.id)}
-                      title="Decline"
+                      title={t('dashboard.bookings.decline')}
                     >
                       <FiX />
                     </button>
@@ -570,7 +611,7 @@ const CoiffeurDashboard = () => {
 
   const renderProfile = () => (
     <div className="profile-page">
-      <h1 className="page-title-section">My Profile</h1>
+      <h1 className="page-title-section">{t('dashboard.profile.title')}</h1>
       
       <div className="profile-card">
         <div className="profile-header-card">
@@ -579,51 +620,47 @@ const CoiffeurDashboard = () => {
           </div>
           <div>
             <h3>{currentUser?.displayName || 'Stylist'}</h3>
-            <p>Professional Stylist</p>
+            <p>{t('dashboard.profile.professionalStylist')}</p>
           </div>
-          <button className="btn-edit-profile">
-            <FiEdit /> Edit Profile
-          </button>
         </div>
         
         <div className="profile-body">
           <div className="profile-section">
-            <h4>Contact Information</h4>
+            <h4>{t('dashboard.profile.contactInfo')}</h4>
             <div className="info-row">
-              <span className="info-label">Email</span>
+              <span className="info-label">{t('dashboard.profile.email')}</span>
               <span className="info-value">{currentUser?.email || 'stylist@lyamalbeautys.com'}</span>
             </div>
             <div className="info-row">
-              <span className="info-label">User ID</span>
+              <span className="info-label">{t('dashboard.profile.userId')}</span>
               <span className="info-value">{currentUser?.uid || 'N/A'}</span>
             </div>
             <div className="info-row">
-              <span className="info-label">Role</span>
-              <span className="info-value">Stylist</span>
+              <span className="info-label">{t('dashboard.profile.role')}</span>
+              <span className="info-value">{t('dashboard.profile.stylist')}</span>
             </div>
           </div>
           
           <div className="profile-section">
-            <h4>Statistics</h4>
+            <h4>{t('dashboard.profile.statistics')}</h4>
             <div className="info-row">
-              <span className="info-label">Total Bookings</span>
+              <span className="info-label">{t('dashboard.profile.totalBookings')}</span>
               <span className="info-value">{bookings.length}</span>
             </div>
             <div className="info-row">
-              <span className="info-label">Confirmed Bookings</span>
+              <span className="info-label">{t('dashboard.profile.confirmedBookings')}</span>
               <span className="info-value">{bookings.filter(b => b.status === 'confirmed').length}</span>
             </div>
             <div className="info-row">
-              <span className="info-label">Total Revenue</span>
+              <span className="info-label">{t('dashboard.profile.totalRevenue')}</span>
               <span className="info-value">{formatPrice(bookings.filter(b => b.status === 'confirmed').reduce((sum, b) => sum + (b.price || 0), 0))}</span>
             </div>
           </div>
           
           <div className="profile-section">
-            <h4>Bio</h4>
+            <h4>{t('dashboard.profile.bio')}</h4>
             <p className="bio-text">
-              Passionate about creating stunning transformations. Specializing in precision cuts, 
-              creative coloring, and personalized styling that brings out the best in every client.
+              {t('dashboard.profile.bioText')}
             </p>
           </div>
         </div>
@@ -634,28 +671,21 @@ const CoiffeurDashboard = () => {
   const renderServices = () => (
     <div className="services-page">
       <div className="page-header-section">
-        <h1 className="page-title-section">My Services</h1>
-        <button className="btn-add">
-          <FiPlus /> Add Service
-        </button>
+        <h1 className="page-title-section">{t('dashboard.services.title')}</h1>
       </div>
       
       <div className="services-grid-dash">
         {services.slice(0, 6).map(service => (
           <div key={service.id} className="service-card-dash">
-            <img src={service.image} alt={service.name} className="service-image-dash" />
+            <img 
+              src={getServiceImage(service)} 
+              alt={service.name} 
+              className="service-image-dash" 
+            />
             <div className="service-content-dash">
               <h3>{service.name}</h3>
-              <p className="service-duration-dash">{service.duration} min</p>
+              <p className="service-duration-dash">{service.duration} {t('dashboard.bookings.minutes')}</p>
               <p className="service-price-dash">{formatPrice(service.priceFrom)}</p>
-              <div className="service-actions-dash">
-                <button className="btn-edit-small">
-                  <FiEdit /> Edit
-                </button>
-                <button className="btn-delete-small">
-                  <FiTrash2 /> Delete
-                </button>
-              </div>
             </div>
           </div>
         ))}
@@ -679,10 +709,7 @@ const CoiffeurDashboard = () => {
     return (
       <div className="portfolio-page">
         <div className="page-header-section">
-          <h1 className="page-title-section">My Portfolio</h1>
-          <button className="btn-add">
-            <FiPlus /> Add Photo
-          </button>
+          <h1 className="page-title-section">{t('dashboard.portfolio.title')}</h1>
         </div>
         
         <div className="portfolio-grid">
@@ -694,10 +721,7 @@ const CoiffeurDashboard = () => {
                 className="portfolio-image"
               />
               <div className="portfolio-overlay">
-                <h4 className="portfolio-title">Work {index + 1}</h4>
-                <button className="btn-delete-overlay">
-                  <FiTrash2 /> Delete
-                </button>
+                <h4 className="portfolio-title">{t('dashboard.portfolio.work')} {index + 1}</h4>
               </div>
             </div>
           ))}
@@ -712,7 +736,6 @@ const CoiffeurDashboard = () => {
     const statusData = getStatusDistribution();
     const timelineData = getBookingsOverTime();
     
-    // Calculate total stats (sur les bookings DÉJÀ FILTRÉS)
     const totalBookings = bookings.length;
     const totalRevenue = bookings
       .filter(b => b.status === 'confirmed')
@@ -722,15 +745,14 @@ const CoiffeurDashboard = () => {
 
     return (
       <div className="statistics-page">
-        <h1 className="page-title-section">Statistics</h1>
+        <h1 className="page-title-section">{t('dashboard.statistics.title')}</h1>
         
-        {/* Stats Overview */}
         <div className="stats-overview">
           <div className="stat-box">
             <FiCalendar className="stat-box-icon" />
             <div>
               <div className="stat-box-value">{totalBookings}</div>
-              <div className="stat-box-label">Total Bookings</div>
+              <div className="stat-box-label">{t('dashboard.statistics.totalBookings')}</div>
             </div>
           </div>
           
@@ -738,7 +760,7 @@ const CoiffeurDashboard = () => {
             <FiDollarSign className="stat-box-icon" />
             <div>
               <div className="stat-box-value">{formatPrice(totalRevenue)}</div>
-              <div className="stat-box-label">Total Revenue</div>
+              <div className="stat-box-label">{t('dashboard.statistics.totalRevenue')}</div>
             </div>
           </div>
           
@@ -746,7 +768,7 @@ const CoiffeurDashboard = () => {
             <FiUser className="stat-box-icon" />
             <div>
               <div className="stat-box-value">{uniqueClients}</div>
-              <div className="stat-box-label">Unique Clients</div>
+              <div className="stat-box-label">{t('dashboard.statistics.uniqueClients')}</div>
             </div>
           </div>
           
@@ -754,16 +776,14 @@ const CoiffeurDashboard = () => {
             <FiStar className="stat-box-icon" />
             <div>
               <div className="stat-box-value">{avgRating}</div>
-              <div className="stat-box-label">Average Rating</div>
+              <div className="stat-box-label">{t('dashboard.statistics.averageRating')}</div>
             </div>
           </div>
         </div>
 
-        {/* Charts Grid */}
         <div className="charts-grid">
-          {/* Revenue Line Chart */}
           <div className="chart-card">
-            <h3 className="chart-title">Revenue Overview</h3>
+            <h3 className="chart-title">{t('dashboard.statistics.revenueOverview')}</h3>
             <ResponsiveContainer width="100%" height={300}>
               <LineChart data={revenueData}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
@@ -786,9 +806,8 @@ const CoiffeurDashboard = () => {
             </ResponsiveContainer>
           </div>
 
-          {/* Services Bar Chart */}
           <div className="chart-card">
-            <h3 className="chart-title">Top Services</h3>
+            <h3 className="chart-title">{t('dashboard.statistics.topServices')}</h3>
             <ResponsiveContainer width="100%" height={300}>
               <BarChart data={servicesData}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
@@ -803,9 +822,8 @@ const CoiffeurDashboard = () => {
             </ResponsiveContainer>
           </div>
 
-          {/* Status Pie Chart */}
           <div className="chart-card">
-            <h3 className="chart-title">Booking Status</h3>
+            <h3 className="chart-title">{t('dashboard.statistics.bookingStatus')}</h3>
             <ResponsiveContainer width="100%" height={300}>
               <PieChart>
                 <Pie
@@ -827,9 +845,8 @@ const CoiffeurDashboard = () => {
             </ResponsiveContainer>
           </div>
 
-          {/* Timeline Area Chart */}
           <div className="chart-card">
-            <h3 className="chart-title">Bookings Timeline (Last 30 Days)</h3>
+            <h3 className="chart-title">{t('dashboard.statistics.bookingsTimeline')}</h3>
             <ResponsiveContainer width="100%" height={300}>
               <AreaChart data={timelineData}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
@@ -856,45 +873,27 @@ const CoiffeurDashboard = () => {
 
   const renderSettings = () => (
     <div className="settings-page">
-      <h1 className="page-title-section">Settings</h1>
+      <h1 className="page-title-section">{t('dashboard.settings.title')}</h1>
       
       <div className="settings-card">
         <div className="settings-section">
-          <h3>Notifications</h3>
+          <h3>{t('dashboard.settings.notifications')}</h3>
           <div className="setting-item">
-            <span>Email notifications</span>
+            <span>{t('dashboard.settings.emailNotifications')}</span>
             <label className="toggle">
               <input type="checkbox" defaultChecked />
               <span className="toggle-slider"></span>
             </label>
           </div>
           <div className="setting-item">
-            <span>SMS notifications</span>
+            <span>{t('dashboard.settings.smsNotifications')}</span>
             <label className="toggle">
               <input type="checkbox" defaultChecked />
               <span className="toggle-slider"></span>
             </label>
           </div>
           <div className="setting-item">
-            <span>Booking reminders</span>
-            <label className="toggle">
-              <input type="checkbox" defaultChecked />
-              <span className="toggle-slider"></span>
-            </label>
-          </div>
-        </div>
-        
-        <div className="settings-section">
-          <h3>Availability</h3>
-          <div className="setting-item">
-            <span>Accept new bookings</span>
-            <label className="toggle">
-              <input type="checkbox" defaultChecked />
-              <span className="toggle-slider"></span>
-            </label>
-          </div>
-          <div className="setting-item">
-            <span>Show profile publicly</span>
+            <span>{t('dashboard.settings.bookingReminders')}</span>
             <label className="toggle">
               <input type="checkbox" defaultChecked />
               <span className="toggle-slider"></span>
@@ -903,20 +902,358 @@ const CoiffeurDashboard = () => {
         </div>
         
         <div className="settings-section">
-          <h3>Danger Zone</h3>
-          <button className="btn-danger">Delete Account</button>
+          <h3>{t('dashboard.settings.availability')}</h3>
+          <div className="setting-item">
+            <span>{t('dashboard.settings.acceptNewBookings')}</span>
+            <label className="toggle">
+              <input type="checkbox" defaultChecked />
+              <span className="toggle-slider"></span>
+            </label>
+          </div>
+          <div className="setting-item">
+            <span>{t('dashboard.settings.showPublicly')}</span>
+            <label className="toggle">
+              <input type="checkbox" defaultChecked />
+              <span className="toggle-slider"></span>
+            </label>
+          </div>
+        </div>
+        
+        <div className="settings-section">
+          <h3>{t('dashboard.settings.dangerZone')}</h3>
+          <button 
+            className="btn-danger"
+            onClick={handleDeleteAccount}
+          >
+            {t('dashboard.settings.deleteAccount')}
+          </button>
         </div>
       </div>
     </div>
   );
 
-  // MAIN RENDER LOGIC
+  const renderBookingDetailsModal = () => {
+    if (!selectedBooking) return null;
+
+    return (
+      <div className="booking-modal-overlay" onClick={handleCloseBookingDetails}>
+        <div className="booking-modal" onClick={(e) => e.stopPropagation()}>
+          <div className="booking-modal-header">
+            <h2>{t('dashboard.modal.bookingDetails')}</h2>
+            <button className="booking-modal-close" onClick={handleCloseBookingDetails}>
+              <FiX />
+            </button>
+          </div>
+
+          <div className="booking-modal-body">
+            <div className="booking-modal-section">
+              <h3><FiUser /> {t('dashboard.modal.clientInfo')}</h3>
+              <div className="booking-modal-client">
+                <img 
+                  src={`https://i.pravatar.cc/150?u=${selectedBooking.clientId}`} 
+                  alt={selectedBooking.clientName}
+                  className="booking-modal-avatar"
+                />
+                <div>
+                  <p className="booking-modal-client-name">{selectedBooking.clientName}</p>
+                  <p className="booking-modal-client-email">{selectedBooking.clientEmail}</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="booking-modal-section">
+              <h3><FiPackage /> {t('dashboard.modal.serviceDetails')}</h3>
+              <div className="booking-modal-info-grid">
+                <div className="booking-modal-info-item">
+                  <span className="booking-modal-label">{t('dashboard.modal.service')}</span>
+                  <span className="booking-modal-value">{selectedBooking.serviceName}</span>
+                </div>
+                <div className="booking-modal-info-item">
+                  <span className="booking-modal-label">{t('dashboard.modal.duration')}</span>
+                  <span className="booking-modal-value">{selectedBooking.duration} {t('dashboard.modal.minutes')}</span>
+                </div>
+                <div className="booking-modal-info-item">
+                  <span className="booking-modal-label">{t('dashboard.modal.price')}</span>
+                  <span className="booking-modal-value">{formatPrice(selectedBooking.price)}</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="booking-modal-section">
+              <h3><FiCalendar /> {t('dashboard.modal.appointment')}</h3>
+              <div className="booking-modal-info-grid">
+                <div className="booking-modal-info-item">
+                  <span className="booking-modal-label">{t('dashboard.modal.date')}</span>
+                  <span className="booking-modal-value">{new Date(selectedBooking.date).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</span>
+                </div>
+                <div className="booking-modal-info-item">
+                  <span className="booking-modal-label">{t('dashboard.modal.time')}</span>
+                  <span className="booking-modal-value">{selectedBooking.time}</span>
+                </div>
+                <div className="booking-modal-info-item">
+                  <span className="booking-modal-label">{t('dashboard.modal.status')}</span>
+                  <span className={`booking-modal-status ${selectedBooking.status}`}>
+                    {selectedBooking.status}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {selectedBooking.notes && (
+              <div className="booking-modal-section">
+                <h3><FiFileText /> {t('dashboard.modal.notes')}</h3>
+                <p className="booking-modal-notes">{selectedBooking.notes}</p>
+              </div>
+            )}
+          </div>
+
+          <div className="booking-modal-footer">
+            {selectedBooking.status === 'pending' && (
+              <>
+                <button 
+                  className="booking-modal-btn booking-modal-btn-success"
+                  onClick={() => {
+                    handleAcceptBooking(selectedBooking.id);
+                    handleCloseBookingDetails();
+                  }}
+                >
+                  <FiCheck /> {t('dashboard.modal.acceptBooking')}
+                </button>
+                <button 
+                  className="booking-modal-btn booking-modal-btn-danger"
+                  onClick={() => {
+                    handleDeclineBooking(selectedBooking.id);
+                    handleCloseBookingDetails();
+                  }}
+                >
+                  <FiX /> {t('dashboard.modal.declineBooking')}
+                </button>
+              </>
+            )}
+            <button 
+              className="booking-modal-btn booking-modal-btn-secondary"
+              onClick={handleCloseBookingDetails}
+            >
+              {t('dashboard.modal.close')}
+            </button>
+          </div>
+        </div>
+
+        <style jsx>{`
+          .booking-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            padding: 20px;
+          }
+
+          .booking-modal {
+            background: white;
+            border-radius: 16px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+          }
+
+          .booking-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 32px;
+            border-bottom: 1px solid #e5e7eb;
+          }
+
+          .booking-modal-header h2 {
+            margin: 0;
+            font-size: 24px;
+            color: #111827;
+          }
+
+          .booking-modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #6b7280;
+            transition: color 0.2s;
+          }
+
+          .booking-modal-close:hover {
+            color: #111827;
+          }
+
+          .booking-modal-body {
+            padding: 32px;
+          }
+
+          .booking-modal-section {
+            margin-bottom: 32px;
+          }
+
+          .booking-modal-section:last-child {
+            margin-bottom: 0;
+          }
+
+          .booking-modal-section h3 {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 0 0 16px 0;
+            font-size: 16px;
+            font-weight: 600;
+            color: #374151;
+          }
+
+          .booking-modal-client {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+          }
+
+          .booking-modal-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+          }
+
+          .booking-modal-client-name {
+            margin: 0 0 4px 0;
+            font-size: 18px;
+            font-weight: 600;
+            color: #111827;
+          }
+
+          .booking-modal-client-email {
+            margin: 0;
+            font-size: 14px;
+            color: #6b7280;
+          }
+
+          .booking-modal-info-grid {
+            display: grid;
+            gap: 16px;
+          }
+
+          .booking-modal-info-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+          }
+
+          .booking-modal-label {
+            font-size: 12px;
+            font-weight: 500;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+          }
+
+          .booking-modal-value {
+            font-size: 16px;
+            color: #111827;
+            font-weight: 500;
+          }
+
+          .booking-modal-status {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: capitalize;
+          }
+
+          .booking-modal-status.pending {
+            background: #fef3c7;
+            color: #92400e;
+          }
+
+          .booking-modal-status.confirmed {
+            background: #d1fae5;
+            color: #065f46;
+          }
+
+          .booking-modal-status.cancelled {
+            background: #fee2e2;
+            color: #991b1b;
+          }
+
+          .booking-modal-notes {
+            margin: 0;
+            padding: 16px;
+            background: #f9fafb;
+            border-radius: 8px;
+            color: #374151;
+            line-height: 1.6;
+          }
+
+          .booking-modal-footer {
+            padding: 24px 32px;
+            border-top: 1px solid #e5e7eb;
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+          }
+
+          .booking-modal-btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+          }
+
+          .booking-modal-btn-success {
+            background: #10b981;
+            color: white;
+          }
+
+          .booking-modal-btn-success:hover {
+            background: #059669;
+          }
+
+          .booking-modal-btn-danger {
+            background: #ef4444;
+            color: white;
+          }
+
+          .booking-modal-btn-danger:hover {
+            background: #dc2626;
+          }
+
+          .booking-modal-btn-secondary {
+            background: #f3f4f6;
+            color: #374151;
+          }
+
+          .booking-modal-btn-secondary:hover {
+            background: #e5e7eb;
+          }
+        `}</style>
+      </div>
+    );
+  };
+
   const renderContent = () => {
     if (loading) {
       return (
         <div className="loading-container">
           <div className="spinner"></div>
-          <p>Loading dashboard...</p>
+          <p>{t('dashboard.loading')}</p>
         </div>
       );
     }
@@ -925,7 +1262,7 @@ const CoiffeurDashboard = () => {
       return (
         <div className="error-container">
           <p>{error}</p>
-          <button onClick={loadData}>Retry</button>
+          <button onClick={loadData}>{t('dashboard.error.retry')}</button>
         </div>
       );
     }
@@ -952,11 +1289,10 @@ const CoiffeurDashboard = () => {
 
   return (
     <div className="coiffeur-dashboard">
-      {/* Sidebar */}
       <div className="dashboard-sidebar">
         <div className="sidebar-header">
           <h1 className="sidebar-logo">LYAMAL</h1>
-          <p className="sidebar-subtitle">Stylist Dashboard</p>
+          <p className="sidebar-subtitle">{t('dashboard.subtitle')}</p>
         </div>
         
         <nav className="sidebar-nav">
@@ -965,7 +1301,7 @@ const CoiffeurDashboard = () => {
             onClick={() => setActiveMenu('dashboard')}
           >
             <FiHome className="nav-icon" />
-            <span>Dashboard</span>
+            <span>{t('dashboard.nav.dashboard')}</span>
           </button>
           
           <button 
@@ -973,7 +1309,7 @@ const CoiffeurDashboard = () => {
             onClick={() => setActiveMenu('bookings')}
           >
             <FiCalendar className="nav-icon" />
-            <span>My Bookings</span>
+            <span>{t('dashboard.nav.bookings')}</span>
           </button>
           
           <button 
@@ -981,7 +1317,7 @@ const CoiffeurDashboard = () => {
             onClick={() => setActiveMenu('profile')}
           >
             <FiUser className="nav-icon" />
-            <span>My Profile</span>
+            <span>{t('dashboard.nav.profile')}</span>
           </button>
           
           <button 
@@ -989,7 +1325,7 @@ const CoiffeurDashboard = () => {
             onClick={() => setActiveMenu('services')}
           >
             <FiPackage className="nav-icon" />
-            <span>My Services</span>
+            <span>{t('dashboard.nav.services')}</span>
           </button>
           
           <button 
@@ -997,7 +1333,7 @@ const CoiffeurDashboard = () => {
             onClick={() => setActiveMenu('portfolio')}
           >
             <FiImage className="nav-icon" />
-            <span>My Portfolio</span>
+            <span>{t('dashboard.nav.portfolio')}</span>
           </button>
           
           <button 
@@ -1005,7 +1341,7 @@ const CoiffeurDashboard = () => {
             onClick={() => setActiveMenu('statistics')}
           >
             <FiBarChart2 className="nav-icon" />
-            <span>Statistics</span>
+            <span>{t('dashboard.nav.statistics')}</span>
           </button>
           
           <button 
@@ -1013,23 +1349,16 @@ const CoiffeurDashboard = () => {
             onClick={() => setActiveMenu('settings')}
           >
             <FiSettings className="nav-icon" />
-            <span>Settings</span>
+            <span>{t('dashboard.nav.settings')}</span>
           </button>
         </nav>
       </div>
 
-      {/* Main Content */}
       <div className="dashboard-main">
         <div className="dashboard-header">
           <div>
             <h1 className="header-title">
-              {activeMenu === 'dashboard' && 'Dashboard'}
-              {activeMenu === 'bookings' && 'My Bookings'}
-              {activeMenu === 'profile' && 'My Profile'}
-              {activeMenu === 'services' && 'My Services'}
-              {activeMenu === 'portfolio' && 'My Portfolio'}
-              {activeMenu === 'statistics' && 'Statistics'}
-              {activeMenu === 'settings' && 'Settings'}
+              {t('dashboard.welcome')}, {currentUser?.displayName || 'Stylist'}!
             </h1>
             <p className="header-date">{new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
           </div>
@@ -1037,6 +1366,8 @@ const CoiffeurDashboard = () => {
         
         {renderContent()}
       </div>
+
+      {renderBookingDetailsModal()}
     </div>
   );
 };

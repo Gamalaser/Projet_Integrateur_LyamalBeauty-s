@@ -1,17 +1,14 @@
-// ========================================
-// PRODUCT CARD - CARTE DE PRODUIT
-// VERSION AVEC DEVISES ✅
-// ========================================
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useCart } from '../tools/CartContext';
-import { useCurrency } from '../tools/CurrencyContext'; // ✅ AJOUTÉ
+import { useCurrency } from '../tools/CurrencyContext'; // ici nous avons importé le hook useCurrency pour formater les prix selon la devise sélectionnée par l'utilisateur.
 import { FaShoppingCart } from 'react-icons/fa';
 import '../styles/components/productcard.scss';
 
 function ProductCard({ product }) {
   const { addToCart, isInCart } = useCart();
-  const { formatPrice } = useCurrency(); // ✅ AJOUTÉ
+  const { formatPrice } = useCurrency(); // ici nous avons utilisé le hook useCurrency pour obtenir la fonction formatPrice, que nous avons utilisée pour afficher les prix des produits de manière formatée et adaptée à la devise sélectionnée par l'utilisateur.
   
   const handleAddToCart = (e) => {
     e.preventDefault();

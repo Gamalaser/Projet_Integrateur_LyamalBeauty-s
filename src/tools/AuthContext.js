@@ -1,6 +1,5 @@
 // ========================================
 // AUTH CONTEXT - GESTION DE L'AUTHENTIFICATION
-// VERSION CORRIGÉE POUR PROTECTED ROUTES ✅
 // ========================================
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { 
@@ -15,6 +14,7 @@ import {
   signInWithPopup
 } from 'firebase/auth';
 import app from './firebaseConfig'; // Import de l'app Firebase
+import { createUser, getUserById } from './apiService'; // ✅ AJOUTÉ pour sauvegarder dans db.json
 
 // Créer le Context
 const AuthContext = createContext();
@@ -37,7 +37,7 @@ export const AuthProvider = ({ children }) => {
   // Initialiser Firebase Auth avec l'app
   const auth = getAuth(app);
 
-  // S'inscrire avec email et mot de passe
+  // ✅ S'inscrire avec email et mot de passe (CORRIGÉ)
   const signup = async (email, password, displayName, role = 'client') => {
     try {
       setError(null);
@@ -51,6 +51,22 @@ export const AuthProvider = ({ children }) => {
       // Stocker le rôle dans localStorage
       localStorage.setItem(`user_role_${userCredential.user.uid}`, role);
 
+      // ✅ NOUVEAU : Sauvegarder l'utilisateur dans db.json
+      try {
+        await createUser({
+          id: userCredential.user.uid,
+          email: email,
+          name: displayName,
+          role: role,
+          phone: '', // Peut être ajouté plus tard
+          createdAt: new Date().toISOString()
+        });
+        console.log('✅ User saved to db.json');
+      } catch (dbError) {
+        console.error('⚠️ Failed to save user to db.json:', dbError);
+        // On continue même si db.json échoue (Firebase est la source de vérité)
+      }
+
       return { user: userCredential.user, role };
     } catch (err) {
       setError(err.message);
@@ -58,7 +74,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // Se connecter avec email et mot de passe
+  // ✅ Se connecter avec email et mot de passe (CORRIGÉ)
   const login = async (email, password) => {
     try {
       setError(null);
@@ -67,6 +83,28 @@ export const AuthProvider = ({ children }) => {
       // Récupérer le rôle depuis localStorage
       const role = localStorage.getItem(`user_role_${userCredential.user.uid}`) || 'client';
       
+      // ✅ NOUVEAU : Vérifier si l'user existe dans db.json, sinon le créer
+      try {
+        await getUserById(userCredential.user.uid);
+        console.log('✅ User exists in db.json');
+      } catch (dbError) {
+        // Si l'user n'existe pas dans db.json, le créer
+        console.log('⚠️ User not found in db.json, creating...');
+        try {
+          await createUser({
+            id: userCredential.user.uid,
+            email: userCredential.user.email,
+            name: userCredential.user.displayName || email.split('@')[0],
+            role: role,
+            phone: '',
+            createdAt: new Date().toISOString()
+          });
+          console.log('✅ User created in db.json');
+        } catch (createError) {
+          console.error('⚠️ Failed to create user in db.json:', createError);
+        }
+      }
+      
       return { user: userCredential.user, role };
     } catch (err) {
       setError(err.message);
@@ -74,7 +112,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // Se connecter avec Google
+  // ✅ Se connecter avec Google (CORRIGÉ)
   const loginWithGoogle = async () => {
     try {
       setError(null);
@@ -84,6 +122,27 @@ export const AuthProvider = ({ children }) => {
       // Par défaut, un utilisateur Google est un client
       const role = localStorage.getItem(`user_role_${userCredential.user.uid}`) || 'client';
       localStorage.setItem(`user_role_${userCredential.user.uid}`, role);
+      
+      // ✅ NOUVEAU : Vérifier/créer dans db.json
+      try {
+        await getUserById(userCredential.user.uid);
+        console.log('✅ Google user exists in db.json');
+      } catch (dbError) {
+        console.log('⚠️ Google user not found in db.json, creating...');
+        try {
+          await createUser({
+            id: userCredential.user.uid,
+            email: userCredential.user.email,
+            name: userCredential.user.displayName || 'Google User',
+            role: role,
+            phone: '',
+            createdAt: new Date().toISOString()
+          });
+          console.log('✅ Google user created in db.json');
+        } catch (createError) {
+          console.error('⚠️ Failed to create Google user in db.json:', createError);
+        }
+      }
       
       return { user: userCredential.user, role };
     } catch (err) {
@@ -149,7 +208,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   // ========================================
-  // ✅ MODIFICATION CLÉE : Ajouter le rôle dans currentUser
+  // ✅ Ajouter le rôle dans currentUser
   // ========================================
   useEffect(() => {
     setLoading(true);

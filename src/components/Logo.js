@@ -1,6 +1,4 @@
-// ========================================
-// LOGO.JS - COMPOSANT LOGO
-// ========================================
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FaCut } from 'react-icons/fa';

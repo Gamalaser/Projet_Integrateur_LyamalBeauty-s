@@ -1,14 +1,13 @@
-// ========================================
-// REGISTER.JS - PAGE D'INSCRIPTION
-// VERSION CORRIGÉE : "stylist" au lieu de "coiffeur" ✅
-// ========================================
+
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { useAuth } from '../tools/AuthContext';
 import { FaEnvelope, FaLock, FaUser, FaGoogle, FaUserTie, FaCut } from 'react-icons/fa';
 import '../styles/components/register.scss';
 
 function Register() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { signup, loginWithGoogle } = useAuth();
   
@@ -18,7 +17,7 @@ function Register() {
     email: '',
     password: '',
     confirmPassword: '',
-    role: 'client' // ✅ 'client' ou 'stylist' (plus de "coiffeur")
+    role: 'client' //  'client' ou 'stylist'
   });
   
   const [loading, setLoading] = useState(false);
@@ -48,42 +47,47 @@ function Register() {
     
     // Validation
     if (!formData.name || !formData.email || !formData.password || !formData.confirmPassword) {
-      setError('Please fill in all fields');
+      setError(t('auth.errors.fillAllFields'));
       return;
     }
     
     if (formData.password.length < 6) {
-      setError('Password must be at least 6 characters');
+      setError(t('auth.errors.weakPassword'));
       return;
     }
     
     if (formData.password !== formData.confirmPassword) {
-      setError('Passwords do not match');
+      setError(t('auth.errors.passwordMismatch'));
       return;
     }
     
     try {
       setLoading(true);
       setError('');
-      await signup(formData.email, formData.password, formData.name, formData.role);
       
-      // ✅ Rediriger selon le rôle (stylist au lieu de coiffeur)
-      if (formData.role === 'stylist') {
-        navigate('/coiffeur-dashboard');
+      const result = await signup(formData.email, formData.password, formData.name, formData.role);
+      
+      console.log(' Signup successful, role:', result.role);
+      
+      // Rediriger selon le rôle
+      if (result.role === 'stylist') {
+        console.log('→ Redirecting to /coiffeur-dashboard');
+        navigate('/coiffeur-dashboard', { replace: true });
       } else {
-        navigate('/');
+        console.log('→ Redirecting to /');
+        navigate('/', { replace: true });
       }
     } catch (err) {
       console.error('Signup error:', err);
       // Messages d'erreur personnalisés
       if (err.message.includes('email-already-in-use')) {
-        setError('An account with this email already exists');
+        setError(t('auth.errors.emailInUse'));
       } else if (err.message.includes('invalid-email')) {
-        setError('Invalid email address');
+        setError(t('auth.errors.fillAllFields'));
       } else if (err.message.includes('weak-password')) {
-        setError('Password is too weak');
+        setError(t('auth.errors.weakPassword'));
       } else {
-        setError('Failed to create account. Please try again.');
+        setError(t('auth.errors.registerFailed'));
       }
     } finally {
       setLoading(false);
@@ -99,7 +103,7 @@ function Register() {
       navigate('/');
     } catch (err) {
       console.error('Google signup error:', err);
-      setError('Failed to sign up with Google. Please try again.');
+      setError(t('auth.errors.googleLoginFailed'));
     } finally {
       setLoading(false);
     }
@@ -110,13 +114,13 @@ function Register() {
       <div className="register-container">
         
         <div className="register-header">
-          <h1 className="register-title">Create Your Account</h1>
-          <p className="register-subtitle">Join LYAMAL BEAUTY'S and start your journey</p>
+          <h1 className="register-title">{t('auth.register.title')}</h1>
+          <p className="register-subtitle">{t('auth.register.subtitle')}</p>
         </div>
         
         {/* Sélection du rôle */}
         <div className="role-selection">
-          <h3 className="role-title">I want to join as:</h3>
+          <h3 className="role-title">{t('auth.register.roleLabel')}:</h3>
           <div className="role-options">
             
             {/* Option Client */}
@@ -127,11 +131,11 @@ function Register() {
               <div className="role-icon">
                 <FaUserTie />
               </div>
-              <h4 className="role-name">Client</h4>
-              <p className="role-description">Book beauty services with professionals</p>
+              <h4 className="role-name">{t('auth.register.client')}</h4>
+              <p className="role-description">{t('auth.register.clientDesc')}</p>
             </div>
             
-            {/* ✅ Option Stylist (plus de "Coiffeur") */}
+            {/* Option Stylist */}
             <div 
               className={`role-card ${formData.role === 'stylist' ? 'selected' : ''}`}
               onClick={() => selectRole('stylist')}
@@ -139,8 +143,8 @@ function Register() {
               <div className="role-icon">
                 <FaCut />
               </div>
-              <h4 className="role-name">Professional</h4>
-              <p className="role-description">Offer your services and grow your business</p>
+              <h4 className="role-name">{t('auth.register.stylist')}</h4>
+              <p className="role-description">{t('auth.register.stylistDesc')}</p>
             </div>
             
           </div>
@@ -158,7 +162,7 @@ function Register() {
           
           {/* Name */}
           <div className="form-group">
-            <label htmlFor="name">Full Name</label>
+            <label htmlFor="name">{t('auth.register.fullNameLabel')}</label>
             <div className="input-wrapper">
               <FaUser className="input-icon" />
               <input
@@ -167,7 +171,7 @@ function Register() {
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
-                placeholder="John Doe"
+                placeholder={t('auth.register.fullNamePlaceholder')}
                 disabled={loading}
               />
             </div>
@@ -175,7 +179,7 @@ function Register() {
           
           {/* Email */}
           <div className="form-group">
-            <label htmlFor="email">Email Address</label>
+            <label htmlFor="email">{t('auth.register.emailLabel')}</label>
             <div className="input-wrapper">
               <FaEnvelope className="input-icon" />
               <input
@@ -184,7 +188,7 @@ function Register() {
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                placeholder="your.email@example.com"
+                placeholder={t('auth.register.emailPlaceholder')}
                 disabled={loading}
               />
             </div>
@@ -192,7 +196,7 @@ function Register() {
           
           {/* Password */}
           <div className="form-group">
-            <label htmlFor="password">Password</label>
+            <label htmlFor="password">{t('auth.register.passwordLabel')}</label>
             <div className="input-wrapper">
               <FaLock className="input-icon" />
               <input
@@ -201,7 +205,7 @@ function Register() {
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
-                placeholder="At least 6 characters"
+                placeholder={t('auth.register.passwordPlaceholder')}
                 disabled={loading}
               />
             </div>
@@ -209,7 +213,7 @@ function Register() {
           
           {/* Confirm Password */}
           <div className="form-group">
-            <label htmlFor="confirmPassword">Confirm Password</label>
+            <label htmlFor="confirmPassword">{t('auth.register.confirmPasswordLabel')}</label>
             <div className="input-wrapper">
               <FaLock className="input-icon" />
               <input
@@ -218,7 +222,7 @@ function Register() {
                 name="confirmPassword"
                 value={formData.confirmPassword}
                 onChange={handleChange}
-                placeholder="Re-enter your password"
+                placeholder={t('auth.register.confirmPasswordPlaceholder')}
                 disabled={loading}
               />
             </div>
@@ -230,14 +234,14 @@ function Register() {
             className="btn-register-submit"
             disabled={loading}
           >
-            {loading ? 'Creating Account...' : 'Create Account'}
+            {loading ? t('auth.register.signingUp') : t('auth.register.signUp')}
           </button>
           
         </form>
         
         {/* Divider */}
         <div className="divider">
-          <span>OR</span>
+          <span>{t('auth.register.or')}</span>
         </div>
         
         {/* Google Signup */}
@@ -247,12 +251,12 @@ function Register() {
           disabled={loading}
         >
           <FaGoogle className="google-icon" />
-          Continue with Google
+          {t('auth.register.continueWithGoogle')}
         </button>
         
         {/* Login Link */}
         <div className="login-prompt">
-          Already have an account? <Link to="/login" className="login-link">Sign In</Link>
+          {t('auth.register.haveAccount')} <Link to="/login" className="login-link">{t('auth.register.signInLink')}</Link>
         </div>
         
       </div>

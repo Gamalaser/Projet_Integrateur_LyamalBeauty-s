@@ -1,16 +1,15 @@
-// ========================================
-// BOOKING.JS - PAGE RÉSERVATION
-// VERSION AVEC VÉRIFICATION CONNEXION ✅
-// ========================================
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { FaCheck, FaCalendarAlt, FaClock, FaUser, FaUpload, FaStickyNote } from 'react-icons/fa';
 import { useAuth } from '../tools/AuthContext';
 import { useCurrency } from '../tools/CurrencyContext';
-import { getServices, getStylists } from '../tools/apiService';
+import { getServices, getStylists, createBooking } from '../tools/apiService';
 import '../styles/pages/booking.scss';
 
 function Booking() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { currentUser } = useAuth();
   const { formatPrice } = useCurrency();
@@ -54,8 +53,8 @@ function Booking() {
     return (
       <div className="booking-page">
         <section className="booking-header">
-          <h1 className="page-title">Book an Appointment</h1>
-          <p className="page-subtitle">Schedule your beauty treatment with our experts</p>
+          <h1 className="page-title">{t('booking.title')}</h1>
+          <p className="page-subtitle">{t('booking.subtitle')}</p>
         </section>
 
         <div className="auth-required-container">
@@ -63,20 +62,20 @@ function Booking() {
             <div className="auth-icon">
               <FaUser />
             </div>
-            <h2>Sign In Required</h2>
-            <p>You need to be signed in to book an appointment</p>
+            <h2>{t('booking.authRequired.title')}</h2>
+            <p>{t('booking.authRequired.message')}</p>
             <div className="auth-buttons">
               <button 
                 className="btn-login"
                 onClick={() => navigate('/login', { state: { from: '/booking' } })}
               >
-                Sign In
+                {t('booking.authRequired.signIn')}
               </button>
               <button 
                 className="btn-register"
                 onClick={() => navigate('/register', { state: { from: '/booking' } })}
               >
-                Create Account
+                {t('booking.authRequired.createAccount')}
               </button>
             </div>
           </div>
@@ -132,37 +131,37 @@ function Booking() {
     }
   };
 
-  // Confirmer la réservation
+  // CONFIRMER LA RÉSERVATION
   const handleConfirmBooking = async () => {
     try {
-      // Créer l'objet de réservation
+      setLoading(true);
+
       const bookingData = {
         clientId: currentUser.uid,
         clientName: currentUser.displayName || currentUser.email,
         clientEmail: currentUser.email,
         serviceId: selectedService.id,
         serviceName: selectedService.name,
-        stylistId: selectedStylist?.id || 'auto',
-        stylistName: selectedStylist?.name || 'First Available',
+        stylistId: selectedStylist === 'auto' ? 'auto' : selectedStylist.id,
+        stylistName: selectedStylist === 'auto' ? t('booking.step2.firstAvailable') : selectedStylist.name,
         date: selectedDate,
         time: selectedTime,
         duration: selectedService.duration,
         price: selectedService.priceFrom,
-        status: 'pending',
-        notes: notes,
-        referenceImage: referenceImage,
-        createdAt: new Date().toISOString()
+        notes: notes || ''
       };
 
-      // Envoyer à l'API (à implémenter)
-      console.log('Booking data:', bookingData);
+      const result = await createBooking(bookingData);
+      console.log('✅ Booking created successfully:', result);
 
-      // Aller à l'étape de confirmation
       setCurrentStep(4);
       window.scrollTo(0, 0);
+
     } catch (error) {
-      console.error('Error creating booking:', error);
-      alert('Failed to create booking. Please try again.');
+      console.error('❌ Error creating booking:', error);
+      alert(t('booking.error.createFailed'));
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -172,7 +171,7 @@ function Booking() {
       case 1:
         return (
           <div className="step-content">
-            <h2 className="step-title">Choose a Service</h2>
+            <h2 className="step-title">{t('booking.step1.title')}</h2>
             <div className="services-grid">
               {services.map(service => (
                 <div
@@ -182,7 +181,7 @@ function Booking() {
                 >
                   <img src={service.image} alt={service.name} className="service-img" />
                   <h3>{service.name}</h3>
-                  <p className="service-duration">{service.duration} min</p>
+                  <p className="service-duration">{service.duration} {t('services.minutes')}</p>
                   <p className="service-price">{formatPrice(service.priceFrom)}</p>
                 </div>
               ))}
@@ -193,7 +192,7 @@ function Booking() {
       case 2:
         return (
           <div className="step-content">
-            <h2 className="step-title">Choose Your Stylist</h2>
+            <h2 className="step-title">{t('booking.step2.title')}</h2>
             
             <div
               className={`first-available ${selectedStylist === 'auto' ? 'selected' : ''}`}
@@ -201,8 +200,8 @@ function Booking() {
             >
               <div className="auto-icon">⚡</div>
               <div className="auto-text">
-                <h3>First Available</h3>
-                <p>Get the next available stylist for your appointment</p>
+                <h3>{t('booking.step2.firstAvailable')}</h3>
+                <p>{t('booking.step2.firstAvailableDesc')}</p>
               </div>
             </div>
 
@@ -225,11 +224,11 @@ function Booking() {
       case 3:
         return (
           <div className="step-content">
-            <h2 className="step-title">Select Date & Time</h2>
+            <h2 className="step-title">{t('booking.step3.title')}</h2>
 
             <div className="date-section">
               <label>
-                <FaCalendarAlt /> Choose a Date
+                <FaCalendarAlt /> {t('booking.step3.chooseDate')}
               </label>
               <input
                 type="date"
@@ -242,7 +241,7 @@ function Booking() {
 
             <div className="time-section">
               <label>
-                <FaClock /> Choose a Time
+                <FaClock /> {t('booking.step3.chooseTime')}
               </label>
               <div className="time-slots">
                 {timeSlots.map(time => (
@@ -259,7 +258,7 @@ function Booking() {
 
             <div className="upload-section">
               <label>
-                <FaUpload /> Reference Image (Optional)
+                <FaUpload /> {t('booking.step3.referenceImage')}
               </label>
               <div className="upload-area">
                 <input
@@ -275,7 +274,7 @@ function Booking() {
                   ) : (
                     <>
                       <div className="upload-icon">📷</div>
-                      <p>Click to upload a reference image</p>
+                      <p>{t('booking.step3.uploadPrompt')}</p>
                     </>
                   )}
                 </label>
@@ -284,12 +283,12 @@ function Booking() {
 
             <div className="notes-section">
               <label>
-                <FaStickyNote /> Additional Notes (Optional)
+                <FaStickyNote /> {t('booking.step3.notes')}
               </label>
               <textarea
                 className="notes-input"
                 rows="4"
-                placeholder="Any special requests or information..."
+                placeholder={t('booking.step3.notesPlaceholder')}
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
               />
@@ -303,14 +302,14 @@ function Booking() {
             <div className="success-icon">
               <FaCheck />
             </div>
-            <h2 className="step-title">Booking Confirmed!</h2>
-            <p>Your appointment has been successfully booked</p>
+            <h2 className="step-title">{t('booking.confirmation.title')}</h2>
+            <p>{t('booking.confirmation.message')}</p>
 
             <div className="booking-summary-detail">
               <div className="summary-item">
                 <div className="summary-icon">💇</div>
                 <div>
-                  <p className="summary-label">Service</p>
+                  <p className="summary-label">{t('booking.summary.service')}</p>
                   <p className="summary-value">{selectedService?.name}</p>
                 </div>
               </div>
@@ -318,9 +317,9 @@ function Booking() {
               <div className="summary-item">
                 <div className="summary-icon">👤</div>
                 <div>
-                  <p className="summary-label">Stylist</p>
+                  <p className="summary-label">{t('booking.summary.stylist')}</p>
                   <p className="summary-value">
-                    {selectedStylist === 'auto' ? 'First Available' : selectedStylist?.name}
+                    {selectedStylist === 'auto' ? t('booking.step2.firstAvailable') : selectedStylist?.name}
                   </p>
                 </div>
               </div>
@@ -328,9 +327,9 @@ function Booking() {
               <div className="summary-item">
                 <div className="summary-icon">📅</div>
                 <div>
-                  <p className="summary-label">Date & Time</p>
+                  <p className="summary-label">{t('booking.summary.dateTime')}</p>
                   <p className="summary-value">
-                    {new Date(selectedDate).toLocaleDateString()} at {selectedTime}
+                    {new Date(selectedDate).toLocaleDateString()} {t('booking.summary.at')} {selectedTime}
                   </p>
                 </div>
               </div>
@@ -339,7 +338,7 @@ function Booking() {
                 <div className="summary-item">
                   <div className="summary-icon">📝</div>
                   <div>
-                    <p className="summary-label">Notes</p>
+                    <p className="summary-label">{t('booking.summary.notes')}</p>
                     <p className="summary-notes">{notes}</p>
                   </div>
                 </div>
@@ -349,7 +348,7 @@ function Booking() {
                 <div className="summary-item">
                   <div className="summary-icon">📷</div>
                   <div className="summary-image">
-                    <p className="summary-label">Reference Image</p>
+                    <p className="summary-label">{t('booking.summary.referenceImage')}</p>
                     <img src={referenceImage} alt="Reference" />
                   </div>
                 </div>
@@ -358,7 +357,7 @@ function Booking() {
 
             <div className="step-actions">
               <button className="btn-confirm" onClick={() => navigate('/account')}>
-                View My Bookings
+                {t('booking.confirmation.viewBookings')}
               </button>
             </div>
           </div>
@@ -374,7 +373,7 @@ function Booking() {
       <div className="booking-page">
         <div className="loading-container">
           <div className="spinner"></div>
-          <p>Loading...</p>
+          <p>{t('common.loading')}</p>
         </div>
       </div>
     );
@@ -384,8 +383,8 @@ function Booking() {
     <div className="booking-page">
       {/* EN-TÊTE */}
       <section className="booking-header">
-        <h1 className="page-title">Book an Appointment</h1>
-        <p className="page-subtitle">Schedule your beauty treatment with our experts</p>
+        <h1 className="page-title">{t('booking.title')}</h1>
+        <p className="page-subtitle">{t('booking.subtitle')}</p>
       </section>
 
       {/* STEPPER */}
@@ -393,19 +392,19 @@ function Booking() {
         <div className="stepper">
           <div className={`step ${currentStep >= 1 ? 'active' : ''} ${currentStep > 1 ? 'completed' : ''}`}>
             <div className="step-number">1</div>
-            <span className="step-label">Service</span>
+            <span className="step-label">{t('booking.stepper.service')}</span>
           </div>
           <div className={`step ${currentStep >= 2 ? 'active' : ''} ${currentStep > 2 ? 'completed' : ''}`}>
             <div className="step-number">2</div>
-            <span className="step-label">Stylist</span>
+            <span className="step-label">{t('booking.stepper.stylist')}</span>
           </div>
           <div className={`step ${currentStep >= 3 ? 'active' : ''} ${currentStep > 3 ? 'completed' : ''}`}>
             <div className="step-number">3</div>
-            <span className="step-label">Date & Time</span>
+            <span className="step-label">{t('booking.stepper.dateTime')}</span>
           </div>
           <div className={`step ${currentStep >= 4 ? 'active' : ''}`}>
             <div className="step-number">4</div>
-            <span className="step-label">Confirm</span>
+            <span className="step-label">{t('booking.stepper.confirm')}</span>
           </div>
         </div>
       </section>
@@ -420,7 +419,7 @@ function Booking() {
               <div className="step-actions">
                 {currentStep > 1 && (
                   <button className="btn-back" onClick={goToPrevStep}>
-                    Back
+                    {t('booking.navigation.back')}
                   </button>
                 )}
                 {currentStep < 3 && (
@@ -429,7 +428,7 @@ function Booking() {
                     onClick={goToNextStep}
                     disabled={!isStepComplete()}
                   >
-                    Continue →
+                    {t('booking.navigation.continue')} →
                   </button>
                 )}
                 {currentStep === 3 && (
@@ -438,7 +437,7 @@ function Booking() {
                     onClick={handleConfirmBooking}
                     disabled={!isStepComplete()}
                   >
-                    Confirm Booking
+                    {t('booking.navigation.confirmBooking')}
                   </button>
                 )}
               </div>
@@ -448,20 +447,20 @@ function Booking() {
           {/* RÉSUMÉ */}
           {currentStep < 4 && (
             <div className="booking-summary">
-              <h3>Booking Summary</h3>
+              <h3>{t('booking.summary.title')}</h3>
               
               {selectedService && (
                 <>
                   <div className="summary-row">
-                    <span>Service</span>
+                    <span>{t('booking.summary.service')}</span>
                     <span>{selectedService.name}</span>
                   </div>
                   <div className="summary-row">
-                    <span>Duration</span>
-                    <span>{selectedService.duration} min</span>
+                    <span>{t('booking.summary.duration')}</span>
+                    <span>{selectedService.duration} {t('services.minutes')}</span>
                   </div>
                   <div className="summary-row">
-                    <span>Price</span>
+                    <span>{t('booking.summary.price')}</span>
                     <span>{formatPrice(selectedService.priceFrom)}</span>
                   </div>
                 </>
@@ -469,21 +468,21 @@ function Booking() {
 
               {selectedStylist && (
                 <div className="summary-row">
-                  <span>Stylist</span>
-                  <span>{selectedStylist === 'auto' ? 'First Available' : selectedStylist.name}</span>
+                  <span>{t('booking.summary.stylist')}</span>
+                  <span>{selectedStylist === 'auto' ? t('booking.step2.firstAvailable') : selectedStylist.name}</span>
                 </div>
               )}
 
               {selectedDate && (
                 <div className="summary-row">
-                  <span>Date</span>
+                  <span>{t('booking.summary.date')}</span>
                   <span>{new Date(selectedDate).toLocaleDateString()}</span>
                 </div>
               )}
 
               {selectedTime && (
                 <div className="summary-row">
-                  <span>Time</span>
+                  <span>{t('booking.summary.time')}</span>
                   <span>{selectedTime}</span>
                 </div>
               )}
@@ -492,7 +491,7 @@ function Booking() {
                 <>
                   <div className="summary-divider"></div>
                   <div className="summary-total">
-                    <span>Total</span>
+                    <span>{t('booking.summary.total')}</span>
                     <span className="total-price">{formatPrice(selectedService.priceFrom)}</span>
                   </div>
                 </>

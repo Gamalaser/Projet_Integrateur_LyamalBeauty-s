@@ -1,0 +1,667 @@
+{
+  "header": {
+    "home": "Accueil",
+    "services": "Services",
+    "team": "Équipe",
+    "booking": "Réservation",
+    "shop": "Boutique",
+    "about": "À propos",
+    "login": "Connexion",
+    "signup": "S'inscrire",
+    "logout": "Déconnexion",
+    "myAccount": "Mon Compte",
+    "dashboard": "Tableau de bord",
+    "cart": "Panier"
+  },
+  "home": {
+    "hero": {
+      "title": "Réservez Votre Styliste Professionnel en Quelques Clics",
+      "subtitle": "Vivez des services de beauté de luxe avec des professionnels de premier plan dans votre région",
+      "bookNow": "Réserver",
+      "viewServices": "Découvrir Nos Services"
+    },
+    "howItWorks": {
+      "title": "Comment Ça Marche ?",
+      "step1": {
+        "title": "Explorez les Profils",
+        "description": "Parcourez notre liste de stylistes professionnels et découvrez leurs spécialités"
+      },
+      "step2": {
+        "title": "Réservez en Ligne",
+        "description": "Sélectionnez votre service préféré, la date et l'heure qui vous conviennent le mieux"
+      },
+      "step3": {
+        "title": "Profitez du Résultat",
+        "description": "Détendez-vous et laissez nos professionnels vous offrir des résultats exceptionnels adaptés à votre style"
+      }
+    },
+    "ourServices": {
+      "title": "Nos Services"
+    },
+    "testimonials": {
+      "title": "Ce Que Disent Nos Clients",
+      "testimonial1": {
+        "text": "Le processus de réservation était si facile et pratique. Excellente expérience du début à la fin. Je recommande vivement !",
+        "author": "— Sarah T."
+      },
+      "testimonial2": {
+        "text": "Service incroyable ! Le styliste était professionnel et a vraiment écouté ce que je voulais. Je reviendrai certainement.",
+        "author": "— Michael R."
+      },
+      "testimonial3": {
+        "text": "Meilleure expérience de salon que j'ai eue ! La plateforme rend tout si simple et les résultats sont toujours parfaits.",
+        "author": "— Jessica L."
+      }
+    },
+    "cta": {
+      "title": "Prêt à réserver votre prochain rendez-vous ?"
+    },
+    "notFound": {
+      "title": "Page Non Trouvée",
+      "message": "Désolé, cette page n'existe pas.",
+      "backHome": "Retour à l'Accueil"
+    },
+    "about": {
+      "title": "À Propos",
+      "description": "Bienvenue chez LYAMAL BEAUTY'S, où la beauté rencontre l'excellence. Notre équipe de stylistes professionnels est dédiée à révéler votre meilleur look."
+    },
+    "whyChooseUs": {
+      "title": "Pourquoi Nous Choisir",
+      "quality": "Qualité Premium",
+      "qualityDesc": "Nous utilisons uniquement les meilleurs produits",
+      "experience": "Équipe Experte",
+      "experienceDesc": "Des années d'expérience professionnelle",
+      "service": "Service Client",
+      "serviceDesc": "Votre satisfaction est notre priorité"
+    }
+  },
+  "about": {
+    "hero": {
+      "title": "Notre Histoire, Votre Succès",
+      "subtitle": "Une plateforme née d'une vision : créer des opportunités pour tous, sans discrimination"
+    },
+    "story": {
+      "title": "Notre Histoire",
+      "paragraph1": "En tant qu'étudiant étranger au Canada, j'ai été témoin d'une réalité qui m'a profondément marqué : des talents extraordinaires restant dans l'ombre, faute d'opportunités. Autour de moi, j'ai rencontré des coiffeurs talentueux, des esthéticiennes passionnées, des barbiers créatifs — tous avec un savoir-faire exceptionnel, mais sans plateforme pour le partager.",
+      "paragraph2": "C'est ainsi qu'est née LYAMAL BEAUTY'S — non pas comme un simple site de réservation, mais comme une plateforme de transformation où les barrières tombent et où les opportunités se créent. Un espace où le talent prime sur le statut, où chacun a sa chance de briller, et où clients et professionnels se rencontrent dans un climat de confiance."
+    },
+    "mission": {
+      "title": "Notre Mission",
+      "paragraph1": "Notre mission est de créer un espace de confiance et de transformation pour tous. Nous offrons une publicité gratuite aux entreprises établies, permettons aux particuliers et étudiants étrangers de monétiser leurs talents, et facilitons l'accès à des services de beauté de qualité pour tous les clients.",
+      "paragraph2": "Dans cette plateforme, il n'y a aucune discrimination de statut. Que vous soyez un professionnel établi, un étudiant avec un talent, ou un client cherchant le service parfait — vous avez votre place ici. Nous croyons que le talent mérite toujours d'être reconnu, peu importe d'où il vient."
+    },
+    "values": {
+      "title": "Nos Valeurs",
+      "excellence": {
+        "title": "Inclusion",
+        "text": "Peu importe qui vous êtes ou d'où vous venez, vous avez votre place ici. Nous célébrons la diversité et rejetons toute forme de discrimination."
+      },
+      "passion": {
+        "title": "Accessibilité",
+        "text": "Les opportunités ne devraient pas être réservées à une élite. Nous rendons les services de beauté et les opportunités professionnelles accessibles à tous."
+      },
+      "innovation": {
+        "title": "Empowerment",
+        "text": "Nous croyons au pouvoir de chacun de créer son propre succès. Notre plateforme vous donne les outils pour transformer votre talent en opportunité."
+      }
+    },
+    "stats": {
+      "title": "Notre Impact",
+      "clients": "Clients Satisfaits",
+      "years": "Années d'Expérience",
+      "awards": "Professionnels Actifs",
+      "rating": "Note Moyenne"
+    },
+    "team": {
+      "title": "Une Communauté de Talents",
+      "text": "LYAMAL BEAUTY'S, c'est plus qu'une plateforme — c'est une famille. Des professionnels établis aux talents émergents, en passant par des étudiants passionnés, nous grandissons ensemble et nous soutenons mutuellement dans la réussite.",
+      "button": "Découvrir Nos Professionnels"
+    },
+    "cta": {
+      "title": "Prêt à Faire Partie de l'Histoire ?",
+      "text": "Rejoignez une plateforme où le talent est célébré, les opportunités sont infinies, et où chacun a sa place. Que vous cherchiez un service ou que vous offriez votre expertise — commencez aujourd'hui.",
+      "button": "Réserver Maintenant"
+    }
+  },
+  "services": {
+    "title": "Nos Services",
+    "subtitle": "Découvrez notre gamme complète de services de beauté professionnels adaptés à vos besoins",
+    "bookService": "Réserver",
+    "viewDetails": "Voir Détails",
+    "from": "à partir de",
+    "duration": "Durée",
+    "minutes": "min",
+    "filters": {
+      "searchPlaceholder": "Rechercher un service...",
+      "category": "Catégorie",
+      "allCategories": "Toutes les Catégories",
+      "categories": {
+        "hairCutting": "Coupe de Cheveux",
+        "coloring": "Coloration",
+        "beard": "Barbe",
+        "nails": "Ongles",
+        "spa": "Spa",
+        "massage": "Massage",
+        "facial": "Soin du Visage",
+        "makeup": "Maquillage",
+        "bodyCare": "Soins du Corps",
+        "packages": "Forfaits"
+      },
+      "genre": "Genre",
+      "genreOptions": {
+        "all": "Tous",
+        "male": "Homme",
+        "female": "Femme",
+        "mixed": "Mixte"
+      }
+    },
+    "results": {
+      "showing": "Affichage de",
+      "service": "service",
+      "services": "services"
+    },
+    "card": {
+      "duration": "Durée",
+      "genre": "Genre",
+      "minutes": "min"
+    },
+    "noResults": {
+      "title": "Aucun service trouvé",
+      "message": "Essayez d'ajuster vos filtres ou votre terme de recherche"
+    },
+    "cta": {
+      "title": "Vous ne trouvez pas ce que vous cherchez ?",
+      "text": "Contactez-nous et nous vous aiderons à trouver le service parfait",
+      "button": "Réserver une Consultation"
+    },
+    "error": {
+      "title": "Oups !",
+      "loadFailed": "Échec du chargement des services. Veuillez réessayer plus tard.",
+      "retry": "Réessayer"
+    },
+    "categories": {
+      "all": "Tous les Services",
+      "hair": "Cheveux",
+      "styling": "Coiffure",
+      "treatment": "Traitement",
+      "grooming": "Soins",
+      "makeup": "Maquillage",
+      "consultation": "Consultation"
+    }
+  },
+  "team": {
+    "title": "Notre Équipe",
+    "subtitle": "Nos professionnels talentueux sont là pour donner vie à votre vision avec expertise et passion",
+    "viewProfile": "Voir le Profil",
+    "bookWith": "Réserver avec",
+    "specialties": "Spécialités",
+    "experience": "Expérience",
+    "years": "ans",
+    "filters": {
+      "gender": "Genre",
+      "genderOptions": {
+        "all": "Tous",
+        "male": "Homme",
+        "female": "Femme",
+        "mixed": "Mixte"
+      },
+      "specialty": "Spécialité",
+      "allSpecialties": "Toutes les Spécialités",
+      "specialties": {
+        "hairCutting": "Coupe de Cheveux",
+        "coloring": "Coloration",
+        "beard": "Barbe",
+        "nails": "Ongles",
+        "styling": "Coiffure"
+      }
+    },
+    "results": {
+      "showing": "Affichage de",
+      "professional": "professionnel",
+      "professionals": "professionnels"
+    },
+    "card": {
+      "yearsExp": "ans d'exp.",
+      "reviews": "avis",
+      "bookNow": "Réserver",
+      "viewPortfolio": "Voir le Portfolio"
+    },
+    "noResults": {
+      "title": "Aucun styliste trouvé",
+      "message": "Essayez d'ajuster vos filtres"
+    },
+    "cta": {
+      "title": "Vous voulez rejoindre notre équipe ?",
+      "text": "Nous recherchons toujours des professionnels talentueux pour rejoindre notre famille",
+      "button": "Nous Contacter"
+    }
+  },
+  "booking": {
+    "title": "Prendre Rendez-vous",
+    "subtitle": "Planifiez votre traitement de beauté avec nos experts",
+    "authRequired": {
+      "title": "Connexion Requise",
+      "message": "Vous devez être connecté pour prendre rendez-vous",
+      "signIn": "Se Connecter",
+      "createAccount": "Créer un Compte"
+    },
+    "stepper": {
+      "service": "Service",
+      "stylist": "Styliste",
+      "dateTime": "Date & Heure",
+      "confirm": "Confirmer"
+    },
+    "step1": {
+      "title": "Choisir un Service"
+    },
+    "step2": {
+      "title": "Choisir Votre Styliste",
+      "firstAvailable": "Premier Disponible",
+      "firstAvailableDesc": "Obtenez le prochain styliste disponible pour votre rendez-vous"
+    },
+    "step3": {
+      "title": "Sélectionner Date & Heure",
+      "chooseDate": "Choisir une Date",
+      "chooseTime": "Choisir une Heure",
+      "referenceImage": "Image de Référence (Optionnel)",
+      "uploadPrompt": "Cliquez pour télécharger une image de référence",
+      "notes": "Notes Additionnelles (Optionnel)",
+      "notesPlaceholder": "Demandes spéciales ou informations..."
+    },
+    "confirmation": {
+      "title": "Réservation Confirmée !",
+      "message": "Votre rendez-vous a été réservé avec succès",
+      "viewBookings": "Voir Mes Réservations"
+    },
+    "summary": {
+      "title": "Résumé de la Réservation",
+      "service": "Service",
+      "stylist": "Styliste",
+      "dateTime": "Date & Heure",
+      "at": "à",
+      "date": "Date",
+      "time": "Heure",
+      "duration": "Durée",
+      "price": "Prix",
+      "total": "Total",
+      "notes": "Notes",
+      "referenceImage": "Image de Référence"
+    },
+    "navigation": {
+      "back": "Retour",
+      "continue": "Continuer",
+      "confirmBooking": "Confirmer la Réservation"
+    },
+    "error": {
+      "createFailed": "Échec de la création de la réservation. Veuillez réessayer."
+    },
+    "selectService": "Choisir un Service",
+    "selectStylist": "Choisir un Styliste",
+    "selectDate": "Choisir une Date",
+    "selectTime": "Choisir une Heure",
+    "yourInfo": "Vos Informations",
+    "name": "Nom",
+    "email": "Email",
+    "phone": "Téléphone",
+    "notes": "Notes (Optionnel)",
+    "notesPlaceholder": "Demandes spéciales ou préférences...",
+    "service": "Service",
+    "date": "Date",
+    "time": "Heure",
+    "total": "Total",
+    "confirmBooking": "Confirmer",
+    "availableTimes": "Horaires Disponibles",
+    "noTimesAvailable": "Aucun horaire disponible pour cette date",
+    "selectDateFirst": "Veuillez d'abord sélectionner une date",
+    "bookingSuccess": "Réservation Confirmée !",
+    "bookingSuccessMessage": "Votre rendez-vous a été réservé avec succès.",
+    "bookingError": "Échec de la Réservation",
+    "bookingErrorMessage": "Une erreur s'est produite. Veuillez réessayer."
+  },
+  "shop": {
+    "title": "Notre Boutique",
+    "subtitle": "Parcourez notre sélection de produits de beauté professionnels",
+    "filters": {
+      "category": "Catégorie",
+      "allCategories": "Tous",
+      "sortBy": "Trier par",
+      "sortOptions": {
+        "nameAZ": "Nom (A-Z)",
+        "priceLowHigh": "Prix (Croissant)",
+        "priceHighLow": "Prix (Décroissant)"
+      }
+    },
+    "results": {
+      "showing": "Affichage de",
+      "product": "produit",
+      "products": "produits"
+    },
+    "noResults": {
+      "title": "Aucun produit trouvé",
+      "message": "Essayez d'ajuster vos filtres"
+    },
+    "cta": {
+      "title": "Besoin d'aide pour choisir ?",
+      "text": "Nos experts sont là pour vous recommander les meilleurs produits selon vos besoins",
+      "button": "Consulter Nos Stylistes"
+    },
+    "error": {
+      "title": "Oups !",
+      "loadFailed": "Échec du chargement des produits. Veuillez réessayer plus tard.",
+      "retry": "Réessayer"
+    },
+    "addToCart": "Ajouter au Panier",
+    "outOfStock": "Rupture de Stock",
+    "inStock": "En Stock",
+    "viewProduct": "Voir le Produit",
+    "categories": {
+      "all": "Tous les Produits",
+      "haircare": "Soins Capillaires",
+      "styling": "Coiffure",
+      "treatment": "Traitement",
+      "tools": "Outils",
+      "accessories": "Accessoires"
+    }
+  },
+  "cart": {
+    "title": "Panier",
+    "empty": "Votre panier est vide",
+    "continueShopping": "Continuer vos Achats",
+    "product": "Produit",
+    "price": "Prix",
+    "quantity": "Quantité",
+    "subtotal": "Sous-total",
+    "total": "Total",
+    "checkout": "Passer la Commande",
+    "remove": "Supprimer",
+    "update": "Mettre à jour"
+  },
+  "account": {
+    "title": "Mon Compte",
+    "welcome": "Bon retour, {{name}} !",
+    "subtitle": "Gérez votre profil et vos réservations",
+    "nav": {
+      "profile": "Profil",
+      "bookings": "Mes Réservations",
+      "logout": "Déconnexion"
+    },
+    "profile": {
+      "title": "Informations du Profil",
+      "edit": "Modifier le Profil",
+      "cancel": "Annuler",
+      "save": "Enregistrer les Modifications",
+      "fullName": "Nom Complet",
+      "email": "Email",
+      "emailNote": "L'email ne peut pas être modifié",
+      "phone": "Numéro de Téléphone",
+      "address": "Adresse"
+    },
+    "bookings": {
+      "title": "Mes Réservations",
+      "newBooking": "Nouvelle Réservation",
+      "loading": "Chargement de vos réservations...",
+      "loadError": "Échec du chargement de vos réservations",
+      "retry": "Réessayer",
+      "noBookings": "Aucune réservation",
+      "noBookingsText": "Commencez par réserver votre premier rendez-vous !",
+      "bookNow": "Réserver Maintenant",
+      "with": "avec",
+      "at": "à",
+      "reschedule": "Reprogrammer",
+      "cancel": "Annuler",
+      "cancelConfirm": "Êtes-vous sûr de vouloir annuler cette réservation ?",
+      "cancelSuccess": "Réservation annulée avec succès !",
+      "cancelError": "Échec de l'annulation de la réservation. Veuillez réessayer.",
+      "status": {
+        "pending": "En Attente",
+        "confirmed": "Confirmé",
+        "cancelled": "Annulé",
+        "completed": "Terminé"
+      }
+    },
+    "orders": "Mes Commandes",
+    "settings": "Paramètres",
+    "personalInfo": "Informations Personnelles",
+    "contactInfo": "Coordonnées",
+    "updateProfile": "Mettre à jour le Profil",
+    "changePassword": "Changer le Mot de Passe",
+    "upcomingBookings": "Rendez-vous à Venir",
+    "pastBookings": "Rendez-vous Passés"
+  },
+  "dashboard": {
+    "welcome": "Bienvenue",
+    "subtitle": "Tableau de Bord Styliste",
+    "nav": {
+      "dashboard": "Tableau de Bord",
+      "bookings": "Mes Réservations",
+      "profile": "Mon Profil",
+      "services": "Mes Services",
+      "portfolio": "Mon Portfolio",
+      "statistics": "Statistiques",
+      "settings": "Paramètres"
+    },
+    "stats": {
+      "today": "Aujourd'hui",
+      "bookingsToday": "Rendez-vous aujourd'hui",
+      "thisWeek": "Cette Semaine",
+      "last7Days": "7 derniers jours",
+      "vsLastWeek": "vs semaine dernière",
+      "monthlyRevenue": "Revenus Mensuels",
+      "thisMonth": "Ce mois-ci",
+      "vsLastMonth": "vs mois dernier",
+      "rating": "Note",
+      "averageRating": "Note moyenne"
+    },
+    "upcomingBookings": "Rendez-vous à Venir",
+    "noUpcoming": "Aucun rendez-vous à venir",
+    "viewDetails": "Voir Détails",
+    "quickActions": "Actions Rapides",
+    "viewAllBookings": "Voir Toutes les Réservations",
+    "manageServices": "Gérer les Services",
+    "viewReports": "Voir les Rapports",
+    "calendar": {
+      "sun": "Dim",
+      "mon": "Lun",
+      "tue": "Mar",
+      "wed": "Mer",
+      "thu": "Jeu",
+      "fri": "Ven",
+      "sat": "Sam",
+      "hasBookings": "A des réservations"
+    },
+    "bookings": {
+      "title": "Mes Réservations",
+      "allStatus": "Tous les Statuts",
+      "allDates": "Toutes les Dates",
+      "upcoming": "À Venir",
+      "past": "Passés",
+      "noBookings": "Aucune réservation trouvée",
+      "minutes": "min",
+      "accept": "Accepter",
+      "decline": "Refuser",
+      "acceptSuccess": "Réservation confirmée avec succès !",
+      "acceptError": "Échec de l'acceptation de la réservation. Veuillez réessayer.",
+      "declineConfirm": "Êtes-vous sûr de vouloir refuser cette réservation ?",
+      "declineSuccess": "Réservation refusée.",
+      "declineError": "Échec du refus de la réservation. Veuillez réessayer."
+    },
+    "profile": {
+      "title": "Mon Profil",
+      "professionalStylist": "Styliste Professionnel",
+      "contactInfo": "Coordonnées",
+      "email": "Email",
+      "userId": "Identifiant Utilisateur",
+      "role": "Rôle",
+      "stylist": "Styliste",
+      "statistics": "Statistiques",
+      "totalBookings": "Total Réservations",
+      "confirmedBookings": "Réservations Confirmées",
+      "totalRevenue": "Revenus Totaux",
+      "bio": "Bio",
+      "bioText": "Passionné par la création de transformations époustouflantes. Spécialisé dans les coupes de précision, la coloration créative et le coiffage personnalisé qui met en valeur le meilleur de chaque client."
+    },
+    "services": {
+      "title": "Mes Services"
+    },
+    "portfolio": {
+      "title": "Mon Portfolio",
+      "work": "Travail"
+    },
+    "statistics": {
+      "title": "Statistiques",
+      "totalBookings": "Total Réservations",
+      "totalRevenue": "Revenus Totaux",
+      "uniqueClients": "Clients Uniques",
+      "averageRating": "Note Moyenne",
+      "revenueOverview": "Aperçu des Revenus",
+      "topServices": "Top Services",
+      "bookingStatus": "Statut des Réservations",
+      "bookingsTimeline": "Chronologie des Réservations (30 Derniers Jours)"
+    },
+    "settings": {
+      "title": "Paramètres",
+      "notifications": "Notifications",
+      "emailNotifications": "Notifications par email",
+      "smsNotifications": "Notifications par SMS",
+      "bookingReminders": "Rappels de rendez-vous",
+      "availability": "Disponibilité",
+      "acceptNewBookings": "Accepter de nouvelles réservations",
+      "showPublicly": "Afficher le profil publiquement",
+      "dangerZone": "Zone Dangereuse",
+      "deleteAccount": "Supprimer le Compte",
+      "deleteConfirm": "⚠️ ATTENTION : Cela supprimera définitivement votre compte et toutes vos données. Cette action ne peut pas être annulée.\n\nÊtes-vous absolument sûr ?",
+      "deleteNotImplemented": "La fonctionnalité de suppression de compte n'est pas encore implémentée. Veuillez contacter le support pour supprimer votre compte."
+    },
+    "modal": {
+      "bookingDetails": "Détails de la Réservation",
+      "clientInfo": "Informations Client",
+      "serviceDetails": "Détails du Service",
+      "service": "Service",
+      "duration": "Durée",
+      "minutes": "minutes",
+      "price": "Prix",
+      "appointment": "Rendez-vous",
+      "date": "Date",
+      "time": "Heure",
+      "status": "Statut",
+      "notes": "Notes",
+      "acceptBooking": "Accepter la Réservation",
+      "declineBooking": "Refuser la Réservation",
+      "close": "Fermer"
+    },
+    "error": {
+      "signInRequired": "Veuillez vous connecter pour accéder à votre tableau de bord",
+      "loadFailed": "Échec du chargement des données. Veuillez réessayer.",
+      "retry": "Réessayer"
+    },
+    "loading": "Chargement du tableau de bord...",
+    "todayBookings": "Rendez-vous Aujourd'hui",
+    "weekBookings": "Cette Semaine",
+    "myBookings": "Mes Réservations",
+    "myProfile": "Mon Profil",
+    "myServices": "Mes Services",
+    "myPortfolio": "Mon Portfolio",
+    "viewDetails": "Voir Détails",
+    "accept": "Accepter",
+    "decline": "Refuser",
+    "client": "Client",
+    "totalRevenue": "Revenus Totaux",
+    "uniqueClients": "Clients Uniques"
+  },
+  "auth": {
+    "login": {
+      "title": "Bon Retour",
+      "subtitle": "Connectez-vous à votre compte LYAMAL BEAUTY'S",
+      "emailLabel": "Adresse Email",
+      "emailPlaceholder": "votre.email@exemple.com",
+      "passwordLabel": "Mot de Passe",
+      "passwordPlaceholder": "Entrez votre mot de passe",
+      "forgotPassword": "Mot de passe oublié ?",
+      "signIn": "Se Connecter",
+      "signingIn": "Connexion en cours...",
+      "or": "OU",
+      "continueWithGoogle": "Continuer avec Google",
+      "noAccount": "Pas encore de compte ?",
+      "signUpLink": "S'inscrire"
+    },
+    "register": {
+      "title": "Créer un Compte",
+      "subtitle": "Rejoignez LYAMAL BEAUTY'S aujourd'hui",
+      "fullNameLabel": "Nom Complet",
+      "fullNamePlaceholder": "Entrez votre nom complet",
+      "emailLabel": "Adresse Email",
+      "emailPlaceholder": "votre.email@exemple.com",
+      "passwordLabel": "Mot de Passe",
+      "passwordPlaceholder": "Choisissez un mot de passe sécurisé",
+      "confirmPasswordLabel": "Confirmer le Mot de Passe",
+      "confirmPasswordPlaceholder": "Ressaisissez votre mot de passe",
+      "phoneLabel": "Numéro de Téléphone",
+      "phonePlaceholder": "Votre numéro de téléphone",
+      "roleLabel": "Je suis",
+      "client": "Client",
+      "clientDesc": "Réserver des services de beauté avec des professionnels",
+      "stylist": "Styliste Professionnel",
+      "stylistDesc": "Offrez vos services et développez votre entreprise",
+      "signUp": "S'inscrire",
+      "signingUp": "Création du compte...",
+      "or": "OU",
+      "continueWithGoogle": "S'inscrire avec Google",
+      "haveAccount": "Déjà un compte ?",
+      "signInLink": "Se Connecter"
+    },
+    "errors": {
+      "fillAllFields": "Veuillez remplir tous les champs",
+      "invalidCredentials": "Email ou mot de passe invalide",
+      "tooManyAttempts": "Trop de tentatives échouées. Veuillez réessayer plus tard.",
+      "loginFailed": "Échec de la connexion. Veuillez réessayer.",
+      "googleLoginFailed": "Échec de la connexion avec Google. Veuillez réessayer.",
+      "passwordMismatch": "Les mots de passe ne correspondent pas",
+      "weakPassword": "Le mot de passe doit contenir au moins 6 caractères",
+      "emailInUse": "Email déjà utilisé",
+      "registerFailed": "Échec de la création du compte. Veuillez réessayer."
+    },
+    "login": "Connexion",
+    "signup": "Inscription",
+    "email": "Email",
+    "password": "Mot de passe",
+    "confirmPassword": "Confirmer le Mot de passe",
+    "fullName": "Nom Complet",
+    "phone": "Téléphone",
+    "forgotPassword": "Mot de passe oublié ?",
+    "dontHaveAccount": "Pas encore de compte ?",
+    "alreadyHaveAccount": "Déjà un compte ?",
+    "signupAsClient": "S'inscrire comme Client",
+    "signupAsStylist": "S'inscrire comme Styliste",
+    "loginSuccess": "Connexion Réussie",
+    "signupSuccess": "Compte Créé avec Succès",
+    "loginError": "Échec de la Connexion",
+    "signupError": "Échec de l'Inscription"
+  },
+  "common": {
+    "loading": "Chargement...",
+    "error": "Erreur",
+    "success": "Succès",
+    "cancel": "Annuler",
+    "save": "Enregistrer",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "close": "Fermer",
+    "back": "Retour",
+    "next": "Suivant",
+    "previous": "Précédent",
+    "search": "Rechercher",
+    "filter": "Filtrer",
+    "sort": "Trier",
+    "reset": "Réinitialiser",
+    "apply": "Appliquer",
+    "confirm": "Confirmer",
+    "yes": "Oui",
+    "no": "Non"
+  },
+  "footer": {
+    "followUs": "Suivez-nous",
+    "contact": "Contact",
+    "quickLinks": "Liens Rapides",
+    "allRightsReserved": "Tous droits réservés"
+  }
+}

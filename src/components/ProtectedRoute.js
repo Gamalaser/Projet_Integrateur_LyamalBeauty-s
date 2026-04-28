@@ -1,7 +1,4 @@
-// ========================================
-// PROTECTEDROUTE.JS - COMPOSANT DE SÉCURITÉ
-// Protège les routes selon l'authentification et le rôle
-// ========================================
+
 import React from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../tools/AuthContext';
@@ -55,7 +52,7 @@ function ProtectedRoute({ children, requiredRole = null, redirectTo = '/login' }
     );
   }
 
-  // CAS 1 : Utilisateur non connecté
+  // ici on vérifie d'abord si l'utilisateur est connecté
   if (!currentUser) {
     // Rediriger vers login avec l'URL d'origine pour retourner après connexion
     return <Navigate to={redirectTo} state={{ from: location.pathname }} replace />;
@@ -63,10 +60,18 @@ function ProtectedRoute({ children, requiredRole = null, redirectTo = '/login' }
 
   // CAS 2 : Vérification du rôle si requis
   if (requiredRole) {
-    const userRole = currentUser.role || 'client'; // Par défaut client si pas de rôle
+    //  CORRECTION : Vérifier localStorage EN PREMIER (source de vérité)
+    const localStorageRole = localStorage.getItem(`user_role_${currentUser.uid}`);
+    const userRole = localStorageRole || currentUser.role || 'client';
+    
+    console.log('ProtectedRoute - localStorage role:', localStorageRole);
+    console.log('ProtectedRoute - currentUser.role:', currentUser.role);
+    console.log('ProtectedRoute - final userRole:', userRole);
+    console.log('ProtectedRoute - requiredRole:', requiredRole);
 
     // Si le rôle requis ne correspond pas au rôle de l'utilisateur
     if (userRole !== requiredRole) {
+      console.log('❌ Role mismatch! Redirecting...');
       // Rediriger selon le rôle
       if (userRole === 'stylist') {
         // Coiffeur qui essaie d'accéder à une page client → Dashboard coiffeur
@@ -76,6 +81,8 @@ function ProtectedRoute({ children, requiredRole = null, redirectTo = '/login' }
         return <Navigate to="/account" replace />;
       }
     }
+    
+    console.log(' Role match! Rendering protected content');
   }
 
   // CAS 3 : Tout est OK, afficher le composant

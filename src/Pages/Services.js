@@ -1,21 +1,19 @@
-// ========================================
-// SERVICES.JS - PAGE CATALOGUE DES SERVICES
-// VERSION CORRIGÉE : API + Protection connexion + DEVISES ✅
-// ========================================
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { FaSearch, FaFilter } from 'react-icons/fa';
 import { getServices } from '../tools/apiService';
 import { useAuth } from '../tools/AuthContext';
-import { useCurrency } from '../tools/CurrencyContext'; // ✅ AJOUTÉ
+import { useCurrency } from '../tools/CurrencyContext';
 import '../styles/pages/services.scss';
 
-// ========================================
-// COMPOSANT SERVICES PAGE
-// ========================================
+// ici nous avons créé une page Services qui affiche une liste de services de beauté disponibles, 
+// avec des filtres de recherche et de catégorie.
 function Services() {
-  const { currentUser } = useAuth(); // Pour vérifier la connexion
-  const { formatPrice } = useCurrency(); // ✅ AJOUTÉ pour les devises
+  const { t } = useTranslation();
+  const { currentUser } = useAuth();
+  const { formatPrice } = useCurrency();
   const navigate = useNavigate();
   
   // États pour les données de l'API
@@ -25,7 +23,6 @@ function Services() {
   
   // États pour les filtres
   const [categoryFilter, setCategoryFilter] = useState('All');
-  const [genreFilter, setGenreFilter] = useState('All');
   const [searchTerm, setSearchTerm] = useState('');
 
   // Charger les services depuis l'API au montage du composant
@@ -38,34 +35,33 @@ function Services() {
         setError(null);
       } catch (err) {
         console.error('Error loading services:', err);
-        setError('Failed to load services. Please try again later.');
+        setError(t('services.error.loadFailed'));
       } finally {
         setLoading(false);
       }
     };
 
     fetchServices();
-  }, []); // [] = se lance une seule fois au montage
+  }, [t]);
 
   // Gérer le clic sur "Book Now" avec vérification de connexion
-  const handleBookClick = (e) => {
-    e.preventDefault();
+  const handleBookClick = (service) => {
     if (currentUser) {
-      // Si connecté, aller vers booking
-      navigate('/booking');
+      navigate('/booking', { state: { selectedService: service } });
     } else {
-      // Si non connecté, aller vers login
-      navigate('/login');
+      navigate('/login', { state: { from: '/booking', service } });
     }
   };
+
+  // Obtenir les catégories uniques dynamiquement (comme Shop.js)
+  const categories = ['All', ...new Set(services.map(s => s.category).filter(Boolean))];
 
   // Filtrer les services selon les critères
   const filteredServices = services.filter(service => {
     const matchCategory = categoryFilter === 'All' || service.category === categoryFilter;
-    const matchGenre = genreFilter === 'All' || service.genre === genreFilter;
     const matchSearch = service.name.toLowerCase().includes(searchTerm.toLowerCase());
     
-    return matchCategory && matchGenre && matchSearch;
+    return matchCategory && matchSearch;
   });
 
   // Afficher spinner pendant le chargement
@@ -74,7 +70,7 @@ function Services() {
       <div className="services-page">
         <div className="loading-container">
           <div className="spinner"></div>
-          <p>Loading services...</p>
+          <p>{t('common.loading')}</p>
         </div>
       </div>
     );
@@ -85,9 +81,9 @@ function Services() {
     return (
       <div className="services-page">
         <div className="error-container">
-          <h2>Oops!</h2>
+          <h2>{t('services.error.title')}</h2>
           <p>{error}</p>
-          <button onClick={() => window.location.reload()}>Retry</button>
+          <button onClick={() => window.location.reload()}>{t('services.error.retry')}</button>
         </div>
       </div>
     );
@@ -99,9 +95,9 @@ function Services() {
       {/* EN-TÊTE DE LA PAGE */}
       <section className="services-header">
         <div className="header-content">
-          <h1 className="page-title">Our Services</h1>
+          <h1 className="page-title">{t('services.title')}</h1>
           <p className="page-subtitle">
-            Discover our complete range of professional beauty services tailored to your needs
+            {t('services.subtitle')}
           </p>
         </div>
       </section>
@@ -115,48 +111,28 @@ function Services() {
             <FaSearch className="search-icon" />
             <input
               type="text"
-              placeholder="Search for a service..."
+              placeholder={t('services.filters.searchPlaceholder')}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="search-input"
             />
           </div>
           
-          {/* Filtres */}
+          {/* Filtres - CATÉGORIES DYNAMIQUES */}
           <div className="filters-group">
             <div className="filter-item">
               <FaFilter className="filter-icon" />
-              <label>Category:</label>
+              <label>{t('services.filters.category')}:</label>
               <select 
                 value={categoryFilter}
                 onChange={(e) => setCategoryFilter(e.target.value)}
                 className="filter-select"
               >
-                <option value="All">All Categories</option>
-                <option value="Hair Cutting">Hair Cutting</option>
-                <option value="Coloring">Coloring</option>
-                <option value="Beard">Beard</option>
-                <option value="Nails">Nails</option>
-                <option value="Spa">Spa</option>
-                <option value="Massage">Massage</option>
-                <option value="Facial">Facial</option>
-                <option value="Makeup">Makeup</option>
-                <option value="Body Care">Body Care</option>
-                <option value="Packages">Packages</option>
-              </select>
-            </div>
-            
-            <div className="filter-item">
-              <label>Genre:</label>
-              <select 
-                value={genreFilter}
-                onChange={(e) => setGenreFilter(e.target.value)}
-                className="filter-select"
-              >
-                <option value="All">All</option>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-                <option value="Mixed">Mixed</option>
+                {categories.map(category => (
+                  <option key={category} value={category}>
+                    {category === 'All' ? t('services.filters.allCategories') : category}
+                  </option>
+                ))}
               </select>
             </div>
           </div>
@@ -168,7 +144,7 @@ function Services() {
       <section className="services-results">
         <div className="results-info">
           <p className="results-count">
-            Showing <span className="highlight">{filteredServices.length}</span> service{filteredServices.length !== 1 ? 's' : ''}
+            {t('services.results.showing')} <span className="highlight">{filteredServices.length}</span> {filteredServices.length !== 1 ? t('services.results.services') : t('services.results.service')}
           </p>
         </div>
         
@@ -194,25 +170,26 @@ function Services() {
                 
                 <div className="service-details">
                   <div className="detail-item">
-                    <span className="detail-label">Duration:</span>
-                    <span className="detail-value">{service.duration} min</span>
+                    <span className="detail-label">{t('services.card.duration')}:</span>
+                    <span className="detail-value">{service.duration} {t('services.card.minutes')}</span>
                   </div>
-                  <div className="detail-item">
-                    <span className="detail-label">Genre:</span>
-                    <span className="detail-value">{service.genre}</span>
-                  </div>
+                  {service.popular && (
+                    <div className="detail-item">
+                      <span className="popular-badge">⭐ {t('services.card.popular')}</span>
+                    </div>
+                  )}
                 </div>
                 
                 <div className="service-footer">
                   <div className="service-price">
-                    <span className="price-from">from</span>
-                    <span className="price-amount">{formatPrice(service.priceFrom)}</span> {/* ✅ MODIFIÉ */}
+                    <span className="price-from">{t('services.from')}</span>
+                    <span className="price-amount">{formatPrice(service.priceFrom)}</span>
                   </div>
                   <button 
-                    onClick={handleBookClick} 
+                    onClick={() => handleBookClick(service)}
                     className="btn-book"
                   >
-                    Book Now
+                    {t('services.bookService')}
                   </button>
                 </div>
               </div>
@@ -224,8 +201,8 @@ function Services() {
         {/* Message si aucun résultat */}
         {filteredServices.length === 0 && (
           <div className="no-results">
-            <h3>No services found</h3>
-            <p>Try adjusting your filters or search term</p>
+            <h3>{t('services.noResults.title')}</h3>
+            <p>{t('services.noResults.message')}</p>
           </div>
         )}
         
@@ -233,10 +210,10 @@ function Services() {
       
       {/* CALL TO ACTION */}
       <section className="services-cta">
-        <h2 className="cta-title">Can't find what you're looking for?</h2>
-        <p className="cta-text">Contact us and we'll help you find the perfect service</p>
-        <button onClick={handleBookClick} className="btn-contact">
-          Book a Consultation
+        <h2 className="cta-title">{t('services.cta.title')}</h2>
+        <p className="cta-text">{t('services.cta.text')}</p>
+        <button onClick={() => handleBookClick(null)} className="btn-contact">
+          {t('services.cta.button')}
         </button>
       </section>
       

@@ -1,18 +1,15 @@
-// ========================================
-// CART.JS - PAGE DU PANIER
-// VERSION AVEC DEVISES ✅
-// ========================================
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useCart } from '../tools/CartContext';
-import { useCurrency } from '../tools/CurrencyContext'; // ✅ AJOUTÉ
+import { useCurrency } from '../tools/CurrencyContext';
 import CartItem from '../components/CartItem';
 import { FaShoppingBag, FaArrowLeft } from 'react-icons/fa';
 import '../styles/pages/cart.scss';
 
 function Cart() {
   const { cartItems, getTotalPrice, getTotalItems, clearCart } = useCart();
-  const { formatPrice } = useCurrency(); // ✅ AJOUTÉ
+  const { formatPrice } = useCurrency();
   
   const totalPrice = getTotalPrice();
   const totalItems = getTotalItems();
@@ -76,7 +73,7 @@ function Cart() {
                 <div className="summary-rows">
                   <div className="summary-row">
                     <span>Subtotal ({totalItems} items):</span>
-                    <span>{formatPrice(totalPrice)}</span> {/* ✅ MODIFIÉ */}
+                    <span>{formatPrice(totalPrice)}</span>
                   </div>
                   
                   <div className="summary-row">
@@ -85,33 +82,34 @@ function Cart() {
                       {shipping === 0 ? (
                         <span className="free-shipping">FREE</span>
                       ) : (
-                        formatPrice(shipping) // ✅ MODIFIÉ
+                        formatPrice(shipping)
                       )}
                     </span>
                   </div>
                   
                   <div className="summary-row">
                     <span>Tax (10%):</span>
-                    <span>{formatPrice(tax)}</span> {/* ✅ MODIFIÉ */}
+                    <span>{formatPrice(tax)}</span>
                   </div>
                   
                   <div className="summary-divider"></div>
                   
                   <div className="summary-row total">
                     <span>Total:</span>
-                    <span className="total-price">{formatPrice(grandTotal)}</span> {/* ✅ MODIFIÉ */}
+                    <span className="total-price">{formatPrice(grandTotal)}</span>
                   </div>
                 </div>
                 
                 {totalPrice < 50 && (
                   <div className="shipping-notice">
-                    Add {formatPrice(50 - totalPrice)} more for free shipping! {/* ✅ MODIFIÉ */}
+                    Add {formatPrice(50 - totalPrice)} more for free shipping!
                   </div>
                 )}
                 
-                <button className="btn-checkout">
+                {/* ✅ BOUTON CHECKOUT CORRIGÉ - Link vers /checkout */}
+                <Link to="/checkout" className="btn-checkout">
                   Proceed to Checkout
-                </button>
+                </Link>
                 
                 <div className="payment-methods">
                   <p>We accept:</p>

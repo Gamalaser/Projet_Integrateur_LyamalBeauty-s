@@ -1,6 +1,6 @@
 // ========================================
 // LOGIN.JS - PAGE DE CONNEXION
-// VERSION AVEC REDIRECTION AUTOMATIQUE ✅
+// VERSION AVEC REDIRECTION AUTOMATIQUE 
 // ========================================
 import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
@@ -47,7 +47,7 @@ function Login() {
       setError('');
       const result = await login(formData.email, formData.password);
       
-      // ✅ REDIRECTION AUTOMATIQUE SELON LE RÔLE
+      //  REDIRECTION AUTOMATIQUE SELON LE RÔLE
       // Si l'utilisateur venait d'une page protégée, y retourner
       const from = location.state?.from || null;
       
@@ -57,9 +57,9 @@ function Login() {
       } else {
         // Sinon, rediriger selon le rôle
         if (result.role === 'stylist') {
-          navigate('/coiffeur-dashboard'); // ✅ Professionnel → Dashboard
+          navigate('/coiffeur-dashboard'); //  Professionnel → Dashboard
         } else {
-          navigate('/'); // ✅ Client → Home
+          navigate('/'); //  Client → Home
         }
       }
     } catch (err) {
@@ -84,7 +84,7 @@ function Login() {
       setError('');
       const result = await loginWithGoogle();
       
-      // ✅ REDIRECTION AUTOMATIQUE SELON LE RÔLE
+      // REDIRECTION AUTOMATIQUE SELON LE RÔLE
       const from = location.state?.from || null;
       
       if (from) {
