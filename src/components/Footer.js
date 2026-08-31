@@ -34,7 +34,15 @@ function Footer() {
           </ul>
         </div>
         
-        {/* Colonne 3 : Follow Us */}
+        {/* Colonne 3 : Legal */}
+        <div className="footer-column">
+          <h4 className="footer-heading">Legal</h4>
+          <ul className="footer-links">
+            <li><Link to="/privacy">Politique de confidentialité</Link></li>
+          </ul>
+        </div>
+        
+        {/* Colonne 4 : Follow Us */}
         <div className="footer-column">
           <h4 className="footer-heading">Follow Us</h4>
           <div className="social-icons">

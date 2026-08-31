@@ -75,21 +75,22 @@ export const AuthProvider = ({ children }) => {
   };
 
   // ✅ Se connecter avec email et mot de passe (CORRIGÉ)
-  const login = async (email, password) => {
+    const login = async (email, password) => {
     try {
       setError(null);
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      
-      // Récupérer le rôle depuis localStorage
-      const role = localStorage.getItem(`user_role_${userCredential.user.uid}`) || 'client';
-      
-      // ✅ NOUVEAU : Vérifier si l'user existe dans db.json, sinon le créer
+
+      // ✅ Récupérer le rôle depuis db.json (source de vérité)
+      let role = 'client';
       try {
-        await getUserById(userCredential.user.uid);
-        console.log('✅ User exists in db.json');
+        const dbUser = await getUserById(userCredential.user.uid);
+        role = dbUser.role || 'client';
+        localStorage.setItem(`user_role_${userCredential.user.uid}`, role);
+        console.log('✅ Rôle récupéré depuis db.json :', role);
       } catch (dbError) {
-        // Si l'user n'existe pas dans db.json, le créer
-        console.log('⚠️ User not found in db.json, creating...');
+        // L'user n'existe pas dans db.json → le créer avec le rôle du localStorage (ou client)
+        role = localStorage.getItem(`user_role_${userCredential.user.uid}`) || 'client';
+        console.log('⚠️ User absent de db.json, création...');
         try {
           await createUser({
             id: userCredential.user.uid,
@@ -99,12 +100,12 @@ export const AuthProvider = ({ children }) => {
             phone: '',
             createdAt: new Date().toISOString()
           });
-          console.log('✅ User created in db.json');
+          console.log('✅ User créé dans db.json');
         } catch (createError) {
-          console.error('⚠️ Failed to create user in db.json:', createError);
+          console.error('⚠️ Échec création user dans db.json:', createError);
         }
       }
-      
+
       return { user: userCredential.user, role };
     } catch (err) {
       setError(err.message);
@@ -210,30 +211,38 @@ export const AuthProvider = ({ children }) => {
   // ========================================
   // ✅ Ajouter le rôle dans currentUser
   // ========================================
-  useEffect(() => {
+    useEffect(() => {
     setLoading(true);
-    
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
-        // Récupérer le rôle depuis localStorage
-        const role = localStorage.getItem(`user_role_${user.uid}`) || 'client';
-        
-        // ✅ IMPORTANT : Créer un objet currentUser avec le rôle inclus
+        // ✅ Récupérer le rôle depuis db.json (source de vérité), pas localStorage
+        let role = 'client';
+        try {
+          const dbUser = await getUserById(user.uid);
+          role = dbUser.role || 'client';
+          // On garde localStorage à jour comme cache secondaire
+          localStorage.setItem(`user_role_${user.uid}`, role);
+        } catch (err) {
+          // Si db.json ne répond pas, on retombe sur localStorage
+          role = localStorage.getItem(`user_role_${user.uid}`) || 'client';
+          console.warn('⚠️ Rôle lu depuis localStorage (db.json injoignable)');
+        }
+
         setCurrentUser({
           uid: user.uid,
           email: user.email,
           displayName: user.displayName,
           photoURL: user.photoURL,
-          role: role // ← LE RÔLE EST MAINTENANT DANS currentUser
+          role: role, // ← Le rôle vient maintenant de db.json
         });
       } else {
         setCurrentUser(null);
       }
-      
-      setLoading(false); // ✅ IMPORTANT : Fin du chargement
+
+      setLoading(false);
     });
 
-    // Cleanup
     return unsubscribe;
   }, [auth]);
 

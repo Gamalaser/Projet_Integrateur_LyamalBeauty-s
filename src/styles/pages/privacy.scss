@@ -1,0 +1,109 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;600;700&display=swap');
+
+$color-black: #1a1a1a;
+$color-gray: #2d2d2d;
+$color-gold: #d4af37;
+$color-gold-light: #c9a961;
+$color-white-off: #f5f5f5;
+$color-white: #ffffff;
+
+$font-title: 'Playfair Display', serif;
+$font-body: 'Lato', sans-serif;
+
+.privacy-page {
+  background-color: $color-white-off;
+  min-height: 100vh;
+
+  .privacy-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+  }
+
+  .privacy-title {
+    font-family: $font-title;
+    font-size: 2.8rem;
+    color: $color-black;
+    margin-bottom: 0.5rem;
+  }
+
+  .privacy-updated {
+    font-size: 0.9rem;
+    color: lighten($color-gray, 25%);
+    margin-bottom: 3rem;
+    font-style: italic;
+  }
+
+  .privacy-section {
+    margin-bottom: 2.5rem;
+
+    h2 {
+      font-family: $font-title;
+      font-size: 1.5rem;
+      color: $color-gold;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: $color-gray;
+      margin-bottom: 1rem;
+    }
+
+    ul {
+      list-style: none;
+      padding-left: 0;
+
+      li {
+        font-size: 1.05rem;
+        line-height: 1.7;
+        color: $color-gray;
+        margin-bottom: 0.8rem;
+        padding-left: 1.5rem;
+        position: relative;
+
+        &::before {
+          content: '✦';
+          position: absolute;
+          left: 0;
+          color: $color-gold;
+        }
+      }
+    }
+
+    a {
+      color: $color-gold;
+      text-decoration: none;
+      border-bottom: 1px solid $color-gold;
+      transition: opacity 0.2s ease;
+
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+  }
+
+  .privacy-back {
+    display: inline-block;
+    margin-top: 2rem;
+    color: $color-gold;
+    font-family: $font-body;
+    font-weight: 600;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .privacy-page .privacy-container {
+    padding: 3rem 1.5rem;
+  }
+  .privacy-page .privacy-title {
+    font-size: 2rem;
+  }
+}

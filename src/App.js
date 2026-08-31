@@ -37,6 +37,7 @@ import CoiffeurDashboard from './Pages/CoiffeurDashboard';
 import ProductDetails from './Pages/ProductDetails';
 import About from './Pages/About';
 import Checkout from './Pages/Checkout';
+import PrivacyPolicy from './Pages/PrivacyPolicy';
 
 // ========================================
 // COMPOSANT SCROLL TO TOP
@@ -82,6 +83,7 @@ function App() {
                   <Route path="/product/:id" element={<ProductDetails />} />
                   <Route path="/login" element={<Login />} />
                   <Route path="/register" element={<Register />} />
+                  <Route path="/privacy" element={<PrivacyPolicy />} />
 
                   {/* ========================================
                       ROUTES PROTÉGÉES (connexion requise)
@@ -329,16 +331,29 @@ function HomePage() {
 }
 
 // ========================================
-// PAGE 404 - AVEC TRADUCTIONS ✅
+// PAGE 404 - VERSION PRO ✅
 // ========================================
 function NotFoundPage() {
   const { t } = useTranslation();
-  
+
   return (
-    <div className="page-container">
-      <h1>{t('home.notFound.title')}</h1>
-      <p>{t('home.notFound.message')}</p>
-      <Link to="/" className="btn-signup">{t('home.notFound.backHome')}</Link>
+    <div className="notfound-page">
+      <div className="notfound-content">
+        <div className="notfound-scissors">✂</div>
+        <h1 className="notfound-code">404</h1>
+        <h2 className="notfound-title">
+          {t('home.notFound.title', 'Page introuvable')}
+        </h2>
+        <p className="notfound-message">
+          {t(
+            'home.notFound.message',
+            "Oups ! Cette page n'existe pas ou a été déplacée."
+          )}
+        </p>
+        <Link to="/" className="notfound-btn">
+          {t('home.notFound.backHome', "Retour à l'accueil")}
+        </Link>
+      </div>
     </div>
   );
 }

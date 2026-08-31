@@ -701,6 +701,23 @@
       "createdAt": "2026-05-20T18:31:28.764Z",
       "status": "confirmed",
       "id": "rJViqQXT9XA"
+    },
+    {
+      "clientId": "f5mtpmeuFuWWZao36y1LXA76iIv2",
+      "clientName": "Mohamed Ben",
+      "clientEmail": "mohamed.ben@test.com",
+      "serviceId": "16",
+      "serviceName": "Perm",
+      "stylistId": "uNeq5iohtUXoLT1AAEwz1KDyN8S2",
+      "stylistName": "Emily Chen",
+      "date": "2026-08-30",
+      "time": "12:00",
+      "duration": 180,
+      "price": 120,
+      "notes": "",
+      "createdAt": "2026-08-28T15:20:58.840Z",
+      "status": "pending",
+      "id": "c9AMBUGVomE"
     }
   ],
   "reviews": [],
@@ -768,6 +785,22 @@
       "role": "client",
       "phone": "",
       "createdAt": "2026-04-27T05:46:42.198Z"
+    },
+    {
+      "id": "eCg9YUpx2S4",
+      "email": "djamalnazer@gmail.com",
+      "name": "Gamal aser",
+      "role": "client",
+      "phone": "",
+      "createdAt": "2026-08-27T18:00:04.443Z"
+    },
+    {
+      "id": "E1cYp3QKodg",
+      "email": "alnazer@gmail.com",
+      "name": "Gamal aser",
+      "role": "stylist",
+      "phone": "",
+      "createdAt": "2026-08-27T18:01:27.215Z"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
