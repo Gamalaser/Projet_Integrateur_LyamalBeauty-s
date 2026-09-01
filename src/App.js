@@ -38,7 +38,6 @@ import ProductDetails from './Pages/ProductDetails';
 import About from './Pages/About';
 import Checkout from './Pages/Checkout';
 import PrivacyPolicy from './Pages/PrivacyPolicy';
-
 // ========================================
 // COMPOSANT SCROLL TO TOP
 // ========================================
@@ -84,7 +83,6 @@ function App() {
                   <Route path="/login" element={<Login />} />
                   <Route path="/register" element={<Register />} />
                   <Route path="/privacy" element={<PrivacyPolicy />} />
-
                   {/* ========================================
                       ROUTES PROTÉGÉES (connexion requise)
                   ======================================== */}

@@ -1,338 +1,177 @@
 // ========================================
-// API SERVICE - Connexion à JSON Server
+// API SERVICE - Connexion à FIRESTORE
+// (remplace json-server / localhost:5000)
 // ========================================
+import { db } from './firebaseConfig';
+import {
+  collection,
+  getDocs,
+  getDoc,
+  doc,
+  addDoc,
+  setDoc,
+  updateDoc,
+  deleteDoc,
+  query,
+  where,
+} from 'firebase/firestore';
 
-const API_BASE_URL = 'http://localhost:5000';
+// Helper : transforme un snapshot Firestore en tableau d'objets
+const snapshotToArray = (snapshot) =>
+  snapshot.docs.map((d) => ({ id: d.id, ...d.data() }));
 
 // ========================================
 // SERVICES
 // ========================================
-
-// Récupérer tous les services
 export const getServices = async () => {
-  try {
-    const response = await fetch(`${API_BASE_URL}/services`);
-    if (!response.ok) throw new Error('Failed to fetch services');
-    return await response.json();
-  } catch (error) {
-    console.error('Error fetching services:', error);
-    throw error;
-  }
+  const snapshot = await getDocs(collection(db, 'services'));
+  return snapshotToArray(snapshot);
 };
 
-// Récupérer un service par ID
 export const getServiceById = async (id) => {
-  try {
-    const response = await fetch(`${API_BASE_URL}/services/${id}`);
-    if (!response.ok) throw new Error('Failed to fetch service');
-    return await response.json();
-  } catch (error) {
-    console.error('Error fetching service:', error);
-    throw error;
-  }
+  const ref = doc(db, 'services', String(id));
+  const snap = await getDoc(ref);
+  if (!snap.exists()) throw new Error('Service not found');
+  return { id: snap.id, ...snap.data() };
 };
 
-// Filtrer les services
 export const getFilteredServices = async (filters) => {
-  try {
-    let url = `${API_BASE_URL}/services?`;
-    
-    if (filters.category && filters.category !== 'All') {
-      url += `category=${filters.category}&`;
-    }
-    if (filters.genre && filters.genre !== 'All') {
-      url += `genre=${filters.genre}&`;
-    }
-    if (filters.search) {
-      url += `name_like=${filters.search}&`;
-    }
-    
-    const response = await fetch(url);
-    if (!response.ok) throw new Error('Failed to fetch filtered services');
-    return await response.json();
-  } catch (error) {
-    console.error('Error fetching filtered services:', error);
-    throw error;
-  }
+  // Firestore filtre moins souplement que json-server :
+  // on récupère tout puis on filtre côté client (volume faible).
+  const all = await getServices();
+  return all.filter((s) => {
+    if (filters.category && filters.category !== 'All' && s.category !== filters.category) return false;
+    if (filters.genre && filters.genre !== 'All' && s.genre !== filters.genre) return false;
+    if (filters.search && !s.name?.toLowerCase().includes(filters.search.toLowerCase())) return false;
+    return true;
+  });
 };
 
 // ========================================
 // STYLISTS (COIFFEURS)
 // ========================================
-
-// Récupérer tous les coiffeurs
 export const getStylists = async () => {
-  try {
-    const response = await fetch(`${API_BASE_URL}/stylists`);
-    if (!response.ok) throw new Error('Failed to fetch stylists');
-    return await response.json();
-  } catch (error) {
-    console.error('Error fetching stylists:', error);
-    throw error;
-  }
+  const snapshot = await getDocs(collection(db, 'stylists'));
+  return snapshotToArray(snapshot);
 };
 
-// Récupérer un coiffeur par ID
 export const getStylistById = async (id) => {
-  try {
-    const response = await fetch(`${API_BASE_URL}/stylists/${id}`);
-    if (!response.ok) throw new Error('Failed to fetch stylist');
-    return await response.json();
-  } catch (error) {
-    console.error('Error fetching stylist:', error);
-    throw error;
-  }
+  const ref = doc(db, 'stylists', String(id));
+  const snap = await getDoc(ref);
+  if (!snap.exists()) throw new Error('Stylist not found');
+  return { id: snap.id, ...snap.data() };
 };
 
-// Filtrer les coiffeurs
 export const getFilteredStylists = async (filters) => {
-  try {
-    let url = `${API_BASE_URL}/stylists?`;
-    
-    if (filters.genre && filters.genre !== 'All') {
-      url += `genre=${filters.genre}&`;
-    }
+  const all = await getStylists();
+  return all.filter((s) => {
+    if (filters.genre && filters.genre !== 'All' && s.genre !== filters.genre) return false;
     if (filters.specialty && filters.specialty !== 'All') {
-      url += `specialties_like=${filters.specialty}&`;
+      if (!s.specialties?.some((sp) => sp.includes(filters.specialty))) return false;
     }
-    
-    const response = await fetch(url);
-    if (!response.ok) throw new Error('Failed to fetch filtered stylists');
-    return await response.json();
-  } catch (error) {
-    console.error('Error fetching filtered stylists:', error);
-    throw error;
-  }
+    return true;
+  });
 };
 
 // ========================================
 // BOOKINGS (RÉSERVATIONS)
 // ========================================
-
-// Créer une réservation
 export const createBooking = async (bookingData) => {
-  try {
-    const response = await fetch(`${API_BASE_URL}/bookings`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        ...bookingData,
-        createdAt: new Date().toISOString(),
-        status: 'pending'
-      }),
-    });
-    
-    if (!response.ok) throw new Error('Failed to create booking');
-    return await response.json();
-  } catch (error) {
-    console.error('Error creating booking:', error);
-    throw error;
-  }
+  const docRef = await addDoc(collection(db, 'bookings'), {
+    ...bookingData,
+    createdAt: new Date().toISOString(),
+    status: 'pending',
+  });
+  return { id: docRef.id, ...bookingData };
 };
 
-// Récupérer toutes les réservations
 export const getBookings = async () => {
-  try {
-    const response = await fetch(`${API_BASE_URL}/bookings`);
-    if (!response.ok) throw new Error('Failed to fetch bookings');
-    return await response.json();
-  } catch (error) {
-    console.error('Error fetching bookings:', error);
-    throw error;
-  }
+  const snapshot = await getDocs(collection(db, 'bookings'));
+  return snapshotToArray(snapshot);
 };
 
-// Récupérer les réservations d'un client
 export const getClientBookings = async (clientId) => {
-  try {
-    const response = await fetch(`${API_BASE_URL}/bookings?clientId=${clientId}`);
-    if (!response.ok) throw new Error('Failed to fetch client bookings');
-    return await response.json();
-  } catch (error) {
-    console.error('Error fetching client bookings:', error);
-    throw error;
-  }
+  const q = query(collection(db, 'bookings'), where('clientId', '==', clientId));
+  const snapshot = await getDocs(q);
+  return snapshotToArray(snapshot);
 };
 
-// Récupérer les réservations d'un coiffeur
 export const getStylistBookings = async (stylistId) => {
-  try {
-    const response = await fetch(`${API_BASE_URL}/bookings?stylistId=${stylistId}`);
-    if (!response.ok) throw new Error('Failed to fetch stylist bookings');
-    return await response.json();
-  } catch (error) {
-    console.error('Error fetching stylist bookings:', error);
-    throw error;
-  }
+  const q = query(collection(db, 'bookings'), where('stylistId', '==', stylistId));
+  const snapshot = await getDocs(q);
+  return snapshotToArray(snapshot);
 };
 
-// Mettre à jour une réservation
 export const updateBooking = async (id, updatedData) => {
-  try {
-    const response = await fetch(`${API_BASE_URL}/bookings/${id}`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(updatedData),
-    });
-    
-    if (!response.ok) throw new Error('Failed to update booking');
-    return await response.json();
-  } catch (error) {
-    console.error('Error updating booking:', error);
-    throw error;
-  }
+  const ref = doc(db, 'bookings', String(id));
+  await updateDoc(ref, updatedData);
+  return { id, ...updatedData };
 };
 
-// Supprimer une réservation
 export const deleteBooking = async (id) => {
-  try {
-    const response = await fetch(`${API_BASE_URL}/bookings/${id}`, {
-      method: 'DELETE',
-    });
-    
-    if (!response.ok) throw new Error('Failed to delete booking');
-    return true;
-  } catch (error) {
-    console.error('Error deleting booking:', error);
-    throw error;
-  }
+  await deleteDoc(doc(db, 'bookings', String(id)));
+  return true;
 };
 
 // ========================================
 // PRODUCTS (PRODUITS)
 // ========================================
-
-// Récupérer tous les produits
 export const getProducts = async () => {
-  try {
-    const response = await fetch(`${API_BASE_URL}/products`);
-    if (!response.ok) throw new Error('Failed to fetch products');
-    return await response.json();
-  } catch (error) {
-    console.error('Error fetching products:', error);
-    throw error;
-  }
+  const snapshot = await getDocs(collection(db, 'products'));
+  return snapshotToArray(snapshot);
 };
 
-// Récupérer un produit par ID
 export const getProductById = async (id) => {
-  try {
-    const response = await fetch(`${API_BASE_URL}/products/${id}`);
-    if (!response.ok) throw new Error('Failed to fetch product');
-    return await response.json();
-  } catch (error) {
-    console.error('Error fetching product:', error);
-    throw error;
-  }
+  const ref = doc(db, 'products', String(id));
+  const snap = await getDoc(ref);
+  if (!snap.exists()) throw new Error('Product not found');
+  return { id: snap.id, ...snap.data() };
 };
 
 // ========================================
 // REVIEWS (AVIS)
 // ========================================
-
-// Récupérer tous les avis
 export const getReviews = async () => {
-  try {
-    const response = await fetch(`${API_BASE_URL}/reviews`);
-    if (!response.ok) throw new Error('Failed to fetch reviews');
-    return await response.json();
-  } catch (error) {
-    console.error('Error fetching reviews:', error);
-    throw error;
-  }
+  const snapshot = await getDocs(collection(db, 'reviews'));
+  return snapshotToArray(snapshot);
 };
 
-// Récupérer les avis d'un coiffeur
 export const getStylistReviews = async (stylistId) => {
-  try {
-    const response = await fetch(`${API_BASE_URL}/reviews?stylistId=${stylistId}`);
-    if (!response.ok) throw new Error('Failed to fetch stylist reviews');
-    return await response.json();
-  } catch (error) {
-    console.error('Error fetching stylist reviews:', error);
-    throw error;
-  }
+  const q = query(collection(db, 'reviews'), where('stylistId', '==', stylistId));
+  const snapshot = await getDocs(q);
+  return snapshotToArray(snapshot);
 };
 
-// Créer un avis
 export const createReview = async (reviewData) => {
-  try {
-    const response = await fetch(`${API_BASE_URL}/reviews`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        ...reviewData,
-        createdAt: new Date().toISOString()
-      }),
-    });
-    
-    if (!response.ok) throw new Error('Failed to create review');
-    return await response.json();
-  } catch (error) {
-    console.error('Error creating review:', error);
-    throw error;
-  }
+  const docRef = await addDoc(collection(db, 'reviews'), {
+    ...reviewData,
+    createdAt: new Date().toISOString(),
+  });
+  return { id: docRef.id, ...reviewData };
 };
 
 // ========================================
 // USERS (UTILISATEURS)
 // ========================================
-
-// Récupérer un utilisateur par ID
 export const getUserById = async (id) => {
-  try {
-    const response = await fetch(`${API_BASE_URL}/users/${id}`);
-    if (!response.ok) throw new Error('Failed to fetch user');
-    return await response.json();
-  } catch (error) {
-    console.error('Error fetching user:', error);
-    throw error;
-  }
+  const ref = doc(db, 'users', String(id));
+  const snap = await getDoc(ref);
+  if (!snap.exists()) throw new Error('User not found');
+  return { id: snap.id, ...snap.data() };
 };
 
-// Créer un utilisateur
 export const createUser = async (userData) => {
-  try {
-    const response = await fetch(`${API_BASE_URL}/users`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        ...userData,
-        createdAt: new Date().toISOString()
-      }),
-    });
-    
-    if (!response.ok) throw new Error('Failed to create user');
-    return await response.json();
-  } catch (error) {
-    console.error('Error creating user:', error);
-    throw error;
-  }
+  // On garde l'id Firebase Auth comme id du document (important !)
+  const { id, ...rest } = userData;
+  await setDoc(doc(db, 'users', String(id)), {
+    ...rest,
+    createdAt: userData.createdAt || new Date().toISOString(),
+  });
+  return userData;
 };
 
-// Mettre à jour un utilisateur
 export const updateUser = async (id, updatedData) => {
-  try {
-    const response = await fetch(`${API_BASE_URL}/users/${id}`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(updatedData),
-    });
-    
-    if (!response.ok) throw new Error('Failed to update user');
-    return await response.json();
-  } catch (error) {
-    console.error('Error updating user:', error);
-    throw error;
-  }
+  const ref = doc(db, 'users', String(id));
+  await updateDoc(ref, updatedData);
+  return { id, ...updatedData };
 };
